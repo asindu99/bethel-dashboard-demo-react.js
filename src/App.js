@@ -1,6 +1,8 @@
 import MainContent from './components/Main-Content';
 import { Route, Routes } from 'react-router-dom';
 import './App.css';
+import Login from './components/Login_Register/Login';
+import Register from './components/Login_Register/Register';
 
 function App() {
   return (
@@ -8,6 +10,8 @@ function App() {
       {/* main router view */}
       <Routes>
         <Route path='/*' element={<MainContent />} />
+        <Route path='/login' element={<Login />} />
+        <Route path='/register' element={<Register />} />
       </Routes>
 
     </div >
