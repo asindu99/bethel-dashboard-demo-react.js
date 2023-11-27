@@ -1,5 +1,5 @@
 import React from 'react'
-
+import "../Login_Register/Register.css"
 function Register() {
   return (
     <section className='h-screen px-5 bg-black'>
