@@ -3,7 +3,7 @@ import React from 'react'
 function Register() {
   return (
     <div>
-      This is the Register component
+      <h1 className='bg-card-bg'>This is the Register component</h1>
     </div>
   )
 }
