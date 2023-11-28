@@ -10,19 +10,19 @@ function SideBar() {
           {/* inside flex boxes */}
 
           {/* topic */}
-          <div className='w-full flex flex-col justify-center items-center'>
+          <div className='w-full flex flex-col justify-center items-center text-[1.4rem]'>
             <h1 className='text-white font-bold'>BETHEL TESTNET</h1>
             <hr className='w-[90%] mt-1 opacity-20' />
           </div>
           {/* end-topic */}
 
-          <div className='flex flex-col items-start justify-center gap-14 mt-10 px-14 w-full '>
+          <div className='flex flex-col items-start justify-center gap-14 mt-10 px-10 w-full text-[1rem]'>
 
             {/* start-dashboard */}
             <div className='flex '>
               <div>
                 {/* start-inside box */}
-                <div className='flex text-white text-[0.875rem] w-full gap-2'>
+                <div className='flex text-white w-full gap-2'>
                   <div>
                     <img src={iconHome} alt="flex" className='w-[20px]' />
                   </div>
@@ -37,7 +37,7 @@ function SideBar() {
             <div className='flex'>
               <div>
                 {/* start-inside box */}
-                <div className='flex text-white text-[0.875rem] w-full gap-2'>
+                <div className='flex text-white w-full gap-2'>
                   <div>
                     <img src={iconHome} alt="flex" className='w-[20px]' />
                   </div>
@@ -52,7 +52,7 @@ function SideBar() {
             <div className='flex'>
               <div>
                 {/* start-inside box */}
-                <div className='flex text-white text-[0.875rem] w-full gap-2'>
+                <div className='flex text-white w-full gap-2'>
                   <div>
                     <img src={iconHome} alt="flex" className='w-[20px]' />
                   </div>
@@ -67,7 +67,7 @@ function SideBar() {
             <div className='flex'>
               <div>
                 {/* start-inside box */}
-                <div className='flex text-white text-[0.875rem] w-full gap-2'>
+                <div className='flex text-white w-full gap-2'>
                   <div>
                     <img src={iconHome} alt="flex" className='w-[20px]' />
                   </div>
@@ -82,7 +82,7 @@ function SideBar() {
             <div className='flex'>
               <div>
                 {/* start-inside box */}
-                <div className='flex text-white text-[0.875rem] w-full gap-2'>
+                <div className='flex text-white w-full gap-2'>
                   <div>
                     <img src={iconHome} alt="flex" className='w-[20px]' />
                   </div>
@@ -97,7 +97,7 @@ function SideBar() {
             <div className='flex'>
               <div>
                 {/* start-inside box */}
-                <div className='flex text-white text-[0.875rem] w-full gap-2'>
+                <div className='flex text-white w-full gap-2'>
                   <div>
                     <img src={iconHome} alt="flex" className='w-[20px]' />
                   </div>
@@ -111,7 +111,7 @@ function SideBar() {
           </div>
 
           {/* START-HELP AND LOGOUT FUNC */}
-            <div className='flex flex-col gap-y-12 justify-center w-full px-14'>
+            <div className='flex flex-col gap-y-12 justify-center w-full px-14 text-[1rem]'>
                 {/* start-dashboard */}
               <div className='flex'>
                 <div>
