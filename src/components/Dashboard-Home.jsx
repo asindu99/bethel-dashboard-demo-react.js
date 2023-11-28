@@ -4,20 +4,20 @@ import iconStorage from "../Images/icons/icon-storage.png"
 import iconFile from "../Images/icons/icon-file.png"
 import iconHome from "../Images/icons/icon-home.png"
 
-import { getRelativePosition } from 'chart.js/helpers'
-import Chart from 'chart.js/auto'
+// import { getRelativePosition } from 'chart.js/helpers'
+// import Chart from 'chart.js/auto'
 
 
 
 function DashboardHome() {
-  // CHART JS 
-  const chart = new Chart(ctx, {
-  type: 'line',
-  data: data,
+//   // CHART JS 
+//   const chart = new Chart(ctx, {
+//   type: 'line',
+//   data: data,
   
-});
+// });
 
-chart();
+// chart();
 
   return (
     <div className='text-white w-full'>
