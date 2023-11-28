@@ -3,7 +3,7 @@ import React from 'react'
 function DashboardStorage() {
   return (
     <div>
-      <h2>Hello this is seciton storage</h2>
+      <h2>Hello this is secitondsadade</h2>
     </div>
   )
 }
