@@ -45,6 +45,7 @@ function SideBar() {
             {/* end-dashboard */}
 
             {/* start-storage */}
+            <Link to='/dashboard/storage' className='w-full'>
             <div className='flex  w-full px-10 hover:bg-bethel-green/50  py-2'>
               <div>
                 {/* start-inside box */}
@@ -57,6 +58,7 @@ function SideBar() {
                 {/* end-insidebox */}
               </div>
             </div>
+            </Link>
             {/* end-storage */}
 
             {/* start-dashboard */}
