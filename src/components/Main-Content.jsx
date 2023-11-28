@@ -11,12 +11,12 @@ function MainContent() {
   return (
 
     <div className="bg-black h-screen">
-      <div className="right-0 absolute bg-[#aaff00]/100 blur-[300px] bottom-0 w-[50%] h-[200px] rounded-t-[400px] z-[0]">
-      </div>
+      {/* <div className="right-0 absolute bg-[#aaff00]/100 blur-[200px] bottom-[50%] w-[200px] h-[200px] rounded-full z-[0]">
+      </div> */}
       <SideBar />
       <Navbar />
 
-      <div className="bg-red-400 mt-14 pl-[280px] w-full z-[100]">
+      <div className=" mt-14 pl-[280px] w-full z-[100]">
 
         <Routes>
           <Route path="/dashboard/" element={<DashboardHome />} />

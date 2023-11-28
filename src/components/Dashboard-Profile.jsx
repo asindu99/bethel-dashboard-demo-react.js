@@ -7,7 +7,7 @@ function DashboardProfile() {
       <div className='flex flex-row'>
         
         {/* Edit profile section */}
-        <div className='flex flex-col p-5 h-full backdrop-blur-xl bg-white/5'>
+        <div className='flex flex-col p-5 h-full backdrop-blur-xl bg-gradient-to-b from-[white]/10 to-[#aaff00]/10'>
         <form class="px-10 py-5">
           
           <h1 className='text-center text-[18px] text-white p-4'>Edit Profile</h1>
