@@ -11,7 +11,7 @@ function Navbar() {
   }
 
   return (
-    <div className='fixed top-3 pl-[280px] w-full px-2 '>
+    <div className='fixed top-3 pl-[270px] w-full px-2 '>
       {/* start-main nav bar */}
         <div className='relative flex backdrop-blur-xl bg-white/10
          w-full h-[70px] rounded-md text-white items-center px-4 justify-between'>

@@ -4,7 +4,7 @@ function DashboardProfile() {
   return (
     <section>
       {/* Main profile content */}
-      <div className='flex flex-row gap-x-5'>
+      <div className='flex flex-row gap-x-5 pr-2'>
         
         {/* Edit profile section */}
 
