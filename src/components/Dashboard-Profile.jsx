@@ -7,6 +7,7 @@ function DashboardProfile() {
       <div className='flex flex-row gap-x-5'>
         
         {/* Edit profile section */}
+
         <div className='flex flex-col h-[610px] p-5 backdrop-blur-xl bg-gradient-to-b from-bethel-white/5 to-bethel-green/5 rounded-md '>
           <form class="px-10 py-5">
           

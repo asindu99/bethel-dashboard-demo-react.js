@@ -10,13 +10,12 @@ import DashboardProfile from "./Dashboard-Profile";
 function MainContent() {
   return (
 
-    <div className="h-screen bg-black">
-      <div className="right-0 absolute bg-[#aaff00]/10 blur-[800px] bottom-0 w-[50%] h-[200px] rounded-t-[400px] z-[0]">
-      </div>
-      <SideBar />
-      <Navbar />
+    <div className="bg-black h-screen">
+        <SideBar />
+        <Navbar />
 
-      <div className=" mt-14 pl-[280px] w-full z-[100]">
+      <div className="pt-24 pl-[280px] w-full z-[100]">
+
 
         <Routes>
           <Route path="/dashboard/" element={<DashboardHome />} />
