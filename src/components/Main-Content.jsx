@@ -9,19 +9,22 @@ import DashboardProfile from "./Dashboard-Profile";
 function MainContent() {
   return (
 
-    <div className="bg-black h-screen">
+    <div className="bg-black h-screen relative">
+
+      <div className="relative z-[100]">
         <SideBar />
         <Navbar />
-
-      <div className="pt-24 pl-[270px] w-full z-[100]">
-
-
+      </div>
+      
+      {/* middle routing  */}
+      <div className="relative pt-24 pl-[270px] w-full z-[10]">
         <Routes>
           <Route path="/dashboard/" element={<DashboardHome />} />
           <Route path="/dashboard/storage" element={<DashboardStorage />} />
           <Route path="/dashboard/profile" element={<DashboardProfile />} />
         </Routes>
       </div>
+      {/* end- middle routing */}
       
     </div>
   )
