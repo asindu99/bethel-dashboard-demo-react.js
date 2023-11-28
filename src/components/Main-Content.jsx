@@ -4,7 +4,6 @@ import SideBar from "./Side-Bar";
 import DashboardHome from "./Dashboard-Home";
 import DashboardStorage from "./Dashboard-Storage";
 import DashboardProfile from "./Dashboard-Profile";
-// import MiddleContex from "./Middle-Contex";
 
 
 function MainContent() {
@@ -14,7 +13,7 @@ function MainContent() {
         <SideBar />
         <Navbar />
 
-      <div className="pt-24 pl-[280px] w-full z-[100]">
+      <div className="pt-24 pl-[270px] w-full z-[100]">
 
 
         <Routes>
