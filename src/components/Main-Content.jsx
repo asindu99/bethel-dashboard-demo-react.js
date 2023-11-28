@@ -9,11 +9,11 @@ import DashboardProfile from "./Dashboard-Profile";
 
 function MainContent() {
   return (
-    <div className="bg-black h-screen">
+    <div className="h-screen bg-black">
       <SideBar />
       <Navbar />
 
-      <div className="bg-red-400 mt-14 pl-[280px] w-full">
+      <div className=" mt-14 pl-[280px] w-full">
         <Routes>
           <Route path="/dashboard/" element={<DashboardHome />} />
           <Route path="/dashboard/storage" element={<DashboardStorage />} />
