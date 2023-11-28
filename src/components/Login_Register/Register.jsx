@@ -1,5 +1,6 @@
 import React from 'react'
 import "../Login_Register/Register.css"
+import { Link } from 'react-router-dom'
 function Register() {
   return (
   <section className='h-screen px-5 bg-black'>
@@ -85,7 +86,7 @@ function Register() {
         
         <button type="submit" class="block w-full bg-[#aaff00]/80 mt-4 py-2 rounded-xl text-white font-semibold mb-2 uppercase">Sign Up</button>
         <span class="text-sm ml-2  text-white">Already have an account ?</span>
-        <span class="text-[#aaff00] cursor-pointer"> Login</span>
+        <Link to="/login"><span class="text-[#aaff00] cursor-pointer"> Login</span></Link>
         </form>  
             
       </div> 
