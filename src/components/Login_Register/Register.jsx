@@ -29,6 +29,7 @@ function Register() {
         <form class="px-10 py-5">
 {/*     
         <div class="flex items-center border-2 py-2 px-3 rounded-xl mb-4">
+
           <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white" viewBox="0 0 20 20"
         fill="currentColor">
         <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
@@ -38,7 +39,9 @@ function Register() {
         </div> */}
         
         
+
         <div class="flex items-center border-2 py-2 px-3 rounded-xl mb-4">
+
           <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white" fill="none"
           viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -52,20 +55,25 @@ function Register() {
         fill="currentColor">
         <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
           clip-rule="evenodd" />
+
           </svg>
           <input class="pl-2 outline-none border-none bg-transparent text-white text-[14px]" type="text" name="" id="" placeholder="First name" />
         </div>
         
+
         <div class="flex items-center border-2 py-2 px-3 rounded-xl mb-4">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white" viewBox="0 0 20 20"
         fill="currentColor">
         <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
           clip-rule="evenodd" />
+
           </svg>
           <input class="pl-2 outline-none border-none bg-transparent text-white text-[14px]" type="text" name="" id="" placeholder="Last name" />
         </div>
         
+
         <div class="flex items-center border-2 py-2 px-3 rounded-xl mb-4">
+
           <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white" fill="none"
             viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -74,7 +82,9 @@ function Register() {
           <input class="pl-2 outline-none border-none bg-transparent text-white text-[14px]" type="text" name="" id="" placeholder="Email Address" />
         </div>
         
+
         <div class="flex items-center border-2 py-2 px-3 rounded-xl">
+
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white" viewBox="0 0 20 20"
               fill="currentColor">
               <path fill-rule="evenodd"
@@ -84,6 +94,7 @@ function Register() {
             <input class="pl-2 outline-none border-none bg-transparent  text-white text-[14px]" type="text" name="" id="" placeholder="Password" />
         </div>
         
+
         <button type="submit" class="block w-full bg-[#aaff00]/80 mt-4 py-2 rounded-xl text-white font-semibold mb-2 uppercase">Sign Up</button>
         <span class="text-sm ml-2  text-white">Already have an account ?</span>
         <Link to="/login"><span class="text-[#aaff00] cursor-pointer"> Login</span></Link>
@@ -102,6 +113,7 @@ function Register() {
         </svg>
     </div>
   </section>
+
   )
 }
 

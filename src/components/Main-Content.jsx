@@ -8,7 +8,7 @@ import DashboardStorage from "./Dashboard-Storage";
 
 function MainContent() {
   return (
-    <div>
+    <div className="bg-black h-screen">
       <SideBar />
       <Navbar />
 
