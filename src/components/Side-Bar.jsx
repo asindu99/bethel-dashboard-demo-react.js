@@ -15,7 +15,7 @@ function SideBar() {
             <hr className='w-[90%] mt-1 opacity-20' />
           </div>
 
-          <div className='flex flex-col items-start justify-center gap-4 w-full bg-red-400'>
+          <div className='flex flex-col items-start justify-center gap-4 px-14 w-full '>
 
             {/* start-dashboard */}
             <div className='flex '>
@@ -46,6 +46,102 @@ function SideBar() {
               </div>
             </div>
             {/* end-dashboard */}
+
+            {/* start-dashboard */}
+            <div className='flex'>
+              <div>
+                {/* start-inside box */}
+                <div className='flex text-white text-[0.875rem] w-full gap-2'>
+                  <div>
+                    <img src={iconHome} alt="flex" className='w-[20px]' />
+                  </div>
+                  <h1>WALLET</h1>
+                </div>
+                {/* end-insidebox */}
+              </div>
+            </div>
+            {/* end-dashboard */}
+
+            {/* start-dashboard */}
+            <div className='flex'>
+              <div>
+                {/* start-inside box */}
+                <div className='flex text-white text-[0.875rem] w-full gap-2'>
+                  <div>
+                    <img src={iconHome} alt="flex" className='w-[20px]' />
+                  </div>
+                  <h1>ACCESS KEY</h1>
+                </div>
+                {/* end-insidebox */}
+              </div>
+            </div>
+            {/* end-dashboard */}
+
+            {/* start-dashboard */}
+            <div className='flex'>
+              <div>
+                {/* start-inside box */}
+                <div className='flex text-white text-[0.875rem] w-full gap-2'>
+                  <div>
+                    <img src={iconHome} alt="flex" className='w-[20px]' />
+                  </div>
+                  <h1>PROFILE</h1>
+                </div>
+                {/* end-insidebox */}
+              </div>
+            </div>
+            {/* end-dashboard */}
+
+            {/* start-dashboard */}
+            <div className='flex'>
+              <div>
+                {/* start-inside box */}
+                <div className='flex text-white text-[0.875rem] w-full gap-2'>
+                  <div>
+                    <img src={iconHome} alt="flex" className='w-[20px]' />
+                  </div>
+                  <h1>BILLING</h1>
+                </div>
+                {/* end-insidebox */}
+              </div>
+            </div>
+            {/* end-dashboard */}
+
+
+            {/* START-HELP AND LOGOUT FUNC */}
+            <div className='flex flex-col gap-2 absolute'>
+                {/* start-dashboard */}
+              <div className='flex'>
+                <div>
+                    {/* start-inside box */}
+                    <div className='flex text-white text-[0.875rem] w-full gap-2'>
+                      <div>
+                        <img src={iconHome} alt="flex" className='w-[20px]' />
+                      </div>
+                      <h1>HELP</h1>
+                    </div>
+                    {/* end-insidebox */}
+                  </div>
+                </div>
+                {/* end-dashboard */}
+                
+                
+                {/* start-dashboard */}
+                <div className='flex'>
+                  <div>
+                    {/* start-inside box */}
+                    <div className='flex text-white text-[0.875rem] w-full gap-2'>
+                      <div>
+                        <img src={iconHome} alt="flex" className='w-[20px]' />
+                      </div>
+                      <h1>LOGOUT</h1>
+                    </div>
+                    {/* end-insidebox */}
+                  </div>
+                </div>
+              {/* end-dashboard */}
+            </div>
+            {/* END-HELP AND LOGOUT */}
 
     
           </div>
