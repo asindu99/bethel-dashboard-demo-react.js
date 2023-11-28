@@ -6,7 +6,8 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        'card-bg': '#223344'
+        'bethel-green': '#aaff00',
+        'bethel-white': '#ffffff'  
       }
     }
   },
