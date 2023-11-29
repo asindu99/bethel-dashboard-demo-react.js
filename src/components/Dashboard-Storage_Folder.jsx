@@ -4,20 +4,26 @@ import iconStorage from "../Images/icons/icon-storage.png"
 import userDataSlice from '../reducers/userDataReducer'
 import { useSelector } from 'react-redux'
 import axios from 'axios'
+import iconLoad from "../Images/Animation-gifs/loading-6324_256.gif"
+
 function DashboardStorageFolder() {
     // get user ID
     const userData = useSelector((state)=> state.loginReducer)
     const userId = userData._id
 
-    const [file , setFile] = useState(null)
+    const [file , setFile] = useState(null) 
     const [fileName , setFileName] = useState('')
     const [hasFile , setHasFile] = useState(false)
+
+    const [uplaodWait , setUploadWait] = useState(false)
+    const [empty , setEmpty] = useState(false)
 
   // handle file 
   const handleFileUpload = (event) => {
       setFile(event.target.files[0]);
       setFileName(event.target.files[0].name);
       setHasFile(true);
+      console.log("asdadsada" , file)
     }
 
   // cancel uplaod
@@ -27,16 +33,16 @@ function DashboardStorageFolder() {
   }
 
   // handle upload 
-  const uplaodFile = async (event) =>{
+  const uplaodFile = async () =>{
+
+    setUploadWait(true)
+
     const formData = new FormData();
     formData.append('file', file);
     formData.append('userid', userId);
     formData.append('bucket', 'Public_storage_0');
 
-    if(this.file != null){
-
-        this.uploadWait = true;
-        this.showClass = '';
+    if(file != null){
         try {
           const res = await axios.post('https://api.bethelnet.io/upload', formData, {
             headers: {
@@ -44,14 +50,21 @@ function DashboardStorageFolder() {
             },
         
           },{withCredentials : true})
-
+          
+          setUploadWait(false)
         } catch (error) {
           console.log(error)
+          setUploadWait(false)
         }
       }else {
-
+        setUploadWait(false)
+        setEmpty(true)
       }
 }
+
+// get the upload details from store
+const uploadData = useSelector((state)=> state.uploadDetailsReducer)
+console.log(uploadData)
   
   return(
     <div>
@@ -67,13 +80,13 @@ function DashboardStorageFolder() {
         </div>
       </div>
 
-      <div class=" h-full w-full sm:px-8 md:px-16 sm:py-8">
-      <main class="container mx-auto max-w-screen-lg h-[500px]">
+      <div class=" h-full w-full lg:px-3  sm:px-8 md:px-16 sm:py-8">
+      <main class="container w-full h-[500px]">
         {/* file upload modal */}
         <article aria-label="File Upload Modal" class="relative h-full flex flex-col backdrop-blur-xl bg-gradient-to-b from-bethel-white/5 to-bethel-green/5 shadow-xl rounded-md" ondrop="dropHandler(event);" ondragover="dragOverHandler(event);" ondragleave="dragLeaveHandler(event);" ondragenter="dragEnterHandler(event);">
 
           {/* scroll area  */}
-          <section class=" overflow-auto p-8 w-full h-full flex flex-col">
+          <section class=" overflow-auto w-full h-full flex flex-col">
             <header class="border-dashed border-2 border-gray-400 py-12 flex flex-col justify-center items-center">
               <p class="mb-3 font-semibold text-white flex flex-wrap justify-center">
                 <span>Drag and drop your</span>&nbsp;<span>files anywhere or</span>
@@ -83,10 +96,6 @@ function DashboardStorageFolder() {
                 Upload a file
               </label>
             </header>
-
-            <h1 class="pt-8 pb-3 font-semibold sm:text-lg text-white">
-              To Upload
-            </h1>
 
             <ul id="gallery" class="flex flex-1 flex-wrap -m-1">
               <li id="empty" class="h-full w-full text-center flex flex-col  justify-center items-center">
@@ -99,7 +108,7 @@ function DashboardStorageFolder() {
            {/* sticky footer  */}
           <footer class="flex justify-end px-8 pb-8 pt-4">
             <button onClick={uplaodFile}  id="submit" class="px-3 py-1 bg-bethel-green/50 hover:bg-bethel-green/30 text-white font-bold focus:shadow-outline focus:outline-none rounded-md">
-              Upload now
+              { !uplaodWait && <h3>Upload Now</h3>}  { uplaodWait && <img src={iconLoad} alt='' className='w-[100px]' />}
             </button>
             <button onClick={cancelUpload} id="cancel" class="ml-3 rounded-md px-3 py-1 bg-gray-300 hover:bg-gray-400 focus:shadow-outline focus:outline-none">
               Cancel
@@ -166,7 +175,7 @@ function DashboardStorageFolder() {
       </div>
       
  
-      <div class="py-1 text-white relative bottom-12 px-32">
+      <div class="py-1 text-white relative bottom-12 px-2">
         <div class="w-full  mb-12 xl:mb-0 px-4 mx-auto mt-24 bg-gradient-to-b from-bethel-white/5 to-bethel-green/5">
           <div class="relative flex flex-col min-w-0 break-words bg- w-full mb-6 shadow-lg rounded ">
               <div class="rounded-t mb-0 px-4 py-3 border-0">
@@ -200,7 +209,14 @@ function DashboardStorageFolder() {
                   </thead>
 
                   <tbody>
-                   
+                   {uploadData.map((upload ,index) =>{
+                   return <tr className='mt-2' key={index}>
+                      <td>{upload.filename}</td>
+                      <td>{upload.cid}</td>
+                      <td><a href={upload.downurl}>Download</a></td>
+                      <td><a href={upload.gcsurl}>Download</a></td>
+                    </tr>
+                   })}
                   </tbody>
 
                 </table>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import iconBucket from "../Images/icons/icon-bucket.png"
 import iconStorage from "../Images/icons/icon-storage.png"
 import iconFile from "../Images/icons/icon-file.png"
@@ -9,36 +9,43 @@ import { Chart as ChartJS } from 'chart.js/auto'
 import { useDispatch, useSelector } from 'react-redux'
 import axios from 'axios'
 import userDataSlice from '../reducers/userDataReducer'
+import storageDataSlice from '../reducers/storageDetailsSlice'
+import uploadSlice from '../reducers/uploadDetailsSlice'
 
 
 function DashboardHome() {
-  const [storageDetails , setStorageDetails] = useState(null)
-
+  //  const [storageDetails , setStorageDetails] = useState(null)
   const dispatch = useDispatch();
   // get user ID
   const userData = useSelector((state)=> state.loginReducer)
   const userId = userData._id
 
+
+  // get all the data and save to the store funcs ----------------------
   const getStorageData = async () =>{
     const res = await axios.get('https://mw.bethel.network/storagedetails/' + userId,
     {withCredentials : true})
 
-    setStorageDetails(res.data)
+    dispatch(storageDataSlice.actions.saveStorageData(res.data[0]))
    }
-    
+
+   const getUploadData = async () =>{
+    const res2 = await axios.get('https://mw.bethel.network/storage/' + userId ,{withCredentials :true})
+    dispatch(uploadSlice.actions.uploadData(res2.data))
+   }
+
   useEffect(()=>{
       fetchData();
       getStorageData();
+      getUploadData();
     },[])
-    // fetch user data
+
     const fetchData = async() =>{
       const res = await axios.get('https://mw.bethel.network/users/' + userId ,{withCredentials : true})
       dispatch(userDataSlice.actions.saveUserData(res.data))
     }
 
-
-
-
+    const storageDetails = useSelector((state) => state.storageDetailsReducer)
   return (
     <div className='text-white w-full'>
 
@@ -74,7 +81,7 @@ function DashboardHome() {
               backdrop-blur-xl bg-gradient-to-b from-bethel-white/5 to-bethel-green/5'>
                   <div className='flex flex-col py-2'>
                     <h3 className='text-[1.3rem] font-bold'>BUCKETS</h3>
-                    <h3 className='text-white/50'>Total buckets : {storageDetails.data.filecount}</h3>
+                    <h3 className='text-white/50'>Total buckets : 1</h3>
                   </div>
 
                   <div className="relative">
@@ -89,7 +96,7 @@ function DashboardHome() {
               backdrop-blur-xl bg-gradient-to-b from-bethel-white/5 to-bethel-green/5'>
                   <div className='flex flex-col '>
                     <h3 className='text-[1.3rem] font-bold'>STORAGE</h3>
-                    <h3 className='text-white/50'>Total storage : 1</h3>
+                    <h3 className='text-white/50'>Total storage : {storageDetails.totalsize}</h3>
                   </div>
 
                   <div className="relative">
@@ -111,7 +118,7 @@ function DashboardHome() {
               backdrop-blur-xl bg-gradient-to-b from-bethel-white/5 to-bethel-green/5'>
                   <div className='flex flex-col py-2'>
                     <h3 className='text-[1.3rem] font-bold'>OBJECTS</h3>
-                    <h3 className='text-white/50'>Total objects : 1</h3>
+                    <h3 className='text-white/50'>Total objects : {storageDetails.filecount}</h3>
                   </div>
 
                   <div className="relative">
