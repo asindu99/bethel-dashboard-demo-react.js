@@ -13,6 +13,7 @@ const [email , setEmail] = useState('')
 const [password , setPassword] = useState('')
 
 const [isLoading , setIsLoading] = useState(false)
+const [logFail , setLogFail] = useState(false)
 
 
 const dispatch = useDispatch(); 
@@ -22,19 +23,33 @@ const handleSubmit = async(e) =>{
   e.preventDefault();
   setIsLoading(true)
 
-  const res = await axios.post('https://mw.bethel.network/auth/login' ,
-    {
+  try {
+    const res = await axios.post('https://mw.bethel.network/auth/login' ,
+      {
         email: email,
         password: password,  
-    },
-    {
-        withCredentials: "true",  
-    })
+      },
+      {withCredentials: true})
+   
+    if(res.status === 200){
+      dispatch(LoginSlice.actions.saveUser(res.data))
+      setIsLoading(false)
+      Navigate('/dashboard')
+    } else{
+      setLogFail(true)
+    }
+    } catch (error) {
 
-  dispatch(LoginSlice.actions.saveUser(res.data))
-  setIsLoading(false)
+      console.log(error)
+      setIsLoading(false)
+      setLogFail(true)
 
-  Navigate('/dashboard')
+      setTimeout(() => {
+        setLogFail(false)
+      }, 3000);
+    }
+  
+  
 }
 
   return (
@@ -100,9 +115,9 @@ const handleSubmit = async(e) =>{
         { !isLoading && <h3>Sign In</h3>} { isLoading && <div className='flex justify-center w-full'><img src={loaderGif} alt='' className='flex w-[100px] py-1 justify-center' /></div>}
       </button>
 
-      <div>
+      { logFail && <div>
         <h3 className='text-sm text-center text-red-700'>Invalid Email or Password</h3>
-      </div>
+      </div> }
       
       <div class="flex items-center justify-center pt-10">
             <span class="text-sm ml-2  text-white">New to our platform ? <span class="text-gray-400 text-sm cursor-pointer">Create an account</span></span>
