@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom'
 import LoginSlice from '../../reducers/Loginreducer';
 import axios from 'axios';
-
+import loaderGif from '../../Images/Animation-gifs/loading-6324_256.gif'
 
 
 function Login() {
@@ -11,6 +11,7 @@ function Login() {
 const [email , setEmail] = useState('')
 const [password , setPassword] = useState('')
 
+const [isLoading , setIsLoading] = useState(false)
 
 
 const dispatch = useDispatch(); 
@@ -18,6 +19,7 @@ const Navigate = useNavigate();
 
 const handleSubmit = async(e) =>{
   e.preventDefault();
+  setIsLoading(true)
 
   const res = await axios.post('https://mw.bethel.network/auth/login' ,
     {
@@ -29,6 +31,7 @@ const handleSubmit = async(e) =>{
     })
 
   dispatch(LoginSlice.actions.saveUser(res.data))
+  setIsLoading(false)
   Navigate('/dashboard')
 }
 
@@ -58,43 +61,6 @@ const handleSubmit = async(e) =>{
       </div>
       {/* Form section */}
       <form class="px-10 py-5">
-{/*     
-      <div class="flex items-center border-2 py-2 px-3 rounded-xl mb-4">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white" viewBox="0 0 20 20"
-      fill="currentColor">
-      <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
-        clip-rule="evenodd" />
-        </svg>
-        <input class="pl-2 outline-none border-none bg-transparent text-white text-[14px]" type="text" name="" id="" placeholder="Full name" />
-      </div> */}
-      
-      
-      {/* <div class="flex items-center border-2 py-2 px-3 rounded-xl mb-4">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white" fill="none"
-        viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-          d="M12 11c0 3.517-1.009 6.799-2.753 9.571m-3.44-2.04l.054-.09A13.916 13.916 0 008 11a4 4 0 118 0c0 1.017-.07 2.019-.203 3m-2.118 6.844A21.88 21.88 0 0015.171 17m3.839 1.132c.645-2.266.99-4.659.99-7.132A8 8 0 008 4.07M3 15.364c.64-1.319 1-2.8 1-4.364 0-1.457.39-2.823 1.07-4" />
-        </svg>
-        <input class="pl-2 outline-none border-none bg-transparent text-white text-[14px]" type="text" name="" id="" placeholder="Username" />
-      </div>
-
-      <div class="flex items-center border-2 py-2 px-3 rounded-xl mb-4">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white" viewBox="0 0 20 20"
-      fill="currentColor">
-      <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
-        clip-rule="evenodd" />
-        </svg>
-        <input class="pl-2 outline-none border-none bg-transparent text-white text-[14px]" type="text" name="" id="" placeholder="First name" />
-      </div>
-      
-      <div class="flex items-center border-2 py-2 px-3 rounded-xl mb-4">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white" viewBox="0 0 20 20"
-      fill="currentColor">
-      <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
-        clip-rule="evenodd" />
-        </svg>
-        <input class="pl-2 outline-none border-none bg-transparent text-white text-[14px]" type="text" name="" id="" placeholder="Last name" />
-      </div> */}
       
       <div class="flex items-center border-2 py-2 px-3 rounded-xl mb-4">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white" fill="none"
@@ -115,7 +81,10 @@ const handleSubmit = async(e) =>{
           <input onChange={(e) =>{setPassword(e.target.value)}} class="pl-2 outline-none border-none bg-transparent  text-white text-[14px]" type="text" name="" id="" placeholder="Password" />
       </div>
       
-      <button onClick={handleSubmit} type="submit" class="block w-full bg-[#aaff00]/80 mt-4 py-2 rounded-xl text-white font-semibold mb-2 uppercase">Sign In</button>
+      <button onClick={handleSubmit} type="submit" class="block w-full bg-[#aaff00]/80 mt-4 py-2 rounded-xl text-white font-semibold mb-2 uppercase">
+        { !isLoading && <h3>Sign In</h3>} { isLoading && <div className='w-full flex justify-center'><img src={loaderGif} alt='' className='flex w-[100px] py-1 justify-center' /></div>}
+      </button>
+
       <div class="flex items-center justify-center pt-10">
             <span class="text-sm ml-2  text-white">New to our platform ? <span class="text-gray-400 text-sm cursor-pointer">Create an account</span></span>
       </div>

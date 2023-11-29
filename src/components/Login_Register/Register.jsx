@@ -1,7 +1,10 @@
 import React, { useState } from 'react'
 import "../Login_Register/Register.css"
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios';
+import loaderGif from '../../Images/Animation-gifs/loading-6324_256.gif'
+
+
 function Register() {
     const [firstName , setFirstName] = useState('');
     const [lastName , setlastName] = useState('');
@@ -9,8 +12,13 @@ function Register() {
     const [password , setPassword] = useState('');
     const [userName , setUserName] = useState('');
 
+    const [isLoading , setIsLoading] = useState(false)
+
+    const Navigate = useNavigate();
+
     const handleSubmit = async (e) =>{
       e.preventDefault();
+      setIsLoading(true)
 
       const res = await axios.post('https://mw.bethel.network/auth/register', {
                     email: email,
@@ -23,8 +31,14 @@ function Register() {
                     withCredentials: true
                 });
                 console.log(email,password,userName,firstName,lastName)
-                console.log(res)
-
+      try {
+        res.status === 200 ? Navigate('/') : setIsLoading(false)
+      } catch (error) {
+        setIsLoading(false)
+      }
+      
+      
+      
 
     }
 
@@ -125,7 +139,10 @@ function Register() {
         </div>
         
 
-        <button onClick={handleSubmit} type="submit" class="block w-full bg-[#aaff00]/80 mt-4 py-2 rounded-xl text-white font-semibold mb-2 uppercase">Sign Up</button>
+        <button onClick={handleSubmit} type="submit" class="block w-full bg-[#aaff00]/80 mt-4 py-2 rounded-xl text-white font-semibold mb-2 uppercase">
+        { !isLoading && <h3>Sign Up</h3>} { isLoading && <div className='w-full flex justify-center'><img src={loaderGif} alt='' className='flex w-[100px] py-1 justify-center' /></div>}
+
+        </button>
         <span class="text-sm ml-2  text-white">Already have an account ?</span>
         <Link to="/"><span class="text-[#aaff00] cursor-pointer"> Login</span></Link>
         </form>  
