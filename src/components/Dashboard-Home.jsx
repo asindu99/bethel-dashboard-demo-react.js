@@ -29,7 +29,7 @@ function DashboardHome() {
       </div>
 
       <div>
-        <h2 className='text-[2rem] font-bold'>DASHBOARD</h2>
+        {/* <h2 className='text-[2rem] font-bold'>DASHBOARD</h2> */}
       </div>
       {/* end- topic container */}
 
@@ -200,7 +200,7 @@ function DashboardHome() {
         {/* end-main container */}
 
         {/* start-second container */}
-        <div className='w-full flex mt-6 justify-center gap-4 px-2 flex-wrap'>
+        <div className='pb-10 w-full flex mt-6 justify-center gap-4 px-2 flex-wrap'>
             <div className='w-[600px] bg-gradient-to-b from-bethel-white/5 to-bethel-green/5 p-4 '>
               <Line data={{
             labels: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri','Sat'],

@@ -10,7 +10,7 @@ import DashboardStorageFolder from "./Dashboard-Storage_Folder";
 function MainContent() {
   return (
 
-    <div className="relative min-h-screen bg-black">
+    <div className="bg-black min-h-screen relative">
 
       <div className="relative z-[100]">
         <SideBar />
@@ -20,7 +20,7 @@ function MainContent() {
       {/* middle routing  */}
       <div className="relative pt-24 pl-[270px] w-full z-[10]">
         <Routes>
-          <Route path="/dashboard/" element={<DashboardHome />} />
+          <Route path="/dashboard" element={<DashboardHome />} />
           <Route path="/dashboard/storage" element={<DashboardStorage />} />
           <Route path="/dashboard/profile" element={<DashboardProfile />} />
           <Route path="/dashboard/storage/folder" element={<DashboardStorageFolder />} />
