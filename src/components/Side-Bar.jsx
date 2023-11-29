@@ -8,6 +8,11 @@ import iconWallet from "../Images/icons/icon-wallet.png"
 import iconStorage from "../Images/icons/icon-storage.png"
 import iconLogoout from "../Images/icons/icon-logout.png"
 import { useDispatch } from 'react-redux'
+import { revertAll } from '../reducers/Loginreducer'
+import { revertAll2 } from '../reducers/storageDetailsSlice'
+import { revertAll3 } from '../reducers/uploadDetailsSlice'
+import { revertAll4 } from '../reducers/userDataReducer'
+
 
 function SideBar() {
   const dispatch = useDispatch();
@@ -15,8 +20,7 @@ function SideBar() {
 
   const logOut = () =>{
     Navigate('/')
-    dispatch({ type: 'RESET_STATE' });
-
+    dispatch(revertAll(), revertAll4() ,revertAll2() ,revertAll3())
   }
 
   return (

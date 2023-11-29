@@ -1,10 +1,15 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createAction, createSlice } from "@reduxjs/toolkit";
 
+export const revertAll2 = createAction('REVERT_ALL')
+
+
+const initialState = {
+  StorageData: null,
+}
 export const storageDataSlice = createSlice({
   name: "storage-data",
-  initialState: {
-    StorageData: null,
-  },
+  initialState,
+  extraReducers: (builder) => builder.addCase(revertAll2, () => initialState),
   reducers: {
     saveStorageData: (state, action) => action.payload
   }

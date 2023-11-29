@@ -17,6 +17,7 @@ function DashboardStorageFolder() {
 
     const [uplaodWait , setUploadWait] = useState(false)
     const [empty , setEmpty] = useState(false)
+    const [uploadSucess , setUploadSucess] = useState(false)
 
   // handle file 
   const handleFileUpload = (event) => {
@@ -50,15 +51,26 @@ function DashboardStorageFolder() {
             },
         
           },{withCredentials : true})
-          
+
           setUploadWait(false)
         } catch (error) {
           console.log(error)
           setUploadWait(false)
+
+          setUploadSucess(true)
+
+          setTimeout(() => {
+            setUploadSucess(false)  
+          }, 2000);
         }
       }else {
         setUploadWait(false)
         setEmpty(true)
+
+        // time out
+        setTimeout(() => {
+        setEmpty(false)
+        }, 1000);
       }
 }
 
@@ -106,9 +118,11 @@ console.log(uploadData)
           </section>
 
            {/* sticky footer  */}
-          <footer class="flex justify-end px-8 pb-8 pt-4">
-            <button onClick={uplaodFile}  id="submit" class="px-3 py-1 bg-bethel-green/50 hover:bg-bethel-green/30 text-white font-bold focus:shadow-outline focus:outline-none rounded-md">
+          <footer class=" flex justify-end px-8 pb-8 pt-4">
+            <button onClick={uplaodFile}  id="submit" className="relative px-3 py-1 bg-bethel-green/50 hover:bg-bethel-green/30 text-white font-bold focus:shadow-outline focus:outline-none rounded-md">
               { !uplaodWait && <h3>Upload Now</h3>}  { uplaodWait && <img src={iconLoad} alt='' className='w-[100px]' />}
+              { empty && <h3 className='absolute left-[-120px] top-2 text-sm text-center text-red-700'>Select a File</h3>}
+              { uploadSucess && <h3 className='absolute left-[-120px] top-2 text-sm text-center text-green-700'>Upload Sucess</h3>}
             </button>
             <button onClick={cancelUpload} id="cancel" class="ml-3 rounded-md px-3 py-1 bg-gray-300 hover:bg-gray-400 focus:shadow-outline focus:outline-none">
               Cancel
