@@ -1,5 +1,6 @@
 import React from 'react'
 import iconStorage from "../Images/icons/icon-storage.png"
+import { Link } from 'react-router-dom'
 
 function DashboardStorage() {
   return (
@@ -19,7 +20,7 @@ function DashboardStorage() {
     
     {/* card section*/}
     	<div className='flex flex-row pt-5 gap-x-5'>
-        
+        <Link to='/dashboard/storage/folder'>
         <div className='p-5 rounded-md backdrop-blur-xl bg-gradient-to-b from-bethel-white/5 to-bethel-green/5'>
           
           <div className='w-[50px] h-[50px] rounded-full'>
@@ -30,7 +31,9 @@ function DashboardStorage() {
             <p className='text-white'>publicStorage</p>
           </div>
           
+          
         </div>
+        </Link>
         
         <div className='p-5 rounded-md backdrop-blur-xl bg-gradient-to-b from-bethel-white/5 to-bethel-green/5'>
           
