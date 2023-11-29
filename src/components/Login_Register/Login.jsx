@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import LoginSlice from '../../reducers/Loginreducer';
 import axios from 'axios';
 import loaderGif from '../../Images/Animation-gifs/loading-6324_256.gif'
+import userDataSlice from '../../reducers/userDataReducer';
 
 
 function Login() {
@@ -32,6 +33,7 @@ const handleSubmit = async(e) =>{
 
   dispatch(LoginSlice.actions.saveUser(res.data))
   setIsLoading(false)
+
   Navigate('/dashboard')
 }
 

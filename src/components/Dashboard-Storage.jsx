@@ -1,8 +1,11 @@
 import React from 'react'
 import iconStorage from "../Images/icons/icon-storage.png"
 import { Link } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 
 function DashboardStorage() {
+   
+
   return (
   <section>
     

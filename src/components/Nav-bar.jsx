@@ -3,11 +3,15 @@ import iconUser from "../Images/icons/icon-male-user.png"
 import iconDrop from "../Images/icons/icon-drop.png"
 import iconHome from '../Images/icons/icon-home.png'
 import iconLogoout from "../Images/icons/icon-logout.png"
+import { useSelector } from 'react-redux'
 
 
 
 function Navbar() {
   const [toggleDropDown, setToggleDropDown] = useState(false);
+
+  const userData = useSelector((state) => state.loginReducer)
+   console.log(userData)
 
   // toggle drop down
   const handleToggle = () =>{
@@ -33,9 +37,9 @@ function Navbar() {
             </div>
 
             {/* name and the other */}
-            <div className='flex gap-2'>
-              <h2>First</h2>
-              <h2>Last</h2>
+            <div className='flex gap-2 uppercase'>
+              <h2>{userData.details.firstName}</h2>
+              <h2>{userData.details.lastName}</h2>
             </div>
 
             {/* drop down menu */}
