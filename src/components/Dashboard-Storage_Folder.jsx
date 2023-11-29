@@ -1,14 +1,65 @@
-import React from 'react'
+import React, { useState } from 'react'
 import "../components/Dashboard-Storage_Folder"
 import iconStorage from "../Images/icons/icon-storage.png"
+import userDataSlice from '../reducers/userDataReducer'
+import { useSelector } from 'react-redux'
+import axios from 'axios'
 function DashboardStorageFolder() {
+    // get user ID
+    const userData = useSelector((state)=> state.loginReducer)
+    const userId = userData._id
+
+    const [file , setFile] = useState(null)
+    const [fileName , setFileName] = useState('')
+    const [hasFile , setHasFile] = useState(false)
+
+  // handle file 
+  const handleFileUpload = (event) => {
+      setFile(event.target.files[0]);
+      setFileName(event.target.files[0].name);
+      setHasFile(true);
+    }
+
+  // cancel uplaod
+  const cancelUpload = () =>{
+    setFile(null);
+    setFileName('');
+  }
+
+  // handle upload 
+  const uplaodFile = async (event) =>{
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('userid', userId);
+    formData.append('bucket', 'Public_storage_0');
+
+    if(this.file != null){
+
+        this.uploadWait = true;
+        this.showClass = '';
+        try {
+          const res = await axios.post('https://api.bethelnet.io/upload', formData, {
+            headers: {
+              'Content-Type': 'multipart/form-data'
+            },
+        
+          },{withCredentials : true})
+
+        } catch (error) {
+          console.log(error)
+        }
+      }else {
+
+      }
+}
   
   return(
     <div>
 
       <div className='flex'>
         <div>
-          <img src={iconStorage} alt="" className='w-[20px] inline-block text-white' />         </div>
+          <img src={iconStorage} alt="" className='w-[20px] inline-block text-white' />
+        </div>
 
         <div className='ml-2'>
           <h3 className='text-white'>/ DASHBOARD / STORAGE / FOLDER</h3>
@@ -23,15 +74,6 @@ function DashboardStorageFolder() {
       <main class="container mx-auto max-w-screen-lg h-[500px]">
         {/* file upload modal */}
         <article aria-label="File Upload Modal" class="relative h-full flex flex-col backdrop-blur-xl bg-gradient-to-b from-bethel-white/5 to-bethel-green/5 shadow-xl rounded-md" ondrop="dropHandler(event);" ondragover="dragOverHandler(event);" ondragleave="dragLeaveHandler(event);" ondragenter="dragEnterHandler(event);">
-          {/* overlay  */}
-          {/* <div id="overlay" class="w-full h-full absolute top-0 left-0 pointer-events-none z-50 flex flex-col items-center justify-center rounded-md">
-            <i>
-              <svg class="fill-current w-12 h-12 mb-3 text-blue-700" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                <path d="M19.479 10.092c-.212-3.951-3.473-7.092-7.479-7.092-4.005 0-7.267 3.141-7.479 7.092-2.57.463-4.521 2.706-4.521 5.408 0 3.037 2.463 5.5 5.5 5.5h13c3.037 0 5.5-2.463 5.5-5.5 0-2.702-1.951-4.945-4.521-5.408zm-7.479-1.092l4 4h-3v4h-2v-4h-3l4-4z" />
-              </svg>
-            </i>
-            <p class="text-lg text-blue-700">Drop files to upload</p>
-          </div> */}
 
           {/* scroll area  */}
           <section class=" overflow-auto p-8 w-full h-full flex flex-col">
@@ -39,10 +81,10 @@ function DashboardStorageFolder() {
               <p class="mb-3 font-semibold text-white flex flex-wrap justify-center">
                 <span>Drag and drop your</span>&nbsp;<span>files anywhere or</span>
               </p>
-              <input id="hidden-input" type="file" multiple class="hidden" />
-              <button id="button" class="mt-2 rounded-sm px-3 py-1 bg-gray-200 hover:bg-gray-300 focus:shadow-outline focus:outline-none">
+              <input onChange={handleFileUpload} id="file-type" type="file" multiple hidden />
+              <label for="file-type" id="button" class="mt-2 rounded-sm px-3 py-1 bg-gray-200 hover:bg-gray-300 focus:shadow-outline focus:outline-none">
                 Upload a file
-              </button>
+              </label>
             </header>
 
             <h1 class="pt-8 pb-3 font-semibold sm:text-lg text-white">
@@ -52,17 +94,17 @@ function DashboardStorageFolder() {
             <ul id="gallery" class="flex flex-1 flex-wrap -m-1">
               <li id="empty" class="h-full w-full text-center flex flex-col  justify-center items-center">
                 <img class="mx-auto w-32" src="https://user-images.githubusercontent.com/507615/54591670-ac0a0180-4a65-11e9-846c-e55ffce0fe7b.png" alt="no data" />
-                <span class="text-small text-gray-500">No files selected</span>
+                <span class="text-small text-gray-500">{!hasFile && <h3>No file selected</h3>}{hasFile && <h3>{fileName}</h3>} </span>
               </li>
             </ul>
           </section>
 
            {/* sticky footer  */}
           <footer class="flex justify-end px-8 pb-8 pt-4">
-            <button id="submit" class="px-3 py-1 bg-bethel-green/50 hover:bg-bethel-green/30 text-white font-bold focus:shadow-outline focus:outline-none rounded-md">
+            <button onClick={uplaodFile}  id="submit" class="px-3 py-1 bg-bethel-green/50 hover:bg-bethel-green/30 text-white font-bold focus:shadow-outline focus:outline-none rounded-md">
               Upload now
             </button>
-            <button id="cancel" class="ml-3 rounded-md px-3 py-1 bg-gray-300 hover:bg-gray-400 focus:shadow-outline focus:outline-none">
+            <button onClick={cancelUpload} id="cancel" class="ml-3 rounded-md px-3 py-1 bg-gray-300 hover:bg-gray-400 focus:shadow-outline focus:outline-none">
               Cancel
             </button>
           </footer>
