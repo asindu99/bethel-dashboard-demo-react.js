@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import iconBucket from "../Images/icons/icon-bucket.png"
 import iconStorage from "../Images/icons/icon-storage.png"
 import iconFile from "../Images/icons/icon-file.png"
@@ -6,11 +6,27 @@ import iconHome from "../Images/icons/icon-home.png"
 
 import { Doughnut , Bar, Line } from 'react-chartjs-2'
 import { Chart as ChartJS } from 'chart.js/auto'
-
+import { useDispatch, useSelector } from 'react-redux'
+import axios from 'axios'
+import userDataSlice from '../reducers/userDataReducer'
 
 
 function DashboardHome() {
-//CHART JS 
+
+const dispatch = useDispatch();
+  // get user ID
+  const userData = useSelector((state)=> state.loginReducer)
+  const userId = userData._id
+    
+  useEffect(()=>{
+      fetchData();
+    },[])
+    // fetch user data
+    const fetchData = async() =>{
+      const res = await axios.get('https://mw.bethel.network/users/' + userId ,{withCredentials : true})
+      dispatch(userDataSlice.actions.saveUserData(res.data))
+    }
+
 
 
 
