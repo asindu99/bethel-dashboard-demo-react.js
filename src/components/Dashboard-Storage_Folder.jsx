@@ -6,6 +6,7 @@ function DashboardStorageFolder() {
   return(
     <div>
 
+    {/* Heading section */}
       <div className='flex'>
         <div>
           <img src={iconStorage} alt="" className='w-[20px] inline-block text-white' />         </div>
@@ -14,10 +15,6 @@ function DashboardStorageFolder() {
           <h3 className='text-white'>/ DASHBOARD / STORAGE / FOLDER</h3>
         </div>
       </div>
-
-      {/* <div>
-        <h2 className='text-[2rem] font-bold text-white'>STORAGE</h2>
-      </div> */}
 
       <div class=" h-full w-full sm:px-8 md:px-16 sm:py-8">
       <main class="container mx-auto max-w-screen-lg h-[500px]">
@@ -127,8 +124,8 @@ function DashboardStorageFolder() {
       </div>
       
  
-      <div class="py-1 text-white relative bottom-12">
-        <div class="w-full xl:w-8/12 mb-12 xl:mb-0 px-4 mx-auto mt-24 bg-gradient-to-b from-bethel-white/5 to-bethel-green/5">
+      <div class="py-1 text-white relative bottom-12 px-32">
+        <div class="w-full  mb-12 xl:mb-0 px-4 mx-auto mt-24 bg-gradient-to-b from-bethel-white/5 to-bethel-green/5">
           <div class="relative flex flex-col min-w-0 break-words bg- w-full mb-6 shadow-lg rounded ">
               <div class="rounded-t mb-0 px-4 py-3 border-0">
                 <div class="flex flex-wrap items-center">
