@@ -145,7 +145,8 @@ function SideBar() {
                 
                 
                 {/* start-dashboard */}
-                <div className='flex  w-full px-10 hover:bg-bethel-green/50 py-2'>
+                <button>
+                  <div className='flex  w-full px-10 hover:bg-bethel-green/50 py-2'>
                   <div>
                     {/* start-inside box */}
                     <div className='flex w-full gap-2'>
@@ -157,6 +158,8 @@ function SideBar() {
                     {/* end-insidebox */}
                   </div>
                 </div>
+                </button>
+                
               {/* end-dashboard */}
             </div>
             {/* END-HELP AND LOGOUT */}

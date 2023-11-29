@@ -7,17 +7,19 @@ import { persistReducer } from "redux-persist";
 import { combineReducers } from "@reduxjs/toolkit";
 
 
+
 const persistConfig = {
   key: 'root',
   storage: storage,
 }
 
-const persistedReducer = persistReducer(persistConfig, reducer);
-
 const reducer = combineReducers({
   loginReducer: LoginSlice.reducer,
   userDataReducer: userDataSlice.reducer
 })
+
+const persistedReducer = persistReducer(persistConfig, reducer);
+
 
 
 export const store = configureStore({

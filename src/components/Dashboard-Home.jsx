@@ -13,7 +13,7 @@ import userDataSlice from '../reducers/userDataReducer'
 
 function DashboardHome() {
 
-const dispatch = useDispatch();
+  const dispatch = useDispatch();
   // get user ID
   const userData = useSelector((state)=> state.loginReducer)
   const userId = userData._id
