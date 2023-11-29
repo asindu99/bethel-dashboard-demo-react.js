@@ -15,7 +15,7 @@ function SideBar() {
     // side nav bar
     <div className='fixed left-2 rounded-md w-[250px] backdrop-blur-xl bg-gradient-to-b from-bethel-white/5 to-bethel-green/5 top-2 bottom-2 p-2'>
         {/* inside contenet */}
-        <div className='flex flex-col items-baseline justify-around h-full'>
+        <div className='flex flex-col items-baseline justify-start h-full'>
           {/* inside flex boxes */}
 
           {/* topic */}
@@ -127,7 +127,7 @@ function SideBar() {
           </div>
 
           {/* START-HELP AND LOGOUT FUNC */}
-            <div className='flex flex-col gap-y-4 justify-center w-full text-[1rem] text-white'>
+            <div className='absolute bottom-0 flex flex-col gap-y-4 justify-center w-full text-[1rem] text-white'>
                 {/* start-dashboard */}
               <div className='flex  w-full px-10 hover:bg-bethel-green/50 py-2'>
                 <div>

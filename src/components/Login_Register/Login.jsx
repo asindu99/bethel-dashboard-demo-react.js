@@ -21,8 +21,8 @@ const handleSubmit = async(e) =>{
 
   const res = await axios.post('https://mw.bethel.network/auth/login' ,
     {
-        email: 'test14@test.com',
-        password: '123123123',  
+        email: email,
+        password: password,  
     },
     {
         withCredentials: "true",  

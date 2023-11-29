@@ -10,7 +10,7 @@ import DashboardStorageFolder from "./Dashboard-Storage_Folder";
 function MainContent() {
   return (
 
-    <div className="bg-black h-screen relative">
+    <div className="bg-black min-h-screen relative">
 
       <div className="relative z-[100]">
         <SideBar />
