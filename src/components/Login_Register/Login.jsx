@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import LoginSlice from '../../reducers/Loginreducer';
 import axios from 'axios';
 import loaderGif from '../../Images/Animation-gifs/loading-6324_256.gif'
-import userDataSlice from '../../reducers/userDataReducer';
+// import userDataSlice from '../../reducers/userDataReducer';
 
 
 function Login() {

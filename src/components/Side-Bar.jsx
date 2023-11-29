@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import iconHome from '../Images/icons/icon-home.png'
 import iconKey from "../Images/icons/icon-key.png"
 import iconHelp from "../Images/icons/icon-help.png"
@@ -7,10 +7,18 @@ import iconUser from "../Images/icons/icon-male-user.png"
 import iconWallet from "../Images/icons/icon-wallet.png"
 import iconStorage from "../Images/icons/icon-storage.png"
 import iconLogoout from "../Images/icons/icon-logout.png"
-
-
+import { useDispatch } from 'react-redux'
 
 function SideBar() {
+  const dispatch = useDispatch();
+  const Navigate = useNavigate();
+
+  const logOut = () =>{
+    Navigate('/')
+    dispatch({ type: 'RESET_STATE' });
+
+  }
+
   return (
     // side nav bar
     <div className='fixed left-2 rounded-md w-[250px] backdrop-blur-xl bg-gradient-to-b from-bethel-white/5 to-bethel-green/5 top-2 bottom-2 p-2'>
@@ -127,7 +135,7 @@ function SideBar() {
           </div>
 
           {/* START-HELP AND LOGOUT FUNC */}
-            <div className='absolute bottom-0 flex flex-col gap-y-4 justify-center w-full text-[1rem] text-white'>
+            <div className='absolute bottom-0 flex flex-col gap-y-4 justify-center w-[95%] text-[1rem] text-white'>
                 {/* start-dashboard */}
               <div className='flex  w-full px-10 hover:bg-bethel-green/50 py-2'>
                 <div>
@@ -145,7 +153,7 @@ function SideBar() {
                 
                 
                 {/* start-dashboard */}
-                <button>
+                <button onClick={logOut} className='w-full'>
                   <div className='flex  w-full px-10 hover:bg-bethel-green/50 py-2'>
                   <div>
                     {/* start-inside box */}
