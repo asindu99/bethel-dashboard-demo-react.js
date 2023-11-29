@@ -10,7 +10,7 @@ function App() {
       {/* main router view */}
       <Routes>
         <Route path='/*' element={<MainContent />} />
-        <Route path='/login' element={<Login />} />
+        <Route path='/' element={<Login />} />
         <Route path='/register' element={<Register />} />
       </Routes>
 
