@@ -1,14 +1,21 @@
 import React from 'react'
+import iconStorage from "../Images/icons/icon-storage.png"
 
 function DashboardStorage() {
   return (
   <section>
     
     {/* Heading section */}
-    <div>
-      <h1 className='uppercase text-[36px] text-white'>Storage</h1>
-      <h3 className='text-[28px] text-white'>Bucket History</h3>
-    </div>
+    <div className='flex'>
+        <div>
+          <img src={iconStorage} alt="" className='w-[20px] inline-block text-white' />         
+          
+        </div>
+
+        <div className='ml-2'>
+          <h3 className='text-white'>/ DASHBOARD / STORAGE</h3>
+        </div>
+      </div>
     
     {/* card section*/}
     	<div className='flex flex-row pt-5 gap-x-5'>
@@ -20,7 +27,7 @@ function DashboardStorage() {
           </div>
           
           <div className='pt-4'>
-            <p className='text-white'>public_storage</p>
+            <p className='text-white'>publicStorage</p>
           </div>
           
         </div>
@@ -32,7 +39,7 @@ function DashboardStorage() {
           </div>
           
           <div className='pt-4'>
-            <p className='text-white'>public_storage</p>
+            <p className='text-white'>publicStorage</p>
           </div>
           
         </div>
@@ -44,7 +51,7 @@ function DashboardStorage() {
           </div>
           
           <div className='pt-4'>
-            <p className='text-white'>public_storage</p>
+            <p className='text-white'>publicStorage</p>
           </div>
           
         </div>
@@ -56,7 +63,7 @@ function DashboardStorage() {
           </div>
           
           <div className='pt-4'>
-            <p className='text-white'>public_storage</p>
+            <p className='text-white'>publicStorage</p>
           </div>
           
         </div>
