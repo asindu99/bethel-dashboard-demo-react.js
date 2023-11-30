@@ -214,7 +214,7 @@ function Register() {
           {errors.confirmPassword && <span className='absolute text-sm text-red-600 bottom-[105px]'>{errors.confirmPassword}</span>}  
       </div>
       <button type="submit" class="block w-full bg-[#aaff00]/80  py-2 rounded-xl text-white font-semibold mb-2 uppercase mt-8">
-        { !isLoading && <h3>Sign In</h3>} { isLoading && <div className='flex justify-center w-full'><img src={loaderGif} alt='' className='flex w-[100px] py-1 justify-center' /></div>}
+        { !isLoading && <h3>Sign Up</h3>} { isLoading && <div className='flex justify-center w-full'><img src={loaderGif} alt='' className='flex w-[100px] py-1 justify-center' /></div>}
       
       </button>
       <span class="text-sm ml-2  text-white">Already have an account ?</span>

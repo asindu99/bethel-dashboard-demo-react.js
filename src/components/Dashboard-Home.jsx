@@ -82,7 +82,7 @@ function DashboardHome() {
             <div className='flex lg:flex-row md:flex-row sm:flex-col min-[320px]:flex-col justify-center items-center gap-4'>
               {/* car 1 */}
               <div className='flex items-center w-full justify-between px-8 py-12 rounded-md
-              backdrop-blur-xl bg-gradient-to-b from-bethel-white/5 to-bethel-green/5'>
+              backdrop-blur-xl bg-gradient-to-b from-bethel-white/10 to-bethel-green/5'>
                   <div className='flex flex-col '>
                     <h3 className='text-[1.3rem] font-bold'>BUCKETS</h3>
                     <h3 className='text-white/50'>Total buckets : 1</h3>
@@ -97,7 +97,7 @@ function DashboardHome() {
 
               {/* card 2 */}
               <div className='flex items-center w-full justify-between px-8 lg:py-8 md:py-8 sm:py-10 min-[320px]:py-14 rounded-md
-              backdrop-blur-xl bg-gradient-to-b from-bethel-white/5 to-bethel-green/5'>
+              backdrop-blur-xl bg-gradient-to-b from-bethel-white/10 to-bethel-green/5'>
                   <div className='flex flex-col '>
                     <h3 className='text-[1.3rem] font-bold'>STORAGE</h3>
                     <h3 className='text-white/50'>Total storage : {storageDetails.totalsize}</h3>
@@ -120,7 +120,7 @@ function DashboardHome() {
               {/* car 1 */}
               <div className='flex items-center w-full justify-between px-8 py-14 rounded-md
               
-              backdrop-blur-xl bg-gradient-to-b from-bethel-white/5 to-bethel-green/5'>
+              backdrop-blur-xl bg-gradient-to-b from-bethel-white/10 to-bethel-green/5'>
                   <div className='flex flex-col'>
                     <h3 className='text-[1.3rem] font-bold'>OBJECTS</h3>
                     <h3 className='text-white/50'>Total objects : {storageDetails.filecount}</h3>
@@ -135,7 +135,7 @@ function DashboardHome() {
 
               {/* card 2 */}
               <div className='flex items-center w-full justify-between px-8 py-14 rounded-md
-              backdrop-blur-xl bg-gradient-to-b from-bethel-white/5 to-bethel-green/5'>
+              backdrop-blur-xl bg-gradient-to-b from-bethel-white/10 to-bethel-green/5'>
                   <div className='flex flex-col '>
                     <h3 className='text-[1.3rem] font-bold'>BANDWIDTH</h3>
                     <h3 className='text-white/50'>Total bandwidth : 0</h3>

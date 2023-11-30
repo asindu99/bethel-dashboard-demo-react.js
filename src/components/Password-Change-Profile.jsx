@@ -1,11 +1,7 @@
 import axios from 'axios'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-// import userDataSlice from '../reducers/userDataReducer';
-import PasswordChangeProfile from './Password-Change-Profile'
 
-import loaderGif from '../Images/Animation-gifs/loading-6324_256.gif'
-import LoginSlice from '../reducers/Loginreducer';
 
 
 export default function DashboardProfile1() {

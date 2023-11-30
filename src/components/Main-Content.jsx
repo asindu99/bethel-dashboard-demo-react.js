@@ -16,7 +16,7 @@ function MainContent() {
   
   return (
 
-    <div className="bg-black min-h-screen relative">
+    <div className="bg-black/90 min-h-screen relative">
 
       <div className="relative z-[100]">
         <div className="relative z-[100]">

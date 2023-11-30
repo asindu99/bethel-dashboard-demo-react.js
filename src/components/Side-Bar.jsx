@@ -210,7 +210,7 @@ function SideBar() {
           </div>
           {/* end-topic */}
 
-          <div className='flex flex-col items-start justify-center gap-4 mt-14 w-full text-[1rem] text-white'>
+          <div className='flex flex-col items-start justify-center gap-4 mt-6 w-full text-[1rem] text-white'>
 
             {/* start-dashboard */}
             <Link to='/dashboard' className='w-full'>
