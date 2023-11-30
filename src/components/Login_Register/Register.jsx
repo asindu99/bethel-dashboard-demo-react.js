@@ -42,12 +42,19 @@ function Register() {
         setIsLoading(false)
       }
       
+      const validationErrors = {}
+      if(!email.email.trim()){
+        validationErrors.email = "Email is required!"
+      }
       
-      
-
     }
-
-
+    
+    const handlechange = (e) =>{
+      const {email,value} = e.target;
+      setemail({email,[email]:value});
+      setemail(e.target.value)
+    }
+    
   return (
   <section className='relative w-full min-h-screen px-5 bg-black'>
       {/* Top vector pattern */}
@@ -80,7 +87,7 @@ function Register() {
       </div>
         </div>
         {/* Form section */}
-        <form class="px-10 py-5" >
+        <form class="px-10 py-5" onSubmit={handleSubmit}>
        
         <div class="flex items-center border-2 py-2 px-3 rounded-xl mb-4">
 
@@ -89,7 +96,7 @@ function Register() {
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
               d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207" />
           </svg>
-          <input onChange={(e) =>{setemail(e.target.value)}} class="pl-2 outline-none border-none bg-transparent text-white text-[12px]" type="email" name="" id="" placeholder="Email Address"  />
+          <input onChange={handlechange} class="pl-2 outline-none border-none bg-transparent text-white text-[12px]" type="email" name="" id="" placeholder="Email Address"  />
             {/* {errors.a && (<small className='text-red-700'>{errors.email.message}</small>)} */}
         </div>        
 
