@@ -240,8 +240,8 @@ function DashboardHome() {
         {/* end-main container */}
 
         {/* start-second container */}
-        <div className='pb-10 w-full flex min-[320px]:flex-col mt-6 justify-center gap-6'>
-            <div className='w-[600px] bg-gradient-to-b from-bethel-white/5 to-bethel-green/5 p-4 '>
+        <div className='pb-10 items-center flex lg:flex-row md:flex-col sm:flex-col min-[320px]:flex-col mt-6 justify-center gap-6'>
+            <div className='lg:w-[600px] md:w-[600px] sm:w-full min-[320px]:w-full bg-gradient-to-b from-bethel-white/5 to-bethel-green/5 p-4 '>
               <Line data={{
             labels: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri','Sat'],
             datasets: [{
@@ -259,7 +259,7 @@ function DashboardHome() {
               }} />
             </div>
 
-            <div className='w-[600px] bg-gradient-to-b from-bethel-white/5 to-bethel-green/5 p-4 rounded-md'>
+            <div className='lg:w-[600px] md:w-[600px] sm:w-full min-[320px]:w-full  bg-gradient-to-b from-bethel-white/5 to-bethel-green/5 p-4 rounded-md'>
               <Bar data={{
         labels: ['Files', 'Videos', 'Images', 'Musics'],
         datasets: [{
