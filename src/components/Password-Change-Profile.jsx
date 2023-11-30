@@ -6,14 +6,11 @@ import PasswordChangeProfile from './Password-Change-Profile'
 
 import loaderGif from '../Images/Animation-gifs/loading-6324_256.gif'
 import LoginSlice from '../reducers/Loginreducer';
-import DashboardProfile1 from './Password-Change-Profile'
-import userDataSlice from '../reducers/userDataReducer'
 
 
-export default function DashboardProfile() {
+export default function DashboardProfile1() {
 
   const dispatch = useDispatch();
-  const [isLoading , setIsLoading] = useState(false)
 
   //changing user data
   const [formData, setFormData] = useState({
@@ -37,7 +34,7 @@ export default function DashboardProfile() {
     })
   }
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault()
     console.log(formData.country)
     const validationErrors = {}
@@ -60,25 +57,10 @@ if(!formData.countryCode.trim()) {
 
 
     setErrors(validationErrors)
-    setIsLoading(true);
 
-    const details = {
-                details: {
-                    "firstName": formData.firstName,
-                    "lastName": formData.lastName,
-                    "country": formData.country,
-                    "code": formData.countryCode,
-                    "mobile": ""
-                }
-            };
-
-    const res2 = await axios.patch("https://mw.bethel.network/users/" + userId , details ,{withCredentials : true})
-    const res = await axios.get('https://mw.bethel.network/users/' + userId ,{withCredentials : true})
-    
-    setIsLoading(false);
-
-    dispatch(LoginSlice.actions.saveUser(res.data))
-    dispatch(userDataSlice.actions.saveUserData(res2.data))
+    if(Object.keys(validationErrors).length === 0) {
+        alert("Form Submitted successfully")
+    }
 
   }
 
@@ -94,11 +76,33 @@ if(!formData.countryCode.trim()) {
   const userId = userData._id
 
   const Details = useSelector((state)=> state.userDataReducer)
+
+  // update edit details
+  // const handleSubmit = async (e) =>{
+  //   e.preventDefault();
+  //   setIsLoading(true);
+
+  //   const details = {
+  //               details: {
+  //                   "firstName": firstName,
+  //                   "lastName": lastName,
+  //                   "country": country,
+  //                   "code": code,
+  //                   "mobile": "123123123"
+  //               }
+  //           };
+
+  //   const res2 = await axios.patch("https://mw.bethel.network/users/" + userId , details ,{withCredentials : true})
+  //   const res = await axios.get('https://mw.bethel.network/users/' + userId ,{withCredentials : true})
+    
+  //   setIsLoading(false);
+
+  //   dispatch(LoginSlice.actions.saveUser(res.data))
+  //   }
   
   return (
     <section>
-      {/* Main profile content */}
-      <div className='flex lg:flex-nowrap md:flex-wrap sm:flex-wrap min-[320px]:flex-wrap sm justify-center  gap-x-5 gap-y-5 pr-2'>
+  
         
         {/* Edit profile section */}
 
@@ -164,53 +168,14 @@ if(!formData.countryCode.trim()) {
             />
               {errors.countryCode && <span className='absolute text-sm text-red-600 bottom-[225px] mt-8'>{errors.countryCode}</span>}  
           </div>
-          <button type="submit" class="block w-full bg-[#aaff00]/80  py-2 rounded-xl text-white font-semibold mb-2 uppercase mt-8">
-        { !isLoading && <h3>Sign In</h3>} { isLoading && <div className='flex justify-center w-full'><img src={loaderGif} alt='' className='flex w-[100px] py-1 justify-center' /></div>}
-
-          </button>
+          <button type="submit" class="block w-full bg-[#aaff00]/80  py-2 rounded-xl text-white font-semibold mb-2 uppercase mt-8">Submit</button>
           
             
          
         </form>
         </div>
         
-        < DashboardProfile1 />
-        
-        {/* Information section */}
-        <div className='h-[610px] backdrop-blur-xl bg-gradient-to-b from-bethel-white/5 to-bethel-green/5 rounded-md gap-y-8 px-10 py-10'>
-          
-          {/*Profile section heading*/}
-          <div>
-            <h3 className='text-left text-[18px] text-white p-4 uppercase'>Profile Information</h3>
-          </div>
-          
-          {/*Profile section description */}
-          <div className='py-8'>
-            <p className='text-left text-white'>Hi, <span className='uppercase text-bethel-green'>{Details.details.firstName} {Details.details.lastName}</span>, Decisions: If you can’t decide, the answer is no. If two equally difficult paths, choose the one more painful in the short term (pain avoidance is creating an illusion of equality).</p>
-          </div>
-          
-          {/*Profile section details*/}
-          <div className='flex flex-col gap-y-4'>
-            <div className='flex flex-row gap-x-2'>
-              <p className='text-white/60'>First Name:</p>
-              <p className='text-white uppercase'>{Details.details.firstName}</p>
-            </div>
-            <div className='flex flex-row gap-x-2'>
-              <p className='text-white/60'>Mobile:</p>
-              <p className='text-white'></p>
-            </div>
-            <div className='flex flex-row gap-x-2'>
-              <p className='text-white/60'>Email:</p>
-              <p className='text-white'>{Details.email}</p>
-            </div>
-            <div className='flex flex-row gap-x-2'>
-              <p className='text-white/60'>Location:</p>
-              <p className='text-white'></p>
-            </div>
-          </div>
-        </div>
-        
-      </div>
+
     </section>
   )
 }
