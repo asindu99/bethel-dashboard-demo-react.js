@@ -1,15 +1,19 @@
 import React, { useState } from 'react'
 import "../components/Dashboard-Storage_Folder"
 import iconStorage from "../Images/icons/icon-storage.png"
-import userDataSlice from '../reducers/userDataReducer'
-import { useSelector } from 'react-redux'
+// import userDataSlice from '../reducers/userDataReducer'
+import { useDispatch, useSelector } from 'react-redux'
 import axios from 'axios'
 import iconLoad from "../Images/Animation-gifs/loading-6324_256.gif"
+import uploadSlice from '../reducers/uploadDetailsSlice'
+import storageDataSlice from '../reducers/storageDetailsSlice'
 
 function DashboardStorageFolder() {
     // get user ID
     const userData = useSelector((state)=> state.loginReducer)
     const userId = userData._id
+
+    const dispatch = useDispatch()
 
     const [file , setFile] = useState(null) 
     const [fileName , setFileName] = useState('')
@@ -44,6 +48,7 @@ function DashboardStorageFolder() {
     formData.append('bucket', 'Public_storage_0');
 
     if(file != null){
+      setUploadWait(true)
         try {
           const res = await axios.post('https://api.bethelnet.io/upload', formData, {
             headers: {
@@ -52,7 +57,12 @@ function DashboardStorageFolder() {
         
           },{withCredentials : true})
 
+          console.log(res)
           setUploadWait(false)
+
+          dispatch(uploadSlice.actions.uploadData(res.data))
+          dispatch(storageDataSlice.actions.saveStorageData());
+
         } catch (error) {
           console.log(error)
           setUploadWait(false)
@@ -72,6 +82,8 @@ function DashboardStorageFolder() {
         setEmpty(false)
         }, 1000);
       }
+
+
 }
 
 // get the upload details from store

@@ -2,9 +2,11 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import userDataSlice from '../reducers/userDataReducer';
+import {useForm} from "react-hook-form"
 // import userDataSlice from '../reducers/userDataReducer';
 
 import loaderGif from '../Images/Animation-gifs/loading-6324_256.gif'
+import LoginSlice from '../reducers/Loginreducer';
 
 
 export default function DashboardProfile() {
@@ -48,17 +50,19 @@ const [isLoading , setIsLoading] = useState(false)
     const res = await axios.get('https://mw.bethel.network/users/' + userId ,{withCredentials : true})
     
     setIsLoading(false);
+
+    dispatch(LoginSlice.actions.saveUser(res.data))
     }
   
   return (
     <section>
       {/* Main profile content */}
-      <div className='flex flex-row gap-x-5 pr-2'>
+      <div className='flex lg:flex-nowrap md:flex-wrap sm:flex-wrap min-[320px]:flex-wrap sm justify-center  gap-x-5 gap-y-5 pr-2'>
         
         {/* Edit profile section */}
 
         <div className='flex flex-col h-[610px] p-5 backdrop-blur-xl bg-gradient-to-b from-bethel-white/5 to-bethel-green/5 rounded-md '>
-          <form onSubmit={handleSubmit} class="px-10 py-5">
+          <form onSubmit={handleSubmit} class="px-4 py-5">
           
               <h1 className='text-center text-[18px] text-white p-4 uppercase'>Edit Profile</h1>
       

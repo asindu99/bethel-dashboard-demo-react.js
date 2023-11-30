@@ -3,7 +3,9 @@ import iconUser from "../Images/icons/icon-male-user.png"
 import iconDrop from "../Images/icons/icon-drop.png"
 import iconHome from '../Images/icons/icon-home.png'
 import iconLogoout from "../Images/icons/icon-logout.png"
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import iconMenu from "../Images/icons/icons-menu.png"
+import toggleSidebarSlice from '../reducers/toggleSidebar'
 
 
 
@@ -12,14 +14,21 @@ function Navbar() {
 
   const userData = useSelector((state) => state.loginReducer)
    console.log(userData)
+  
+  //dispathc 
+  const dispatch = useDispatch();  
 
   // toggle drop down
   const handleToggle = () =>{
     setToggleDropDown(!toggleDropDown);
   }
 
+  const toggle = () =>{
+    dispatch(toggleSidebarSlice.actions.toggleSidebar())
+  }
+
   return (
-    <div className='fixed top-3 pl-[270px] w-full px-2 z-100'>
+    <div className='fixed top-3 lg:pl-[270px] md:px-2 sm:px-2 min-[320px]:px-2 w-full px-2 z-100'>
       {/* start-main nav bar */}
         <div className='relative flex backdrop-blur-xl bg-white/10
          w-full h-[70px] rounded-md text-white items-center px-4 justify-between'>
@@ -37,23 +46,27 @@ function Navbar() {
             </div>
 
             {/* name and the other */}
-            <div className='flex gap-2 uppercase'>
+            <div className='flex gap-2 uppercase lg:mr-0 md:mr-6 sm:mr-6 min-[320px]:mr-6'>
               <h2>{userData.details.firstName}</h2>
               <h2>{userData.details.lastName}</h2>
             </div>
 
             {/* drop down menu */}
-            <button onClick={handleToggle}>
+            <button onClick={handleToggle} >
               <div>
-                <img src={iconDrop} alt="" className='w-[20px]'/>
+                <img src={iconDrop} alt="" className='w-[20px] lg:flex md:hidden sm:hidden min-[32px]:hidden'/>
               </div>
             </button>
            
           </div>
 
+          {/* toggle sidebar  */}
+          <button onClick={toggle} className='absolute right-3 lg:hidden md:flex sm:flex min-[32px]:flex'>
+            <img src={iconMenu} alt="" className='w-[25px]'/>
+          </button>
+
         </div>
       {/* end-nav bar */}
-
 
 
 

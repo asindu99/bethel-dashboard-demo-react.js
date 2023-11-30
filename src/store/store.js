@@ -7,6 +7,7 @@ import { persistReducer } from "redux-persist";
 import { combineReducers } from "@reduxjs/toolkit";
 import storageDataSlice from "../reducers/storageDetailsSlice";
 import uploadSlice from "../reducers/uploadDetailsSlice";
+import toggleSidebarSlice from "../reducers/toggleSidebar";
 
 
 
@@ -19,7 +20,8 @@ const reducer = combineReducers({
   loginReducer: LoginSlice.reducer,
   userDataReducer: userDataSlice.reducer,
   storageDetailsReducer: storageDataSlice.reducer,
-  uploadDetailsReducer: uploadSlice.reducer
+  uploadDetailsReducer: uploadSlice.reducer,
+  toggleSidebarReducer: toggleSidebarSlice.reducer
 
 })
 
