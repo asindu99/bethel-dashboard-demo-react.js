@@ -61,7 +61,7 @@ const [isLoading , setIsLoading] = useState(false)
         
         {/* Edit profile section */}
 
-        <div className='flex flex-col h-[610px] p-5 backdrop-blur-xl bg-gradient-to-b from-bethel-white/5 to-bethel-green/5 rounded-md '>
+        <div className='flex flex-col h-[610px] w-full  backdrop-blur-xl bg-gradient-to-b from-bethel-white/5 to-bethel-green/5 rounded-md '>
           <form onSubmit={handleSubmit} class="px-4 py-5">
           
               <h1 className='text-center text-[18px] text-white p-4 uppercase'>Edit Profile</h1>
@@ -105,7 +105,7 @@ const [isLoading , setIsLoading] = useState(false)
         </div>
         
         {/* Change Password section */}
-        <div className='flex flex-col h-[610px] p-5 backdrop-blur-xl bg-gradient-to-b from-bethel-white/5 to-bethel-green/5 rounded-md'>
+        <div className='flex flex-col h-[610px] w-full  backdrop-blur-xl bg-gradient-to-b from-bethel-white/5 to-bethel-green/5 rounded-md'>
           <form class="px-10 py-5">
           
             <h1 className='text-center text-[18px] text-white p-4 uppercase'>Change Password</h1>
