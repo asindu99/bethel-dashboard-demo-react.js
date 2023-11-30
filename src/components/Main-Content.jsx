@@ -5,10 +5,15 @@ import DashboardHome from "./Dashboard-Home";
 import DashboardStorage from "./Dashboard-Storage";
 import DashboardProfile from "./Dashboard-Profile";
 import DashboardStorageFolder from "./Dashboard-Storage_Folder";
+import { useDispatch } from "react-redux";
+import toggleSidebarSlice from "../reducers/toggleSidebar";
 
 
 
 function MainContent() {
+
+
+  
   return (
 
     <div className="bg-black min-h-screen relative">
@@ -23,7 +28,8 @@ function MainContent() {
       </div>
       
       {/* middle routing  */}
-      <div className="relative pt-24 lg:pl-[270px] lg:md-[270px] sm:pl-[10px] lg:px-0 md:px-0 sm:px-4 min-[320px]:px-4 w-full z-[10]">
+      
+      <div  className="relative pt-24 lg:pl-[270px] lg:md-[270px] sm:pl-[10px] lg:px-0 md:px-0 sm:px-4 min-[320px]:px-4 w-full z-[10]">
         <Routes>
           <Route path="/dashboard" element={<DashboardHome />} />
           <Route path="/dashboard/storage" element={<DashboardStorage />} />
