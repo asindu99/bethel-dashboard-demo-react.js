@@ -1,8 +1,18 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import iconStorage from "../Images/icons/icon-storage.png"
 import { Link } from 'react-router-dom'
+import { useSelector } from 'react-redux'
+import axios from 'axios'
 
 function DashboardStorage() {
+
+  // get user ID
+  const userData = useSelector((state)=> state.loginReducer)
+  const userId = userData._id
+
+   useEffect(()=>{
+   },[])
+
   return (
   <section>
     
