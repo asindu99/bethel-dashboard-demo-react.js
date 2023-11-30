@@ -7,7 +7,7 @@ import {useForm} from "react-hook-form"
 
 import loaderGif from '../Images/Animation-gifs/loading-6324_256.gif'
 import LoginSlice from '../reducers/Loginreducer';
-
+import ChangePasswordProfile from './Change-Password-Profile';
 
 export default function DashboardProfile() {
 
@@ -21,27 +21,28 @@ export default function DashboardProfile() {
     countryCode: ''
   })
 
-  const [formData1, setFormData1] = useState({
-    email: '',
-    password: '',
-    newPassword: '',
-    confirmPassword: ''
-  })
+  // const [formData1, setFormData1] = useState({
+  //   email: '',
+  //   password: '',
+  //   newPassword: '',
+  //   confirmPassword: ''
+  // })
 
   const [errors, setErrors] = useState({})
 
   const handleChange = (e) => {
     const {name, value} = e.target;
-    const {email, value1} = e.target;
+    // const {email, value1} = e.target;
     setFormData({
         ...formData, [name] : value,
     })
-    setFormData1({
-      ...formData1, [email] : value1,
-    })
+    // setFormData1({
+    //   ...formData1, [email] : value1,
+    // })
   }
 
   const handleSubmit = (e) => {
+    console.log(formData.country)
     e.preventDefault()
     const validationErrors = {}
     if(!formData.firstName.trim()) {
@@ -60,27 +61,27 @@ if(!formData.countryCode.trim()) {
   validationErrors.countryCode = "Country Code is required"
 }
 
-if(!formData1.email.trim()) {
-  validationErrors.email = "Email is required"
-} else if(!/\S+@\S+\.\S+/.test(formData1.email)){
-  validationErrors.email = "Email is not valid"
-}
+// if(!formData1.email.trim()) {
+//   validationErrors.email = "Email is required"
+// } else if(!/\S+@\S+\.\S+/.test(formData1.email)){
+//   validationErrors.email = "Email is not valid"
+// }
 
-if(!formData1.password.trim()) {
-  validationErrors.password = " Password is required"
-} else if(formData1.password.length < 6){
-  validationErrors.password = " Password should be at least 6 char"
-}
+// if(!formData1.password.trim()) {
+//   validationErrors.password = " Password is required"
+// } else if(formData1.password.length < 6){
+//   validationErrors.password = " Password should be at least 6 char"
+// }
 
-if(!formData1.newPassword.trim()) {
-  validationErrors.newPassword = "New Password is required"
-} else if(formData1.newPassword.length < 6){
-  validationErrors.newPassword = "New Password should be at least 6 char"
-}
+// if(!formData1.newPassword.trim()) {
+//   validationErrors.newPassword = "New Password is required"
+// } else if(formData1.newPassword.length < 6){
+//   validationErrors.newPassword = "New Password should be at least 6 char"
+// }
     
-if(formData1.confirmPassword !== formData1.newPassword) {
-  validationErrors.confirmPassword = "Password not matched"
-}
+// if(formData1.confirmPassword !== formData1.newPassword) {
+//   validationErrors.confirmPassword = "Password not matched"
+// }
 
     setErrors(validationErrors)
 
@@ -201,7 +202,7 @@ if(formData1.confirmPassword !== formData1.newPassword) {
         </div>
         
         {/* Change Password section */}
-        <div className='flex flex-col h-[610px] w-full  backdrop-blur-xl bg-gradient-to-b from-bethel-white/5 to-bethel-green/5 rounded-md'>
+        {/* <div className='flex flex-col h-[610px] w-full  backdrop-blur-xl bg-gradient-to-b from-bethel-white/5 to-bethel-green/5 rounded-md'>
           <form onSubmit={handleSubmit} className='px-10 py-5'>
           
         <h1 className='text-center text-[18px] text-white p-4 uppercase'>Change Password</h1>
@@ -277,7 +278,8 @@ if(formData1.confirmPassword !== formData1.newPassword) {
             
          
         </form>
-        </div>
+        </div> */}
+        <ChangePasswordProfile></ChangePasswordProfile>
         
         {/* Information section */}
         <div className='h-[610px] backdrop-blur-xl bg-gradient-to-b from-bethel-white/5 to-bethel-green/5 rounded-md gap-y-8 px-10 py-10'>
