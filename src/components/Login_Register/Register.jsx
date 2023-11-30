@@ -7,14 +7,8 @@ import loaderGif from '../../Images/Animation-gifs/loading-6324_256.gif'
 
 
 function Register() {
+    const Navigate = useNavigate();
     
-    // const {register,formState:{ errors}} = useForm();  
-  
-    // const [firstName , setFirstName] = useState('');
-    // const [lastName , setlastName] = useState('');
-    // const [email , setemail] = useState('');
-    // const [password , setPassword] = useState('');
-    // const [userName , setUserName] = useState('');
     const [formData, setFormData] = useState({
       username: '',
       email: '',
@@ -24,7 +18,8 @@ function Register() {
       lastName:''
       
     })
-  
+    const [isLoading , setIsLoading] = useState(false)
+
     const [errors, setErrors] = useState({})
   
     const handleChange = (e) => {
@@ -32,10 +27,14 @@ function Register() {
       setFormData({
           ...formData, [name] : value
       })
+
+      
     }
-  
-    const handleSubmit = (e) => {
+
+    const handleSubmit = async (e) => {
       e.preventDefault()
+      
+
       const validationErrors = {}
       if(!formData.username.trim()) {
           validationErrors.username = "username is required"
@@ -66,36 +65,23 @@ function Register() {
       }
   
       setErrors(validationErrors)
-  
-      if(Object.keys(validationErrors).length === 0) {
-          alert("Form Submitted successfully")
+
+      setIsLoading(true)
+      const res = await axios.post('https://mw.bethel.network/auth/register', {
+                    email: formData.email,
+                    username: formData.username,
+                    password: formData.password,
+                    firstName : formData.firstName,
+                    lastName : formData.lastName,
+                }, 
+                {
+                    withCredentials: true
+                });
+      try {
+        res.status === 200 ? Navigate('/') : setIsLoading(false)
+      } catch (error) {
+        setIsLoading(false)
       }
-    
-    // const [isLoading , setIsLoading] = useState(false)
-
-    // const Navigate = useNavigate();
-
-    
-      // const res = await axios.post('https://mw.bethel.network/auth/register', {
-      //               email: email,
-      //               username: userName,
-      //               password: password,
-      //               firstName : firstName,
-      //               lastName : lastName,
-      //           }, 
-      //           {
-      //               withCredentials: true
-      //           });
-      //           console.log(email,password,userName,firstName,lastName)
-      // try {
-      //   res.status === 200 ? Navigate('/') : setIsLoading(false)
-      // } catch (error) {
-      //   setIsLoading(false)
-      // }
-      
-      
-      
-
     }
 
 
@@ -227,7 +213,10 @@ function Register() {
         />
           {errors.confirmPassword && <span className='absolute text-sm text-red-600 bottom-[105px]'>{errors.confirmPassword}</span>}  
       </div>
-      <button type="submit" class="block w-full bg-[#aaff00]/80  py-2 rounded-xl text-white font-semibold mb-2 uppercase mt-8">Submit</button>
+      <button type="submit" class="block w-full bg-[#aaff00]/80  py-2 rounded-xl text-white font-semibold mb-2 uppercase mt-8">
+        { !isLoading && <h3>Sign In</h3>} { isLoading && <div className='flex justify-center w-full'><img src={loaderGif} alt='' className='flex w-[100px] py-1 justify-center' /></div>}
+      
+      </button>
       <span class="text-sm ml-2  text-white">Already have an account ?</span>
         <Link to="/"><span class="text-[#aaff00] cursor-pointer"> Login</span></Link>
      

@@ -1,17 +1,21 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import userDataSlice from '../reducers/userDataReducer';
-import {useForm} from "react-hook-form"
 // import userDataSlice from '../reducers/userDataReducer';
+import PasswordChangeProfile from './Password-Change-Profile'
 
 import loaderGif from '../Images/Animation-gifs/loading-6324_256.gif'
 import LoginSlice from '../reducers/Loginreducer';
+import userDataSlice from '../reducers/userDataReducer'
+
+
 import ChangePasswordProfile from './Change-Password-Profile';
+
 
 export default function DashboardProfile() {
 
   const dispatch = useDispatch();
+  const [isLoading , setIsLoading] = useState(false)
 
   //changing user data
   const [formData, setFormData] = useState({
@@ -21,18 +25,18 @@ export default function DashboardProfile() {
     countryCode: ''
   })
 
-  // const [formData1, setFormData1] = useState({
+ // const [formData1, setFormData1] = useState({
   //   email: '',
   //   password: '',
   //   newPassword: '',
   //   confirmPassword: ''
-  // })
+
 
   const [errors, setErrors] = useState({})
 
   const handleChange = (e) => {
     const {name, value} = e.target;
-    // const {email, value1} = e.target;
+   // const {email, value1} = e.target;
     setFormData({
         ...formData, [name] : value,
     })
@@ -41,9 +45,10 @@ export default function DashboardProfile() {
     // })
   }
 
-  const handleSubmit = (e) => {
-    console.log(formData.country)
+  const handleSubmit = async (e) => {
+
     e.preventDefault()
+    console.log(formData.country)
     const validationErrors = {}
     if(!formData.firstName.trim()) {
         validationErrors.firstName = "First Name is required"
@@ -61,7 +66,7 @@ if(!formData.countryCode.trim()) {
   validationErrors.countryCode = "Country Code is required"
 }
 
-// if(!formData1.email.trim()) {
+/ if(!formData1.email.trim()) {
 //   validationErrors.email = "Email is required"
 // } else if(!/\S+@\S+\.\S+/.test(formData1.email)){
 //   validationErrors.email = "Email is not valid"
@@ -81,15 +86,32 @@ if(!formData.countryCode.trim()) {
     
 // if(formData1.confirmPassword !== formData1.newPassword) {
 //   validationErrors.confirmPassword = "Password not matched"
-// }
+
 
     setErrors(validationErrors)
+    setIsLoading(true);
 
-    if(Object.keys(validationErrors).length === 0) {
-        alert("Form Submitted successfully")
-    }
+    const details = {
+                details: {
+                    "firstName": formData.firstName,
+                    "lastName": formData.lastName,
+                    "country": formData.country,
+                    "code": formData.countryCode,
+                    "mobile": ""
+                }
+            };
+
+    const res2 = await axios.patch("https://mw.bethel.network/users/" + userId , details ,{withCredentials : true})
+    const res = await axios.get('https://mw.bethel.network/users/' + userId ,{withCredentials : true})
+    
+    setIsLoading(false);
+
+    dispatch(LoginSlice.actions.saveUser(res.data))
+    dispatch(userDataSlice.actions.saveUserData(res2.data))
 
   }
+
+
   // const [isLoading , setIsLoading] = useState(false)
 
 
@@ -101,29 +123,6 @@ if(!formData.countryCode.trim()) {
   const userId = userData._id
 
   const Details = useSelector((state)=> state.userDataReducer)
-
-  // update edit details
-  // const handleSubmit = async (e) =>{
-  //   e.preventDefault();
-  //   setIsLoading(true);
-
-  //   const details = {
-  //               details: {
-  //                   "firstName": firstName,
-  //                   "lastName": lastName,
-  //                   "country": country,
-  //                   "code": code,
-  //                   "mobile": "123123123"
-  //               }
-  //           };
-
-  //   const res2 = await axios.patch("https://mw.bethel.network/users/" + userId , details ,{withCredentials : true})
-  //   const res = await axios.get('https://mw.bethel.network/users/' + userId ,{withCredentials : true})
-    
-  //   setIsLoading(false);
-
-  //   dispatch(LoginSlice.actions.saveUser(res.data))
-  //   }
   
   return (
     <section>
@@ -194,14 +193,17 @@ if(!formData.countryCode.trim()) {
             />
               {errors.countryCode && <span className='absolute text-sm text-red-600 bottom-[225px] mt-8'>{errors.countryCode}</span>}  
           </div>
-          <button type="submit" class="block w-full bg-[#aaff00]/80  py-2 rounded-xl text-white font-semibold mb-2 uppercase mt-8">Submit</button>
+          <button type="submit" class="block w-full bg-[#aaff00]/80  py-2 rounded-xl text-white font-semibold mb-2 uppercase mt-8">
+        { !isLoading && <h3>Sign In</h3>} { isLoading && <div className='flex justify-center w-full'><img src={loaderGif} alt='' className='flex w-[100px] py-1 justify-center' /></div>}
+
+          </button>
           
             
          
         </form>
         </div>
         
-        {/* Change Password section */}
+       {/* Change Password section */}
         {/* <div className='flex flex-col h-[610px] w-full  backdrop-blur-xl bg-gradient-to-b from-bethel-white/5 to-bethel-green/5 rounded-md'>
           <form onSubmit={handleSubmit} className='px-10 py-5'>
           
@@ -280,6 +282,7 @@ if(!formData.countryCode.trim()) {
         </form>
         </div> */}
         <ChangePasswordProfile></ChangePasswordProfile>
+
         
         {/* Information section */}
         <div className='h-[610px] backdrop-blur-xl bg-gradient-to-b from-bethel-white/5 to-bethel-green/5 rounded-md gap-y-8 px-10 py-10'>
