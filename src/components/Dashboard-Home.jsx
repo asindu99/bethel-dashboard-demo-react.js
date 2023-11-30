@@ -51,7 +51,7 @@ function DashboardHome() {
 
     const storageDetails = useSelector((state) => state.storageDetailsReducer)
   return (
-    <div className='text-white w-full'>
+    <div className='w-full text-white'>
 
       {/* topic container */}
       <div className='flex'>
@@ -72,7 +72,7 @@ function DashboardHome() {
 
 
         {/* main container */}
-        <div className='w-full flex mt-4 lg:gap-2 md:gap-4 sm:gap-4 pr-3 justify-around flex-wrap'>
+        <div className='flex flex-wrap justify-around w-full pr-3 mt-4 lg:gap-2 md:gap-4 sm:gap-4'>
 
           {/* start- card divs */}
           <div className='flex flex-col gap-8 w-[600px]'>
@@ -81,8 +81,7 @@ function DashboardHome() {
             {/* 1 row - cards  */}
             <div className='flex lg:flex-row md:flex-row sm:flex-col min-[320px]:flex-col justify-center items-center gap-4'>
               {/* car 1 */}
-              <div className='flex items-center w-full justify-between px-8 py-12 rounded-md
-              backdrop-blur-xl bg-gradient-to-b from-bethel-white/5 to-bethel-green/5'>
+              <div className='flex items-center justify-between w-full px-8 py-12 rounded-md backdrop-blur-xl bg-gradient-to-b from-bethel-white/5 to-bethel-green/5'>
                   <div className='flex flex-col '>
                     <h3 className='text-[1.3rem] font-bold'>BUCKETS</h3>
                     <h3 className='text-white/50'>Total buckets : 1</h3>
@@ -118,9 +117,7 @@ function DashboardHome() {
             {/* 2nd cards DIVS */}
             <div className='flex gap-4 lg:flex-row md:flex-row sm:flex-col min-[320px]:flex-col justify-center items-center'>
               {/* car 1 */}
-              <div className='flex items-center w-full justify-between px-8 py-14 rounded-md
-              
-              backdrop-blur-xl bg-gradient-to-b from-bethel-white/5 to-bethel-green/5'>
+              <div className='flex items-center justify-between w-full px-8 rounded-md py-14 backdrop-blur-xl bg-gradient-to-b from-bethel-white/5 to-bethel-green/5'>
                   <div className='flex flex-col'>
                     <h3 className='text-[1.3rem] font-bold'>OBJECTS</h3>
                     <h3 className='text-white/50'>Total objects : {storageDetails.filecount}</h3>
@@ -134,8 +131,7 @@ function DashboardHome() {
               </div>
 
               {/* card 2 */}
-              <div className='flex items-center w-full justify-between px-8 py-14 rounded-md
-              backdrop-blur-xl bg-gradient-to-b from-bethel-white/5 to-bethel-green/5'>
+              <div className='flex items-center justify-between w-full px-8 rounded-md py-14 backdrop-blur-xl bg-gradient-to-b from-bethel-white/5 to-bethel-green/5'>
                   <div className='flex flex-col '>
                     <h3 className='text-[1.3rem] font-bold'>BANDWIDTH</h3>
                     <h3 className='text-white/50'>Total bandwidth : 0</h3>
@@ -162,7 +158,7 @@ function DashboardHome() {
                 <h3 className='text-[1.3rem] text-white/40 font-bold uppercase '>Storage Chart</h3>
               </div>
 
-              <Doughnut  className='mt-4 w-full'
+              <Doughnut  className='w-full mt-4'
               data = {{
                 labels: [
                   'Total',
@@ -240,8 +236,8 @@ function DashboardHome() {
         {/* end-main container */}
 
         {/* start-second container */}
-        <div className='pb-10 items-center flex lg:flex-row md:flex-col sm:flex-col min-[320px]:flex-col mt-6 justify-center gap-6'>
-            <div className='lg:w-[600px] md:w-[600px] sm:w-full min-[320px]:w-full bg-gradient-to-b from-bethel-white/5 to-bethel-green/5 p-4 '>
+        <div className='pb-10 items-center flex lg:flex-row md:flex-col sm:flex-col min-[320px]:flex-col mt-6 justify-start gap-14'>
+            <div className='lg:w-[600px] md:w-[600px] sm:w-full min-[320px]:w-full bg-gradient-to-b from-bethel-white/5 to-bethel-green/5 p-4 ml-14'>
               <Line data={{
             labels: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri','Sat'],
             datasets: [{
