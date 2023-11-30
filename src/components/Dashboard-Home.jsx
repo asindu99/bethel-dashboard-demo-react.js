@@ -3,33 +3,53 @@ import iconBucket from "../Images/icons/icon-bucket.png"
 import iconStorage from "../Images/icons/icon-storage.png"
 import iconFile from "../Images/icons/icon-file.png"
 import iconHome from "../Images/icons/icon-home.png"
+import iconVideo from "../Images/icons/icon-video.png"
+import iconImage from "../Images/icons/icons-images-96.png"
+import iconFiles from "../Images/icons/icon-file.png"
+import iconMusic from "../Images/icons/icons8-music-100.png"
 
 import { Doughnut , Bar, Line } from 'react-chartjs-2'
 import { Chart as ChartJS } from 'chart.js/auto'
 import { useDispatch, useSelector } from 'react-redux'
 import axios from 'axios'
 import userDataSlice from '../reducers/userDataReducer'
+import storageDataSlice from '../reducers/storageDetailsSlice'
+import uploadSlice from '../reducers/uploadDetailsSlice'
 
 
 function DashboardHome() {
-
-const dispatch = useDispatch();
+  //  const [storageDetails , setStorageDetails] = useState(null)
+  const dispatch = useDispatch();
   // get user ID
   const userData = useSelector((state)=> state.loginReducer)
   const userId = userData._id
-    
+
+
+  // get all the data and save to the store funcs ----------------------
+  const getStorageData = async () =>{
+    const res = await axios.get('https://mw.bethel.network/storagedetails/' + userId,
+    {withCredentials : true})
+
+    dispatch(storageDataSlice.actions.saveStorageData(res.data[0]))
+   }
+
+   const getUploadData = async () =>{
+    const res2 = await axios.get('https://mw.bethel.network/storage/' + userId ,{withCredentials :true})
+    dispatch(uploadSlice.actions.uploadData(res2.data))
+   }
+
   useEffect(()=>{
       fetchData();
+      getStorageData();
+      getUploadData();
     },[])
-    // fetch user data
+
     const fetchData = async() =>{
       const res = await axios.get('https://mw.bethel.network/users/' + userId ,{withCredentials : true})
       dispatch(userDataSlice.actions.saveUserData(res.data))
     }
 
-
-
-
+    const storageDetails = useSelector((state) => state.storageDetailsReducer)
   return (
     <div className='text-white w-full'>
 
@@ -52,18 +72,18 @@ const dispatch = useDispatch();
 
 
         {/* main container */}
-        <div className='w-full flex mt-4 lg:gap-0 md:gap-4 pr-3 justify-around flex-wrap'>
+        <div className='w-full flex mt-4 lg:gap-2 md:gap-4 sm:gap-4 pr-3 justify-around flex-wrap'>
 
           {/* start- card divs */}
           <div className='flex flex-col gap-8 w-[600px]'>
             {/* 2 cards DIVS */}
             
             {/* 1 row - cards  */}
-            <div className='flex gap-4'>
+            <div className='flex lg:flex-row md:flex-row sm:flex-col min-[320px]:flex-col justify-center items-center gap-4'>
               {/* car 1 */}
-              <div className='flex items-center w-[300px] justify-between px-8 py-6 rounded-md
+              <div className='flex items-center w-full justify-between px-8 py-12 rounded-md
               backdrop-blur-xl bg-gradient-to-b from-bethel-white/5 to-bethel-green/5'>
-                  <div className='flex flex-col py-2'>
+                  <div className='flex flex-col '>
                     <h3 className='text-[1.3rem] font-bold'>BUCKETS</h3>
                     <h3 className='text-white/50'>Total buckets : 1</h3>
                   </div>
@@ -76,11 +96,11 @@ const dispatch = useDispatch();
               </div>
 
               {/* card 2 */}
-              <div className='flex items-center w-[300px] justify-between px-8 py-6 rounded-md
+              <div className='flex items-center w-full justify-between px-8 lg:py-8 md:py-8 sm:py-10 min-[320px]:py-14 rounded-md
               backdrop-blur-xl bg-gradient-to-b from-bethel-white/5 to-bethel-green/5'>
                   <div className='flex flex-col '>
                     <h3 className='text-[1.3rem] font-bold'>STORAGE</h3>
-                    <h3 className='text-white/50'>Total storage : 1</h3>
+                    <h3 className='text-white/50'>Total storage : {storageDetails.totalsize}</h3>
                   </div>
 
                   <div className="relative">
@@ -96,13 +116,14 @@ const dispatch = useDispatch();
 
 
             {/* 2nd cards DIVS */}
-            <div className='flex gap-4 '>
+            <div className='flex gap-4 lg:flex-row md:flex-row sm:flex-col min-[320px]:flex-col justify-center items-center'>
               {/* car 1 */}
-              <div className='flex items-center w-[300px] justify-between px-8 py-6 rounded-md
+              <div className='flex items-center w-full justify-between px-8 py-14 rounded-md
+              
               backdrop-blur-xl bg-gradient-to-b from-bethel-white/5 to-bethel-green/5'>
-                  <div className='flex flex-col py-2'>
+                  <div className='flex flex-col'>
                     <h3 className='text-[1.3rem] font-bold'>OBJECTS</h3>
-                    <h3 className='text-white/50'>Total objects : 1</h3>
+                    <h3 className='text-white/50'>Total objects : {storageDetails.filecount}</h3>
                   </div>
 
                   <div className="relative">
@@ -113,7 +134,7 @@ const dispatch = useDispatch();
               </div>
 
               {/* card 2 */}
-              <div className='flex items-center w-[300px] justify-between px-8 py-6 rounded-md
+              <div className='flex items-center w-full justify-between px-8 py-14 rounded-md
               backdrop-blur-xl bg-gradient-to-b from-bethel-white/5 to-bethel-green/5'>
                   <div className='flex flex-col '>
                     <h3 className='text-[1.3rem] font-bold'>BANDWIDTH</h3>
@@ -133,13 +154,15 @@ const dispatch = useDispatch();
           {/* end- card div */}
 
           {/* start- chart div */}
-          <div className='flex items-center gap-2 bg-gradient-to-b from-bethel-white/5 to-bethel-green/5 p-4 relative w-[600px]'>
+          <div className='flex lg:mt-0 md:mt-2 sm:mt-2 min-[320px]:mt-4
+           lg:flex-row md:flex sm:flex-col min-[320px]:flex-col items-center gap-2 bg-gradient-to-b from-bethel-white/5 to-bethel-green/5 p-4 relative w-[600px]
+          lg:gap-0 md:gap-10 '>
             <div className=''>
               <div className='absolute right-4 top-2'>
                 <h3 className='text-[1.3rem] text-white/40 font-bold uppercase '>Storage Chart</h3>
               </div>
 
-              <Doughnut  className='mt-4 w-[220px]'
+              <Doughnut  className='mt-4 w-full'
               data = {{
                 labels: [
                   'Total',
@@ -164,19 +187,19 @@ const dispatch = useDispatch();
                         
                             <div className='flex gap-10'>
                               <div class="flex items-center justify-start w-full gap-2" >
-                                  <img src={iconBucket} alt="" className='w-[35px] opacity-80'/>
+                                  <img src={iconFiles} alt="" className='w-[35px] opacity-80'/>
                                   
 
                                   <div class="flex flex-col items-center justify-center mt-[2px]">
                                       <h3 class="text-[1.1rem] text-white/80">Files</h3>
-                                      <h3 class="text-[#8d8d8d] text-[12px] ml-1"> files</h3>
+                                      <h3 class="text-[#8d8d8d] text-[12px] ml-1">{storageDetails.filecount} files</h3>
                                   </div>
                               </div>
 
                             
                               <div class="flex items-center justify-start w-full gap-2">
                                 
-                                  <img src={iconBucket} alt="" className='w-[35px] opacity-80'/>
+                                  <img src={iconImage} alt="" className='w-[35px] opacity-80'/>
                                   
 
                                   <div class="flex flex-col items-center justify-center mt-[2px]">
@@ -188,7 +211,7 @@ const dispatch = useDispatch();
 
                             <div className='flex gap-10'>
                               <div class="flex items-center justify-start w-full gap-2">
-                                  <img src={iconBucket} alt="" className='w-[35px] opacity-80'/>
+                                  <img src={iconMusic} alt="" className='w-[35px] opacity-80'/>
 
                                   <div class="flex flex-col items-center justify-center mt-[2px]">
                                       <h3 class="text-[1.1rem] text-white/80">Musics</h3>
@@ -198,7 +221,7 @@ const dispatch = useDispatch();
                               
                               
                               <div class="flex items-center justify-start w-full gap-2">
-                                  <img src={iconBucket} alt="" className='w-[35px] opacity-80'/>
+                                  <img src={iconVideo} alt="" className='w-[35px] opacity-80'/>
 
                                   <div class="flex flex-col items-center justify-center mt-[2px]">
                                       <h3 class="text-[1.1rem] text-white/80">Videos</h3>
@@ -212,17 +235,18 @@ const dispatch = useDispatch();
               
           </div>
           {/* end- chart div */}
+
         </div>
         {/* end-main container */}
 
         {/* start-second container */}
-        <div className='pb-10 w-full flex mt-6 justify-center gap-4 px-2 flex-wrap'>
+        <div className='pb-10 w-full flex min-[320px]:flex-col mt-6 justify-center gap-6'>
             <div className='w-[600px] bg-gradient-to-b from-bethel-white/5 to-bethel-green/5 p-4 '>
               <Line data={{
             labels: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri','Sat'],
             datasets: [{
                 label: 'Transactions',
-                data: [12, 19, 3, 5, 2, 3, 4],
+                data: [12, 0, 0, 0, 0, 0, 0],
                 backgroundColor: [
                     'rgba(255, 255,255, .7)',
                 ],
@@ -240,7 +264,7 @@ const dispatch = useDispatch();
         labels: ['Files', 'Videos', 'Images', 'Musics'],
         datasets: [{
             label: 'Files',
-            data: [12, 19, 3, 5],
+            data: [storageDetails.filecount, 0, 0, 0],
             backgroundColor: [
                 'rgba(255, 255,255, .7)',
                 'rgba(255, 255,255, .6)',

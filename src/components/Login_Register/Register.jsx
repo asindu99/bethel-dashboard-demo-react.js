@@ -3,12 +3,12 @@ import "../Login_Register/Register.css"
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios';
 import loaderGif from '../../Images/Animation-gifs/loading-6324_256.gif'
-import { UseForm, useForm } from 'react-hook-form';
+// import { UseForm, useForm } from 'react-hook-form';
 
 
 function Register() {
     
-    const {register,formState:{ errors}} = useForm();  
+    // const {register,formState:{ errors}} = useForm();  
   
     const [firstName , setFirstName] = useState('');
     const [lastName , setlastName] = useState('');
@@ -89,9 +89,8 @@ function Register() {
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
               d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207" />
           </svg>
-          <input onChange={(e) =>{setemail(e.target.value)}} class="pl-2 outline-none border-none bg-transparent text-white text-[12px]" type="email" name="" id="" placeholder="Email Address" {...register("email", {
-    required: 'Email is required!' })} />
-            {errors.a && (<small className='text-red-700'>{errors.email.message}</small>)}
+          <input onChange={(e) =>{setemail(e.target.value)}} class="pl-2 outline-none border-none bg-transparent text-white text-[12px]" type="email" name="" id="" placeholder="Email Address"  />
+            {/* {errors.a && (<small className='text-red-700'>{errors.email.message}</small>)} */}
         </div>        
 
         <div class="flex items-center border-2 py-2 px-3 rounded-xl mb-4">
@@ -101,9 +100,8 @@ function Register() {
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
             d="M12 11c0 3.517-1.009 6.799-2.753 9.571m-3.44-2.04l.054-.09A13.916 13.916 0 008 11a4 4 0 118 0c0 1.017-.07 2.019-.203 3m-2.118 6.844A21.88 21.88 0 0015.171 17m3.839 1.132c.645-2.266.99-4.659.99-7.132A8 8 0 008 4.07M3 15.364c.64-1.319 1-2.8 1-4.364 0-1.457.39-2.823 1.07-4" />
           </svg>
-          <input onChange={(e) =>{setUserName(e.target.value)}} class="pl-2 outline-none border-none bg-transparent text-white text-[12px]" type="text" name="" id="" placeholder="Username" {...register("userName", {
-    required: 'User Name is required!' })}/>
-                {errors.a && (<small className='text-red-700'>{errors.userName.message}</small>)}
+          <input onChange={(e) =>{setUserName(e.target.value)}} class="pl-2 outline-none border-none bg-transparent text-white text-[12px]" type="text" name="" id="" placeholder="Username"/>
+                {/* {errors.a && (<small className='text-red-700'>{errors.userName.message}</small>)} */}
 
         </div>
 
@@ -114,9 +112,8 @@ function Register() {
           clip-rule="evenodd" />
 
           </svg>
-          <input onChange={(e) =>{setFirstName(e.target.value)}} class="pl-2 outline-none border-none bg-transparent text-white text-[12px]" {...register("firstName", {
-    required: 'First Name is required!'})} type="text" name="" id="" placeholder="First name" />
-                    {errors.a && (<small className='text-red-700'>{errors.firstName.message}</small>)}
+          <input onChange={(e) =>{setFirstName(e.target.value)}} class="pl-2 outline-none border-none bg-transparent text-white text-[12px]"  type="text" name="" id="" placeholder="First name" />
+                    {/* {errors.a && (<small className='text-red-700'>{errors.firstName.message}</small>)} */}
 
         </div>
         
@@ -127,9 +124,8 @@ function Register() {
           clip-rule="evenodd" />
 
           </svg>
-          <input onChange={(e) =>{setlastName(e.target.value)}} class="pl-2 outline-none border-none bg-transparent text-white text-[12px]" type="text" name="" id="" placeholder="Last name" {...register("lastName", {
-    required: 'Last Name is required!' })} />
-          {errors.a && (<small className='text-red-700'>{errors.lastName.message}</small>)}
+          <input onChange={(e) =>{setlastName(e.target.value)}} class="pl-2 outline-none border-none bg-transparent text-white text-[12px]" type="text" name="" id="" placeholder="Last name"  />
+          {/* {errors.a && (<small className='text-red-700'>{errors.lastName.message}</small>)} */}
 
         </div>
         
@@ -141,9 +137,8 @@ function Register() {
                 d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z"
                 clip-rule="evenodd" />
             </svg>
-            <input onChange={(e) =>{setPassword(e.target.value)}} class="pl-2 outline-none border-none bg-transparent  text-white text-[12px]" type="password" name="" id="" placeholder="Password" {...register("password", {
-    required: 'Password is required' })} />
-              {errors.a && (<small className='text-red-700'>{errors.password.message}</small>)}
+            <input onChange={(e) =>{setPassword(e.target.value)}} class="pl-2 outline-none border-none bg-transparent  text-white text-[12px]" type="password" name="" id="" placeholder="Password"  />
+              {/* {errors.a && (<small className='text-red-700'>{errors.password.message}</small>)} */}
 
         </div>
         
@@ -154,8 +149,7 @@ function Register() {
                 d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z"
                 clip-rule="evenodd" />
             </svg>
-            <input class="pl-2 outline-none border-none bg-transparent  text-white text-[12px]" type="text" name="" id="" placeholder="Confirm Password" {...register("confirmPassword", {
-    required: 'Confirm Password is required!'})}/>
+            <input class="pl-2 outline-none border-none bg-transparent  text-white text-[12px]" type="password" name="" id="" placeholder="Confirm Password" />
         </div>
 
         <button onClick={handleSubmit} type="submit" class="block w-full bg-[#aaff00]/80 mt-4 py-2 rounded-xl text-white font-semibold mb-2 uppercase">

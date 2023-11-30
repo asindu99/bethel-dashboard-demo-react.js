@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import LoginSlice from '../../reducers/Loginreducer';
 import axios from 'axios';
 import loaderGif from '../../Images/Animation-gifs/loading-6324_256.gif'
-import userDataSlice from '../../reducers/userDataReducer';
+// import userDataSlice from '../../reducers/userDataReducer';
 
 
 function Login() {
@@ -111,11 +111,12 @@ const handleSubmit = async(e) =>{
           <input onChange={(e) =>{setPassword(e.target.value)}} className="pl-2 outline-none border-none bg-transparent  text-white text-[12px]" type="password" name="" id="" placeholder="Password" />
       </div>
       
-      <button onClick={handleSubmit} type="submit" class="block w-full bg-[#aaff00]/80 mt-4 py-2 rounded-xl text-white font-semibold mb-2 uppercase">
+      <button onClick={handleSubmit} type="submit" class="block w-full bg-bethel-green/80 mt-4 py-2 rounded-xl text-white font-semibold mb-2 uppercase">
         { !isLoading && <h3>Sign In</h3>} { isLoading && <div className='flex justify-center w-full'><img src={loaderGif} alt='' className='flex w-[100px] py-1 justify-center' /></div>}
       </button>
 
       { logFail && <div>
+
         <h3 className='text-sm text-center text-red-700'>Invalid Email or Password</h3>
       </div> }
       
@@ -123,7 +124,7 @@ const handleSubmit = async(e) =>{
             <span class="text-sm ml-2  text-white">New to our platform ? <span class="text-gray-400 text-sm cursor-pointer">Create an account</span></span>
       </div>
       <div class="flex items-center justify-center">
-      <Link to='/register'><span class="text-[#aaff00] cursor-pointer text-center ">Register</span></Link>
+      <Link to='/register'><span class="text-bethel-green cursor-pointer text-center ">Register</span></Link>
       </div>
        
         </form>  
