@@ -35,7 +35,7 @@ function Navbar() {
 
           {/* left side */}
           <div className='text-[1.3rem]'>
-            <h3>PLATFORM  </h3>
+            <h3>TESTNET  </h3>
           </div>
 
           {/* right side */}
@@ -72,12 +72,13 @@ function Navbar() {
 
       {/* start-drop down menu */}
       {toggleDropDown && 
-      <div className='z-100 absolute right-2 top-[80px] w-[220px] backdrop-blur-xl bg-white/10 flex flex-col gap-2 rounded-md p-2
+      <div className='border-[1px] border-bethel-green z-100 absolute right-2 top-[80px] w-[220px] backdrop-blur-xl bg-white/10 flex flex-col gap-2 rounded-md p-2
        '>
         {/* email and user name  */}
         <div className='flex flex-col text-white'>
-          <h3>User Name</h3>
-          <h3>testwith</h3>
+          <h3>{userData.email}</h3>
+          <h3>{userData.username}</h3>
+          <hr className='w-[90%] mt-1 opacity-20 ' />
         </div>
 
         {/* Dashboard */}
