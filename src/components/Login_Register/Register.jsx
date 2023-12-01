@@ -3,87 +3,47 @@ import "../Login_Register/Register.css"
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios';
 import loaderGif from '../../Images/Animation-gifs/loading-6324_256.gif'
-// import { UseForm, useForm } from 'react-hook-form';
+import { useFormik } from 'formik';
+import { Validation } from './Validation';
 
+const initialValues = {
+  firstName : '',
+  lastName : '',
+  email : '',
+  password : '',
+  cPassword : '',
+  userName : ''
+}
 
 function Register() {
     const Navigate = useNavigate();
-    
-    const [formData, setFormData] = useState({
-      username: '',
-      email: '',
-      password: '',
-      confirmPassword: '',
-      firstName:'',
-      lastName:''
-      
-    })
     const [isLoading , setIsLoading] = useState(false)
 
-    const [errors, setErrors] = useState({})
-  
-    const handleChange = (e) => {
-      const {name, value} = e.target;
-      setFormData({
-          ...formData, [name] : value
-      })
+    const {values , handleChange, handleSubmit, errors } = useFormik({
+      initialValues : initialValues,
+      validationSchema: Validation,
 
-      
-    }
+      onSubmit : async (values) =>{
+        console.log(values)
 
-    const handleSubmit = async (e) => {
-      e.preventDefault()
-      
-
-      const validationErrors = {}
-      if(!formData.username.trim()) {
-          validationErrors.username = "username is required"
-      }
-      
-      if(!formData.firstName.trim()) {
-        validationErrors.firstName = "FirstName is required"
-    }
-    
-    if(!formData.lastName.trim()) {
-      validationErrors.lastName = "LastName is required"
-  }
-  
-      if(!formData.email.trim()) {
-          validationErrors.email = "email is required"
-      } else if(!/\S+@\S+\.\S+/.test(formData.email)){
-          validationErrors.email = "email is not valid"
-      }
-  
-      if(!formData.password.trim()) {
-          validationErrors.password = "password is required"
-      } else if(formData.password.length < 6){
-          validationErrors.password = "password should be at least 6 char"
-      }
-  
-      if(formData.confirmPassword !== formData.password) {
-          validationErrors.confirmPassword = "password not matched"
-      }
-  
-      setErrors(validationErrors)
-
-      setIsLoading(true)
-      const res = await axios.post('https://mw.bethel.network/auth/register', {
-                    email: formData.email,
-                    username: formData.username,
-                    password: formData.password,
-                    firstName : formData.firstName,
-                    lastName : formData.lastName,
+          const res = await axios.post('https://mw.bethel.network/auth/register', {
+                    email: values.email,
+                    username: values.userName,
+                    password: values.password,
+                    firstName : values.firstName,
+                    lastName : values.lastName,
                 }, 
                 {
                     withCredentials: true
-                });
+                })
       try {
         res.status === 200 ? Navigate('/') : setIsLoading(false)
       } catch (error) {
         setIsLoading(false)
+        console.log(error)
       }
     }
-
+    })
 
   return (
   <section className='relative w-full min-h-screen px-5 bg-black'>
@@ -117,41 +77,37 @@ function Register() {
       </div>
         </div>
         {/* Form section */}
-        <form onSubmit={handleSubmit} className='px-10 py-5'>
+      <form onSubmit={handleSubmit} className='px-10 py-5'>
           
-      <div className='flex items-center px-3 py-2 border-2 mt-8mb-4 rounded-xl'>
+      <div className='relative flex items-center px-3 py-2 border-2 mt-8mb-4 rounded-xl'>
       <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white" fill="none"
           viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
             d="M12 11c0 3.517-1.009 6.799-2.753 9.571m-3.44-2.04l.054-.09A13.916 13.916 0 008 11a4 4 0 118 0c0 1.017-.07 2.019-.203 3m-2.118 6.844A21.88 21.88 0 0015.171 17m3.839 1.132c.645-2.266.99-4.659.99-7.132A8 8 0 008 4.07M3 15.364c.64-1.319 1-2.8 1-4.364 0-1.457.39-2.823 1.07-4" />
         </svg>
         <input class="pl-2 outline-none border-none bg-transparent text-white text-[12px] relative"
-          type="text"
-          name="username"
-          placeholder='User Name'  
-          autoComplete='off'  
-          onChange={handleChange}   
+          type="text" name='userName' value={values.userName} placeholder='Enter User Name'
+          onChange={handleChange}
         />
-          {errors.username && <span className='absolute text-sm text-red-600 bottom-[460px] '>{errors.username}</span>}  
+        {errors.userName && <h4 className='text-red-600 absolute bottom-[-25px] text-[12px]'>{errors.userName}</h4>}
       </div>
       
-      <div className='flex items-center px-3 py-2 mt-8 mb-4 border-2 rounded-xl'>
+      <div className='relative flex items-center px-3 py-2 mt-8 mb-4 border-2 rounded-xl'>
       <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white" viewBox="0 0 20 20"
         fill="currentColor">
         <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
           clip-rule="evenodd" />
           </svg>
-        <input class="pl-2 outline-none border-none bg-transparent text-white text-[12px] relative"
-          type="text"
-          name="firstName"
-          placeholder='First Name'  
-          autoComplete='off'  
-          onChange={handleChange}   
+        <input class="pl-2 outline-none border-none bg-transparent text-white text-[12px]"
+          type="text" name='firstName' value={values.firstName} placeholder='Enter First Name'
+          onChange={handleChange}  
+            
         />
-          {errors.firstName && <span className='absolute text-sm text-red-600 bottom-[386px] '>{errors.firstName}</span>}  
+        {errors.firstName && <h4 className='text-red-600 absolute bottom-[-25px] text-[12px]'>{errors.firstName}</h4>}
+
       </div>
       
-      <div className='flex items-center px-3 py-2 mt-8 mb-4 border-2 rounded-xl'>
+      <div className='relative flex items-center px-3 py-2 mt-8 mb-4 border-2 rounded-xl'>
       <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white" viewBox="0 0 20 20"
         fill="currentColor">
         <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
@@ -159,46 +115,28 @@ function Register() {
 
           </svg>
         <input class="pl-2 outline-none border-none bg-transparent text-white text-[12px] relative"
-          type="text"
-          name="lastName"
-          placeholder='Last Name'  
-          autoComplete='off'  
-          onChange={handleChange}   
+          type="text" name='lastName' value={values.lastName} placeholder='Enter Last name'
+          onChange={handleChange}
+           
         />
-          {errors.lastName && <span className='absolute text-sm text-red-600 bottom-[316px] mt-8'>{errors.lastName}</span>}  
+        {errors.lastName && <h4 className='text-red-600 absolute bottom-[-25px] text-[12px]'>{errors.lastName}</h4>}
+
       </div>
       
-      <div className='flex items-center px-3 py-2 mt-8 mb-4 border-2 rounded-xl'>
+      <div className='relative flex items-center px-3 py-2 mt-8 mb-4 border-2 rounded-xl'>
       <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white" fill="none"
             viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
               d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207" />
       </svg>
-        <input  class="pl-2 outline-none border-none bg-transparent text-white text-[12px] relative"
-          type="email"
-          name="email"
-          placeholder='Email'
-          autoComplete='off'
-          onChange={handleChange} 
-        />
-          {errors.email && <span className='absolute text-sm text-red-600 bottom-[245px]' >{errors.email}</span>}  
-      </div>
-      <div className='flex items-center px-3 py-2 mt-8 mb-4 border-2 rounded-xl'>
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white" viewBox="0 0 20 20"
-              fill="currentColor">
-              <path fill-rule="evenodd"
-                d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z"
-                clip-rule="evenodd" />
-            </svg>
         <input class="pl-2 outline-none border-none bg-transparent text-white text-[12px] relative"
-          type="password"
-          name="password"
-          placeholder="Password"
-          onChange={handleChange} 
+          type="email" name='email' value={values.email} placeholder='Enter email'
+          onChange={handleChange}
         />
-          {errors.password && <span className='absolute text-sm text-red-600 bottom-[175px]'>{errors.password}</span>}  
+        {errors.email && <h4 className='text-red-600 absolute bottom-[-25px] text-[12px]'>{errors.email}</h4>}
+
       </div>
-      <div className='flex items-center px-3 py-2 mt-8 mb-4 border-2 rounded-xl'>
+      <div className='relative flex items-center px-3 py-2 mt-8 mb-4 border-2 rounded-xl'>
       <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white" viewBox="0 0 20 20"
               fill="currentColor">
               <path fill-rule="evenodd"
@@ -206,15 +144,30 @@ function Register() {
                 clip-rule="evenodd" />
       </svg>
         <input class="pl-2 outline-none border-none bg-transparent text-white text-[12px] relative"
-          type="password"
-          name="confirmPassword"
-          placeholder='Confirm Password'
-          onChange={handleChange} 
+          type="password" name='password' value={values.password} placeholder='Enter Password'
+          onChange={handleChange}
         />
-          {errors.confirmPassword && <span className='absolute text-sm text-red-600 bottom-[105px]'>{errors.confirmPassword}</span>}  
+        {errors.password && <h4 className='text-red-600 absolute bottom-[-25px] text-[12px]'>{errors.password}</h4>}
+
+      </div>
+      
+      <div className='relative flex items-center px-3 py-2 mt-8 mb-4 border-2 rounded-xl'>
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white" viewBox="0 0 20 20"
+              fill="currentColor">
+              <path fill-rule="evenodd"
+                d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z"
+                clip-rule="evenodd" />
+      </svg>
+        <input class="pl-2 outline-none border-none bg-transparent text-white text-[12px] relative"
+          type="password" name='cPassword' value={values.cPassword} placeholder='Confirm password'
+          onChange={handleChange}
+        />
+        {errors.cPassword && <h4 className='text-red-600 absolute bottom-[-25px] text-[12px]'>{errors.cPassword}</h4>}
+
+
       </div>
       <button type="submit" class="block w-full bg-[#aaff00]/80  py-2 rounded-xl text-white font-semibold mb-2 uppercase mt-8">
-        { !isLoading && <h3>Sign In</h3>} { isLoading && <div className='flex justify-center w-full'><img src={loaderGif} alt='' className='flex w-[100px] py-1 justify-center' /></div>}
+        { !isLoading && <h3>Sign Up</h3>} { isLoading && <div className='flex justify-center w-full'><img src={loaderGif} alt='' className='flex w-[100px] py-1 justify-center' /></div>}
       
       </button>
       <span class="text-sm ml-2  text-white">Already have an account ?</span>

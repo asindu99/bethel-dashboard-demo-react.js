@@ -51,10 +51,12 @@ function DashboardHome() {
 
     const storageDetails = useSelector((state) => state.storageDetailsReducer)
   return (
-    <div className='text-white w-full'>
+
+    <div className='w-full text-white'>
+
 
       {/* topic container */}
-      <div className='flex'>
+      <div className='flex '>
         <div>
           <img src={iconHome} alt="" className='w-[20px] inline-block' /> /
         </div>
@@ -72,17 +74,16 @@ function DashboardHome() {
 
 
         {/* main container */}
-        <div className='w-full flex mt-4 lg:gap-2 md:gap-4 sm:gap-4 pr-3 justify-around flex-wrap'>
+        <div className='flex justify-around w-full pr-3 mt-4 lg:flex-row lg:gap-8 md:gap-4 sm:gap-4 md:flex-col sm:flex-col min-[320px]:flex-col'>
 
           {/* start- card divs */}
-          <div className='flex flex-col gap-8 w-[600px]'>
+          <div className='flex flex-col justify-center lg:w-1/2 md:w-full sm:w-full min-[320px]:w-full gap-x-8 gap-y-8'>
             {/* 2 cards DIVS */}
             
             {/* 1 row - cards  */}
             <div className='flex lg:flex-row md:flex-row sm:flex-col min-[320px]:flex-col justify-center items-center gap-4'>
               {/* car 1 */}
-              <div className='flex items-center w-full justify-between px-8 py-12 rounded-md
-              backdrop-blur-xl bg-gradient-to-b from-bethel-white/5 to-bethel-green/5'>
+              <div className='flex items-center justify-between w-full px-8 py-12 rounded-md backdrop-blur-xl bg-gradient-to-b from-bethel-white/10 to-bethel-green/5'>
                   <div className='flex flex-col '>
                     <h3 className='text-[1.3rem] font-bold'>BUCKETS</h3>
                     <h3 className='text-white/50'>Total buckets : 1</h3>
@@ -96,11 +97,14 @@ function DashboardHome() {
               </div>
 
               {/* card 2 */}
-              <div className='flex items-center w-full justify-between px-8 lg:py-8 md:py-8 sm:py-10 min-[320px]:py-14 rounded-md
-              backdrop-blur-xl bg-gradient-to-b from-bethel-white/5 to-bethel-green/5'>
-                  <div className='flex flex-col '>
+              <div className='flex items-center w-full justify-between px-8 lg:py-12 md:py-12 sm:py-10 min-[320px]:py-14 rounded-md
+              backdrop-blur-xl bg-gradient-to-b from-bethel-white/10 to-bethel-green/5'>
+                  <div className='relative flex flex-col '>
                     <h3 className='text-[1.3rem] font-bold'>STORAGE</h3>
-                    <h3 className='text-white/50'>Total storage : {storageDetails.totalsize}</h3>
+                    <h3 className='text-white/50 '>Total storage : </h3> 
+                    <div className='absolute bottom-[-25px]'>
+                      {storageDetails.totalsize}
+                    </div>
                   </div>
 
                   <div className="relative">
@@ -111,16 +115,10 @@ function DashboardHome() {
               </div>
             </div>
 
-
-
-
-
             {/* 2nd cards DIVS */}
             <div className='flex gap-4 lg:flex-row md:flex-row sm:flex-col min-[320px]:flex-col justify-center items-center'>
               {/* car 1 */}
-              <div className='flex items-center w-full justify-between px-8 py-14 rounded-md
-              
-              backdrop-blur-xl bg-gradient-to-b from-bethel-white/5 to-bethel-green/5'>
+              <div className='flex items-center justify-between w-full px-8 py-12 rounded-md backdrop-blur-xl bg-gradient-to-b from-bethel-white/10 to-bethel-green/5'>
                   <div className='flex flex-col'>
                     <h3 className='text-[1.3rem] font-bold'>OBJECTS</h3>
                     <h3 className='text-white/50'>Total objects : {storageDetails.filecount}</h3>
@@ -134,8 +132,7 @@ function DashboardHome() {
               </div>
 
               {/* card 2 */}
-              <div className='flex items-center w-full justify-between px-8 py-14 rounded-md
-              backdrop-blur-xl bg-gradient-to-b from-bethel-white/5 to-bethel-green/5'>
+              <div className='flex items-center justify-between w-full px-8 py-12 rounded-md backdrop-blur-xl bg-gradient-to-b from-bethel-white/10 to-bethel-green/5'>
                   <div className='flex flex-col '>
                     <h3 className='text-[1.3rem] font-bold'>BANDWIDTH</h3>
                     <h3 className='text-white/50'>Total bandwidth : 0</h3>
@@ -153,24 +150,22 @@ function DashboardHome() {
           </div>
           {/* end- card div */}
 
+
           {/* start- chart div */}
           <div className='flex lg:mt-0 md:mt-2 sm:mt-2 min-[320px]:mt-4
-           lg:flex-row md:flex sm:flex-col min-[320px]:flex-col items-center gap-2 bg-gradient-to-b from-bethel-white/5 to-bethel-green/5 p-4 relative w-[600px]
-          lg:gap-0 md:gap-10 '>
+           lg:flex-row md:flex sm:flex-col min-[320px]:flex-col items-center gap-2 bg-gradient-to-b from-bethel-white/10 to-bethel-green/5  relative
+          lg:gap-0 md:gap-10  lg:w-1/2 rounded-md md:w-full sm:w-full min-[320px]:w-full'>
             <div className=''>
-              <div className='absolute right-4 top-2'>
-                <h3 className='text-[1.3rem] text-white/40 font-bold uppercase '>Storage Chart</h3>
-              </div>
 
-              <Doughnut  className='mt-4 w-full'
+              <Doughnut  className='w-full mt-4'
               data = {{
                 labels: [
                   'Total',
-                  'Remaining'
+                  'Used'
                 ],
                 datasets: [{
                   label: 'My First Dataset',
-                  data: [100,30],
+                  data: [100,storageDetails.totalsize],
                   backgroundColor: [
                     'rgb(255, 255 , 255 )',
                     'rgb(170, 255, 0)',
@@ -240,8 +235,8 @@ function DashboardHome() {
         {/* end-main container */}
 
         {/* start-second container */}
-        <div className='pb-10 items-center flex lg:flex-row md:flex-col sm:flex-col min-[320px]:flex-col mt-6 justify-center gap-6'>
-            <div className='lg:w-[600px] md:w-[600px] sm:w-full min-[320px]:w-full bg-gradient-to-b from-bethel-white/5 to-bethel-green/5 p-4 '>
+        <div className='flex w-full pb-10 mt-6 lg:flex-row gap-x-6 md:flex-col sm:flex-col min-[320px]:flex-col gap-y-8 justify-evenly'>
+            <div className='rounded-md lg:w-1/2 md:w-full sm:w-full min-[320px]:w-full bg-gradient-to-b from-bethel-white/10 to-bethel-green/5'>
               <Line data={{
             labels: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri','Sat'],
             datasets: [{
@@ -259,7 +254,7 @@ function DashboardHome() {
               }} />
             </div>
 
-            <div className='lg:w-[600px] md:w-[600px] sm:w-full min-[320px]:w-full  bg-gradient-to-b from-bethel-white/5 to-bethel-green/5 p-4 rounded-md'>
+            <div className='rounded-md lg:w-1/2 md:w-full sm:w-full min-[320px]:w-full lg:ml-4 bg-gradient-to-b from-bethel-white/10 to-bethel-green/5'>
               <Bar data={{
         labels: ['Files', 'Videos', 'Images', 'Musics'],
         datasets: [{

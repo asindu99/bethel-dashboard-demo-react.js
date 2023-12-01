@@ -8,7 +8,7 @@ module.exports = {
       colors: {
         'bethel-green': '#aaff00',
 
-        'bethel-white': '#ffffff'  
+        'bethel-white': '#ffffff'
 
       }
     }
