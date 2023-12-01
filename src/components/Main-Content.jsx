@@ -5,8 +5,8 @@ import DashboardHome from "./Dashboard-Home";
 import DashboardStorage from "./Dashboard-Storage";
 import DashboardProfile from "./Dashboard-Profile";
 import DashboardStorageFolder from "./Dashboard-Storage_Folder";
-import { useDispatch } from "react-redux";
-import toggleSidebarSlice from "../reducers/toggleSidebar";
+// import { useDispatch } from "react-redux";
+// import toggleSidebarSlice from "../reducers/toggleSidebar";
 import { useEffect, useState } from "react";
 import "../components/style.css"
 
@@ -19,7 +19,7 @@ function MainContent() {
 
     setTimeout(() => {
       setIsLoading(false)
-    }, 3000);
+    }, 2000)
   },[])
 
   
@@ -38,17 +38,17 @@ function MainContent() {
       
       {/* middle routing  */}
       { isLoading && <div className="relative pt-24 lg:pl-[270px] text-white lg:md-[270px] sm:pl-[10px] lg:px-0 md:px-0 sm:px-4 min-[320px]:px-4 w-full z-[10]">
-          <div class="loading w-full">
-            <div class="loading-text">
-              <span class="loading-text-words">L</span>
-              <span class="loading-text-words">O</span>
-              <span class="loading-text-words">A</span>
-              <span class="loading-text-words">D</span>
-              <span class="loading-text-words">I</span>
-              <span class="loading-text-words">N</span>
-              <span class="loading-text-words">G</span>
-            </div>
+        <div class="loading">
+          <div class="loading-text">
+            <span class="loading-text-words">L</span>
+            <span class="loading-text-words">O</span>
+            <span class="loading-text-words">A</span>
+            <span class="loading-text-words">D</span>
+            <span class="loading-text-words">I</span>
+            <span class="loading-text-words">N</span>
+            <span class="loading-text-words">G</span>
           </div>
+        </div>
       </div>}
 
       { !isLoading && <div  className="relative pt-24 lg:pl-[270px] lg:md-[270px] sm:pl-[10px] lg:px-0 md:px-0 sm:px-4 min-[320px]:px-4 w-full z-[10]">
