@@ -77,7 +77,7 @@ function DashboardHome() {
         <div className='flex justify-around w-full pr-3 mt-4 lg:flex-row lg:gap-8 md:gap-4 sm:gap-4 md:flex-col sm:flex-col min-[320px]:flex-col'>
 
           {/* start- card divs */}
-          <div className='flex flex-col justify-center lg:w-1/2 md:w-full sm:w-full min-[320px]:w-full gap-x-8 gap-y-6'>
+          <div className='flex flex-col justify-center lg:w-1/2 md:w-full sm:w-full min-[320px]:w-full gap-x-8 gap-y-8'>
             {/* 2 cards DIVS */}
             
             {/* 1 row - cards  */}
@@ -99,9 +99,12 @@ function DashboardHome() {
               {/* card 2 */}
               <div className='flex items-center w-full justify-between px-8 lg:py-12 md:py-12 sm:py-10 min-[320px]:py-14 rounded-md
               backdrop-blur-xl bg-gradient-to-b from-bethel-white/10 to-bethel-green/5'>
-                  <div className='flex flex-col '>
+                  <div className='relative flex flex-col '>
                     <h3 className='text-[1.3rem] font-bold'>STORAGE</h3>
-                    <h3 className='text-white/50'>Total storage : {storageDetails.totalsize}</h3>
+                    <h3 className='text-white/50 '>Total storage : </h3> 
+                    <div className='absolute bottom-[-25px]'>
+                      {storageDetails.totalsize}
+                    </div>
                   </div>
 
                   <div className="relative">
@@ -150,22 +153,19 @@ function DashboardHome() {
 
           {/* start- chart div */}
           <div className='flex lg:mt-0 md:mt-2 sm:mt-2 min-[320px]:mt-4
-           lg:flex-row md:flex sm:flex-col min-[320px]:flex-col items-center gap-2 bg-gradient-to-b from-bethel-white/10 to-bethel-green/5 p-4 relative
+           lg:flex-row md:flex sm:flex-col min-[320px]:flex-col items-center gap-2 bg-gradient-to-b from-bethel-white/10 to-bethel-green/5  relative
           lg:gap-0 md:gap-10  lg:w-1/2 rounded-md md:w-full sm:w-full min-[320px]:w-full'>
             <div className=''>
-              <div className='absolute right-4 top-2'>
-                {/* <h3 className='text-[1.3rem] text-white/40 font-bold uppercase '>Storage Chart</h3> */}
-              </div>
 
               <Doughnut  className='w-full mt-4'
               data = {{
                 labels: [
                   'Total',
-                  'Remaining'
+                  'Used'
                 ],
                 datasets: [{
                   label: 'My First Dataset',
-                  data: [100,30],
+                  data: [100,storageDetails.totalsize],
                   backgroundColor: [
                     'rgb(255, 255 , 255 )',
                     'rgb(170, 255, 0)',
