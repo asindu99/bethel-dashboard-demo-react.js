@@ -51,7 +51,9 @@ function DashboardHome() {
 
     const storageDetails = useSelector((state) => state.storageDetailsReducer)
   return (
+
     <div className='w-full text-white'>
+
 
       {/* topic container */}
       <div className='flex '>
