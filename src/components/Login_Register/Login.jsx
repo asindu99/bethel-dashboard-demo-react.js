@@ -117,7 +117,7 @@ const handleSubmit = async(e) =>{
 
       { logFail && <div>
 
-        <h3 className='text-sm text-center text-red-700'>Invalid Email or Password</h3>
+        <h3 className='text-sm text-center text-red-700 border-2 rounded-lg border-bethel-green p-2'>Invalid Email or Password</h3>
       </div> }
       
       <div class="flex items-center justify-center pt-10">
