@@ -7,9 +7,7 @@ module.exports = {
     extend: {
       colors: {
         'bethel-green': '#aaff00',
-
         'bethel-white': '#ffffff'
-
       }
     }
   },
