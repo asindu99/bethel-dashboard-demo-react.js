@@ -11,10 +11,10 @@ import { useEffect, useState } from "react";
 import "../components/style.css"
 import { useDispatch } from "react-redux";
 import toggleSidebarSlice from "../reducers/toggleSidebar";
+import DashboardWallet from "./Dashboard-Wallet";
 
 function MainContent() {
   const [isLoading , setIsLoading] = useState(true)
-
   const dispatch = useDispatch();
 
   useEffect(()=>{
@@ -68,6 +68,7 @@ function MainContent() {
           <Route path="/dashboard/storage" element={<DashboardStorage />} />
           <Route path="/dashboard/profile" element={<DashboardProfile />} />
           <Route path="/dashboard/storage/folder" element={<DashboardStorageFolder />} />
+          <Route path='/dashboard/wallet' element={<DashboardWallet />} />
         </Routes>
       </div>}
       

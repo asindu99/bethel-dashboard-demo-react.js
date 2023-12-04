@@ -30,7 +30,14 @@ export default function DashboardProfile() {
   const userData = useSelector((state)=> state.loginReducer) //get the user id
   const userId = userData._id
 
-  const [firstName , setFirstName] = useState('');
+  const [user , setUser] = useState({
+    firstName : '',
+    lastName : '',
+    country : '',
+    code : '',
+    mobile : ''
+  });
+  
 
   const Details = useSelector((state)=> state.userDataReducer) //get the data from store
 
@@ -43,33 +50,40 @@ export default function DashboardProfile() {
         setIsLoading(true)
         console.log(countryName)
 
-        const details = {
-          details: {
-              "firstName": values.firstName,
-              "lastName": values.lastName,
-              "country": values.country,
-              "code": values.code,
-              "mobile": values.mobile
-          }
-      };
+        user.firstName = values.firstName;
+        user.lastName = values.lastName;
+        user.country = values.country;
+        user.code = values.code;
 
-    const res2 = await axios.patch("https://mw.bethel.network/users/" + userId , details ,{withCredentials : true})
-    const res = await axios.get('https://mw.bethel.network/users/' + userId ,{withCredentials : true})
+        console.log(user)
+
+      //   const details = {
+      //     details: {
+      //         "firstName": values.firstName,
+      //         "lastName": values.lastName,
+      //         "country": values.country,
+      //         "code": values.code,
+      //         "mobile": values.mobile
+      //     }
+      // };
+
+    // const res2 = await axios.patch("https://mw.bethel.network/users/" + userId , details ,{withCredentials : true})
+    // const res = await axios.get('https://mw.bethel.network/users/' + userId ,{withCredentials : true})
     
-    setIsLoading(false);
-    setSuccess(true)
+    // setIsLoading(false);
+    // setSuccess(true)
 
-    setTimeout(() => {
-      setSuccess(false)
-    }, 2000);
+    // setTimeout(() => {
+    //   setSuccess(false)
+    // }, 2000);
 
-    values.firstName = ''
-    values.lastName = ''
-    values.country = ''
-    values.mobile = ''
+    // values.firstName = ''
+    // values.lastName = ''
+    // values.country = ''
+    // values.mobile = ''
 
-    dispatch(LoginSlice.actions.saveUser(res.data))
-    dispatch(userDataSlice.actions.saveUserData(res2.data))
+    // dispatch(LoginSlice.actions.saveUser(res.data))
+    // dispatch(userDataSlice.actions.saveUserData(res2.data))
       }
     })
   return (
@@ -105,7 +119,7 @@ export default function DashboardProfile() {
                   clip-rule="evenodd" />
                   </svg>
                 <input class="pl-2 outline-none border-none bg-transparent text-white text-[12px]"
-                  type="text" name='firstName' value={values.firstName} placeholder={Details.details.firstName}
+                  type="text" name='firstName' value={values.firstName} placeholder={user.firstName}
                   onChange={handleChange}
                     
                 />
