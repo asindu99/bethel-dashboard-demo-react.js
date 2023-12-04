@@ -247,7 +247,8 @@ function SideBar() {
             {/* end-storage */}
 
             {/* start-dashboard */}
-            <div className='flex  w-full px-10 hover:bg-bethel-green/10  py-2'>
+            <Link to='/dashboard/wallet' className='w-full'>
+            <div className='flex  w-full px-10 hover:bg-bethel-green/50  py-2'>
               <div>
                 {/* start-inside box */}
                 <div className='flex w-full gap-2'>
@@ -259,6 +260,7 @@ function SideBar() {
                 {/* end-insidebox */}
               </div>
             </div>
+            </Link>
             {/* end-dashboard */}
 
             {/* start-dashboard */}

@@ -72,9 +72,9 @@ function Register() {
         {/* Heading section */}
         <div className='relative'>
       <h1 className='text-center text-[18px] text-white pt-4 uppercase'>Register</h1>
-      <div className='absolute -top-32'>
+      <div className='absolute -top-32 left-12'>
       <h3 className='text-center text-white text-[48px] font-bold'>Welcome!</h3>
-      <p className='text-center text-white text-[14px]'>Use these awesome forms to login or create new account in your project for free.</p>
+      <p className='text-center text-white text-[14px]'>Enter Your email address and password details ! </p>
       </div>
         </div>
         {/* Form section */}

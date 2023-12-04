@@ -86,7 +86,7 @@ const handleSubmit = async(e) =>{
         
       <div className='absolute -top-36'>
         <h3 className='text-center text-white text-[48px] font-bold'>Welcome!</h3>
-        <p className='text-center text-white text-[14px]'>Use these awesome forms to login or create new account in your project for free.</p>
+        <p className='text-center text-white text-[14px]'>Please sign in to the your account and start the adventure!</p>
       </div>
         
       
@@ -125,12 +125,18 @@ const handleSubmit = async(e) =>{
       <div class="flex items-center justify-center pt-10">
             <span class="text-sm ml-2  text-white">New to our platform ? <span class="text-gray-400 text-sm cursor-pointer">Create an account</span></span>
       </div>
-      <div class="flex items-center justify-center">
+      <div class="flex items-center justify-center relative">
       <Link to='/register'><span class="text-bethel-green cursor-pointer text-center ">Register</span></Link>
+
+      <div className='absolute bottom-[-30px] text-[10px] text-white'>
+        <h3>Version 3.4</h3>
+      </div>
       </div>
        
         </form>  
       </div>
+
+      
       
     </div>  
     
