@@ -69,10 +69,10 @@ export default function ChangePasswordProfile() {
   return (
     <section>
        {/* Change Password section */}
-      <div className='flex flex-col h-[610px] w-full  backdrop-blur-xl bg-gradient-to-b from-bethel-white/5 to-bethel-green/5 rounded-md '>
+      <div className='flex flex-col h-[610px] backdrop-blur-xl bg-gradient-to-b from-bethel-white/5 to-bethel-green/5 rounded-md'>
 
-          <div className='flex w-full justify-center mt-6'>
-            <h3 className='text-[24px] text-white '>Edit Profile</h3>
+          <div className='flex justify-center mt-6'>
+            <h3 className='text-[24px] text-white '>Change Password</h3>
           </div>
             <form onSubmit={handleSubmit} className='px-10 py-2'>
 
@@ -143,7 +143,7 @@ export default function ChangePasswordProfile() {
                 { !isLoading && <h3>Save hanges</h3>} { isLoading && <div className='flex justify-center w-full'><img src={loaderGif} alt='' className='flex w-[100px] py-1 justify-center' /></div>}
               </button>
 
-              { success && <h3 className='mt-2 text-sm text-center text-green-700 border-2 rounded-lg border-bethel-green p-2'>Sucess</h3> }
+              { success && <h3 className='p-2 mt-2 text-sm text-center text-green-700 border-2 rounded-lg border-bethel-green'>Sucess</h3> }
 
               
      
