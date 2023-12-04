@@ -6,7 +6,6 @@ import axios from 'axios'
 
 function DashboardStorage() {
 
-
   // get user ID
   const userData = useSelector((state)=> state.loginReducer)
   const userId = userData._id
@@ -44,10 +43,7 @@ function DashboardStorage() {
           
           
         </div>
-        </Link>
-        
-       
-        
+        </Link>  
         </div>
   </section>
   )
