@@ -159,7 +159,7 @@ export default function DashboardProfile() {
                 <select as="select" onChange={handleChange} name='country' class="w-full flex justify-between pl-2 outline-none items-center border-none bg-transparent text-white text-[12px] relative">
                   <option value="" selected disabled hidden>{Details.details.country}</option>
                   {country.map((country) =>{
-                    return  <option value={country.Name} className='flex items-center w-full justify-between bg-transparent text-[black]'> 
+                    return  <option value={[country.Name, country.MobileCode]} className='flex items-center w-full justify-between bg-transparent text-[black]'> 
                         {country.Name} {country.MobileCode}
                      </option>
                   })}
