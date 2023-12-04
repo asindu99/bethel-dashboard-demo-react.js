@@ -25,6 +25,7 @@ function Register() {
 
       onSubmit : async (values) =>{
         console.log(values)
+        setIsLoading(true)
 
           const res = await axios.post('https://mw.bethel.network/auth/register', {
                     email: values.email,
