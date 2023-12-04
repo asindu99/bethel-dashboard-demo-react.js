@@ -52,11 +52,11 @@ function Navbar() {
             </div>
 
             {/* drop down menu */}
-            <button onClick={handleToggle} >
+            {/* <button onClick={handleToggle} >
               <div>
                 <img src={iconDrop} alt="" className='w-[20px] lg:flex md:hidden sm:hidden min-[32px]:hidden'/>
               </div>
-            </button>
+            </button> */}
            
           </div>
 
