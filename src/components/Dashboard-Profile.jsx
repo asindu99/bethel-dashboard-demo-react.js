@@ -1,5 +1,5 @@
 import axios from 'axios'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import iconStorage from "../Images/icons/icon-storage.png"
 import loaderGif from '../Images/Animation-gifs/loading-6324_256.gif'
@@ -7,7 +7,7 @@ import LoginSlice from '../reducers/Loginreducer';
 import userDataSlice from '../reducers/userDataReducer'
 import ChangePasswordProfile from './Change-Password-Profile';
 import { useFormik ,Field , Form } from 'formik';
-import {EditProfileValidation} from "../components/Validations/EditProfile"
+// import {EditProfileValidation} from "../components/Validations/EditProfile"
 
 
 const initialValues = {
@@ -30,60 +30,73 @@ export default function DashboardProfile() {
   const userData = useSelector((state)=> state.loginReducer) //get the user id
   const userId = userData._id
 
-  const [user , setUser] = useState({
-    firstName : '',
-    lastName : '',
-    country : '',
-    code : '',
-    mobile : ''
-  });
-  
-
   const Details = useSelector((state)=> state.userDataReducer) //get the data from store
+
+  // const [user , setUser ] = useState({
+  //   firstName : '',
+  //   lastName : '',
+  //   country : '',
+  //   mobile : '',
+  // })
+
+  // useEffect(()=>{
+  //   setUser({
+  //   firstName : Details.details.fristName,
+  //   lastName : Details.details.lastName,
+  //   country : Details.details.country,
+  //   mobile : Details.details.mobile
+  // })
+  // },[])
+
+  
 
   const {values , handleChange, handleSubmit, errors } = useFormik({
       initialValues : initialValues,
-      validationSchema: EditProfileValidation,
-
+      // validationSchema: EditProfileValidation,
 
       onSubmit : async (values) =>{ //submit func 
         setIsLoading(true)
-        console.log(countryName)
 
-        user.firstName = values.firstName;
-        user.lastName = values.lastName;
-        user.country = values.country;
-        user.code = values.code;
+        if(!values.firstName){
+          values.firstName = Details.details.firstName
+        }
+        if(!values.lastName){
+          values.lastName = Details.details.lastName
+        }
+        if(!values.country){
+          values.country = Details.details.country
+        }
+        if(!values.mobile){
+          values.mobile = Details.details.mobile
+        }
 
-        console.log(user)
+        const details = {
+          details: {
+              "firstName": values.firstName,
+              "lastName": values.lastName,
+              "country": values.country,
+              "code": values.code,
+              "mobile": values.mobile
+          }
+      };
 
-      //   const details = {
-      //     details: {
-      //         "firstName": values.firstName,
-      //         "lastName": values.lastName,
-      //         "country": values.country,
-      //         "code": values.code,
-      //         "mobile": values.mobile
-      //     }
-      // };
-
-    // const res2 = await axios.patch("https://mw.bethel.network/users/" + userId , details ,{withCredentials : true})
-    // const res = await axios.get('https://mw.bethel.network/users/' + userId ,{withCredentials : true})
+    const res2 = await axios.patch("https://mw.bethel.network/users/" + userId , details ,{withCredentials : true})
+    const res = await axios.get('https://mw.bethel.network/users/' + userId ,{withCredentials : true})
     
-    // setIsLoading(false);
-    // setSuccess(true)
+    setIsLoading(false);
+    setSuccess(true)
 
-    // setTimeout(() => {
-    //   setSuccess(false)
-    // }, 2000);
+    setTimeout(() => {
+      setSuccess(false)
+    }, 2000);
 
-    // values.firstName = ''
-    // values.lastName = ''
-    // values.country = ''
-    // values.mobile = ''
+    values.firstName = ''
+    values.lastName = ''
+    values.country = ''
+    values.mobile = ''
 
-    // dispatch(LoginSlice.actions.saveUser(res.data))
-    // dispatch(userDataSlice.actions.saveUserData(res2.data))
+    dispatch(LoginSlice.actions.saveUser(res.data))
+    dispatch(userDataSlice.actions.saveUserData(res2.data))
       }
     })
   return (
@@ -106,7 +119,6 @@ export default function DashboardProfile() {
 
         <div className='flex flex-col h-[610px] lg:w-1/3 md:w-full backdrop-blur-xl bg-gradient-to-b from-bethel-white/5 to-bethel-green/5 rounded-md '>
 
-
           <div className='flex justify-center w-full mt-6'>
             <h3 className='text-[24px] text-white uppercase'>Edit Profile</h3>
           </div>
@@ -118,12 +130,11 @@ export default function DashboardProfile() {
                 <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
                   clip-rule="evenodd" />
                   </svg>
-                <input class="pl-2 outline-none border-none bg-transparent text-white text-[12px]"
-                  type="text" name='firstName' value={values.firstName} placeholder={user.firstName}
-                  onChange={handleChange}
-                    
+                <input class="pl-2 w-full outline-none border-none bg-transparent text-white text-[12px]"
+                  type="text" name="firstName" onChange={handleChange} defaultValue={Details.details.firstName}
+   
                 />
-                {errors.firstName && <h4 className='text-red-600 absolute bottom-[-25px] text-[12px]'>{errors.firstName}</h4>}
+                {/* {errors.firstName && <h4 className='text-red-600 absolute bottom-[-25px] text-[12px]'>{errors.firstName}</h4>} */}
 
               </div>
               
@@ -134,21 +145,22 @@ export default function DashboardProfile() {
                   clip-rule="evenodd" />
 
                   </svg>
-                <input class="pl-2 outline-none border-none bg-transparent text-white text-[12px] relative"
-                  type="text" name='lastName' value={values.lastName} placeholder={Details.details.lastName}
+                <input class="pl-2 w-full outline-none border-none bg-transparent text-white text-[12px] relative"
+                  type="text" name='lastName' defaultValue={Details.details.lastName} placeholder={Details.details.lastName}
                   onChange={handleChange}
                   
                 />
-                {errors.lastName && <h4 className='text-red-600 absolute bottom-[-25px] text-[12px]'>{errors.lastName}</h4>}
+                {/* {errors.lastName && <h4 className='text-red-600 absolute bottom-[-25px] text-[12px]'>{errors.lastName}</h4>} */}
 
               </div>
 
               <div className='relative flex items-center px-3 py-2 mt-8 mb-4 border-2 rounded-xl'>
               <svg viewBox="0 0 24 24" fill="none" className="w-5 h-5" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path fill-rule="evenodd" clip-rule="evenodd" d="M6.15407 7.30116C7.52877 5.59304 9.63674 4.5 12 4.5C12.365 4.5 12.7238 4.52607 13.0748 4.57644L13.7126 5.85192L11.2716 8.2929L8.6466 8.6679L7.36009 9.95441L6.15407 7.30116ZM5.2011 8.82954C4.75126 9.79256 4.5 10.8669 4.5 12C4.5 15.6945 7.17133 18.7651 10.6878 19.3856L11.0989 18.7195L8.8147 15.547L10.3741 13.5256L9.63268 13.1549L6.94027 13.6036L6.41366 11.4972L5.2011 8.82954ZM7.95559 11.4802L8.05962 11.8964L9.86722 11.5951L11.3726 12.3478L14.0824 11.9714L18.9544 14.8135C19.3063 13.9447 19.5 12.995 19.5 12C19.5 8.93729 17.6642 6.30336 15.033 5.13856L15.5377 6.1481L11.9787 9.70711L9.35371 10.0821L7.95559 11.4802ZM18.2539 16.1414C16.9774 18.0652 14.8369 19.366 12.3859 19.4902L12.9011 18.6555L10.6853 15.578L12.0853 13.7632L13.7748 13.5286L18.2539 16.1414ZM12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21C16.9706 21 21 16.9706 21 12C21 7.02944 16.9706 3 12 3Z" fill="#ffffff"></path> </g></svg>
                 <select as="select" onChange={handleChange} name='country' class="w-full flex justify-between pl-2 outline-none items-center border-none bg-transparent text-white text-[12px] relative">
+                  <option value="" selected disabled hidden>{Details.details.country}</option>
                   {country.map((country) =>{
-                    return <option value={country.Name} className='flex items-center w-full justify-between bg-transparent text-[black]' >             
-                        {country.Name} ({country.MobileCode})
+                    return  <option value={country.Name} className='flex items-center w-full justify-between bg-transparent text-[black]'> 
+                        {country.Name} {country.MobileCode}
                      </option>
                   })}
                 </select>
@@ -158,7 +170,7 @@ export default function DashboardProfile() {
               <div className='relative flex items-center px-3 py-2 mt-8 mb-4 border-2 rounded-xl'>
               <svg viewBox="0 0 24 24" className="w-5 h-5" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path fill-rule="evenodd" clip-rule="evenodd" d="M17.3545 22.2323C15.3344 21.7262 11.1989 20.2993 7.44976 16.5502C3.70065 12.8011 2.2738 8.66559 1.76767 6.6455C1.47681 5.48459 2.00058 4.36434 2.88869 3.72997L5.21694 2.06693C6.57922 1.09388 8.47432 1.42407 9.42724 2.80051L10.893 4.91776C11.5152 5.8165 11.3006 7.0483 10.4111 7.68365L9.24234 8.51849C9.41923 9.1951 9.96939 10.5846 11.6924 12.3076C13.4154 14.0306 14.8049 14.5807 15.4815 14.7576L16.3163 13.5888C16.9517 12.6994 18.1835 12.4847 19.0822 13.1069L21.1995 14.5727C22.5759 15.5257 22.9061 17.4207 21.933 18.783L20.27 21.1113C19.6356 21.9994 18.5154 22.5232 17.3545 22.2323ZM8.86397 15.136C12.2734 18.5454 16.0358 19.8401 17.8405 20.2923C18.1043 20.3583 18.4232 20.2558 18.6425 19.9488L20.3056 17.6205C20.6299 17.1665 20.5199 16.5348 20.061 16.2171L17.9438 14.7513L17.0479 16.0056C16.6818 16.5182 16.0047 16.9202 15.2163 16.7501C14.2323 16.5378 12.4133 15.8569 10.2782 13.7218C8.1431 11.5867 7.46219 9.7677 7.24987 8.7837C7.07977 7.9953 7.48181 7.31821 7.99439 6.95208L9.24864 6.05618L7.78285 3.93893C7.46521 3.48011 6.83351 3.37005 6.37942 3.6944L4.05117 5.35744C3.74413 5.57675 3.64162 5.89565 3.70771 6.15943C4.15989 7.96418 5.45459 11.7266 8.86397 15.136Z" fill="#ffffff"></path> </g></svg>
                 <input class="w-full pl-2 outline-none border-none bg-transparent text-white text-[12px] relative"
-                  type="number" name='mobile' value={values.mobile} placeholder={Details.details.mobile}
+                  type="number" name='mobile' defaultValue={Details.details.mobile} placeholder={Details.details.mobile}
                   onChange={handleChange}
                   
                 />
