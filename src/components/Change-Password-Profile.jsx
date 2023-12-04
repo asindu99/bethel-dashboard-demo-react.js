@@ -1,15 +1,11 @@
 import axios from 'axios'
-import React, { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import userDataSlice from '../reducers/userDataReducer';
-import {useForm} from "react-hook-form"
+import React, {useState } from 'react'
+import { useSelector } from 'react-redux'
 // import userDataSlice from '../reducers/userDataReducer';
 
 import loaderGif from '../Images/Animation-gifs/loading-6324_256.gif'
-import LoginSlice from '../reducers/Loginreducer';
 import { useFormik } from 'formik';
 import {EditPasswordValidation} from "../components/Validations/EditPassword"
-import { Link } from 'react-router-dom';
 
 const initialValues = {
   email : '',
@@ -29,6 +25,8 @@ export default function ChangePasswordProfile() {
   // get user ID from store
   const userData = useSelector((state)=> state.loginReducer)
   const userId = userData._id
+
+  const Details = useSelector((state) =>state.userDataReducer)
 
   const {values , handleChange, handleSubmit, errors } = useFormik({
       initialValues : initialValues,
@@ -62,8 +60,6 @@ export default function ChangePasswordProfile() {
 
     })
 
-
- 
   //   }
   
   return (
@@ -82,7 +78,7 @@ export default function ChangePasswordProfile() {
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207" />
                 </svg>
-                  <input class="pl-2 outline-none border-none bg-transparent text-white text-[12px] relative" placeholder='Enter your email'
+                  <input class="pl-2 outline-none border-none bg-transparent text-white text-[12px] relative" placeholder={Details.email}
                     type="email" name='email' value={values.email}
                     onChange={handleChange}
                   />

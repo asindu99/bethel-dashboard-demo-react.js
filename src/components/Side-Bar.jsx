@@ -206,7 +206,7 @@ function SideBar() {
           {/* topic */}
           <div className='w-full flex flex-col justify-center items-center text-[1.4rem] mt-3'>
             <h1 className='text-white font-bold'>BETHEL TESTNET</h1>
-            <hr className='w-[90%] mt-1 opacity-20' />
+            <hr className='w-[90%] mt-4 opacity-20' />
           </div>
           {/* end-topic */}
 

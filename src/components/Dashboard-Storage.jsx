@@ -18,7 +18,7 @@ function DashboardStorage() {
   <section>
     
     {/* Heading section */}
-    <div className='flex'>
+    <div className='flex my-3'>
         <div>
           <img src={iconStorage} alt="" className='w-[20px] inline-block text-white' />         
           
