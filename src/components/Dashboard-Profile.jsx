@@ -72,13 +72,15 @@ export default function DashboardProfile() {
   return (
     <section>
       {/* Main profile content */}
-      <div className='flex lg:flex-nowrap md:flex-wrap sm:flex-wrap min-[320px]:flex-wrap sm justify-center  gap-x-5 gap-y-5 pr-2'>
+      <div className='flex lg:flex-row md:flex-row sm:flex-col min-[320px]:flex-col gap-x-5 gap-y-5 pr-2'>
         
         {/* Edit profile section */}
 
+
         <div className='flex flex-col h-[610px] lg:w-1/3 md:w-full backdrop-blur-xl bg-gradient-to-b from-bethel-white/5 to-bethel-green/5 rounded-md '>
 
-          <div className='flex w-full justify-center mt-6'>
+
+          <div className='flex justify-center w-full mt-6'>
             <h3 className='text-[24px] text-white '>Edit Profile</h3>
           </div>
             <form onSubmit={handleSubmit} className='px-10 py-2'>
@@ -150,10 +152,11 @@ export default function DashboardProfile() {
                 { !isLoading && <h3>Save Changes</h3>} { isLoading && <div className='flex justify-center w-full'><img src={loaderGif} alt='' className='flex w-[100px] py-1 justify-center' /></div>}
               </button>
                
-              { success && <h3 className='mt-2 text-sm text-center text-green-700 border-2 rounded-lg border-bethel-green p-2'>Sucess</h3> }
+              { success && <h3 className='p-2 mt-2 text-sm text-center text-green-700 border-2 rounded-lg border-bethel-green'>Sucess</h3> }
 
         </form>
         </div>
+
 
         <div className='lg:w-1/3 md:w-full'>
           <ChangePasswordProfile></ChangePasswordProfile>
@@ -162,6 +165,7 @@ export default function DashboardProfile() {
         
         {/* Information section */}
         <div className='lg:w-1/3 md:w-full h-[610px] backdrop-blur-xl bg-gradient-to-b from-bethel-white/5 to-bethel-green/5 rounded-md gap-y-8 px-10 py-10'>
+
           
           {/*Profile section heading*/}
           <div>
