@@ -30,11 +30,14 @@ export default function DashboardProfile() {
   const userData = useSelector((state)=> state.loginReducer) //get the user id
   const userId = userData._id
 
+  const [firstName , setFirstName] = useState('');
+
   const Details = useSelector((state)=> state.userDataReducer) //get the data from store
 
   const {values , handleChange, handleSubmit, errors } = useFormik({
       initialValues : initialValues,
       validationSchema: EditProfileValidation,
+
 
       onSubmit : async (values) =>{ //submit func 
         setIsLoading(true)
