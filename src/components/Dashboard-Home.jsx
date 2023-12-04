@@ -15,14 +15,18 @@ import axios from 'axios'
 import userDataSlice from '../reducers/userDataReducer'
 import storageDataSlice from '../reducers/storageDetailsSlice'
 import uploadSlice from '../reducers/uploadDetailsSlice'
+import { useNavigate } from 'react-router-dom'
 
 
 function DashboardHome() {
   //  const [storageDetails , setStorageDetails] = useState(null)
   const dispatch = useDispatch();
+  const Navigate = useNavigate();
   // get user ID
-  const userData = useSelector((state)=> state.loginReducer)
-  const userId = userData._id
+    const userData = useSelector((state)=> state.loginReducer)
+    const userId = userData._id
+  
+  
 
 
   // get all the data and save to the store funcs ----------------------
@@ -39,11 +43,13 @@ function DashboardHome() {
     dispatch(uploadSlice.actions.uploadData(res2.data))
    }
 
-  useEffect(()=>{
+    useEffect(()=>{
       fetchData();
       getStorageData();
       getUploadData();
     },[])
+  
+  
 
     const fetchData = async() =>{
       const res = await axios.get('https://mw.bethel.network/users/' + userId ,{withCredentials : true})

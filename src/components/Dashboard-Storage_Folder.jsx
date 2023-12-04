@@ -40,16 +40,15 @@ function DashboardStorageFolder() {
 
   // handle upload 
   const uplaodFile = async () =>{
-    if(file != null){
-      
+
+    if(file != null){  
       const formData = new FormData();
 
           formData.append('file', file);
           formData.append('userid', userId);
           formData.append('bucket', 'Public_storage_0');
-          
+
         try {
-          
 
           setUploadWait(true)
 
@@ -66,17 +65,16 @@ function DashboardStorageFolder() {
 
           setUploadWait(false)
 
+          setFile(null);
+          setFileName('')
 
         } catch (error) {
           console.log(error)
           setUploadWait(false)
 
-          setUploadSucess(true)
+          setFile(null);
+          setFileName('')
 
-          setTimeout(() => {
-            setUploadSucess(false)  
-          }, 2000);
-          
           // upadate new data
           const res2 = await axios.get('https://mw.bethel.network/storage/' + userId ,{withCredentials :true})
           dispatch(uploadSlice.actions.uploadData(res2.data))
