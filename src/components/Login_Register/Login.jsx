@@ -86,7 +86,7 @@ const handleSubmit = async(e) =>{
         
       <div className='absolute -top-36'>
         <h3 className='text-center text-white text-[48px] font-bold'>Welcome!</h3>
-        <p className='text-center text-white text-[14px]'>Use these awesome forms to login or create new account in your project for free.</p>
+        <p className='text-center text-white text-[14px]'>Please sign in to the your account and start the adventure!</p>
       </div>
         
       
