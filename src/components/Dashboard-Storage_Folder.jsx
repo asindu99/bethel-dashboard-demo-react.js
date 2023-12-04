@@ -8,6 +8,7 @@ import iconLoad from "../Images/Animation-gifs/loading-6324_256.gif"
 import uploadSlice from '../reducers/uploadDetailsSlice'
 import storageDataSlice from '../reducers/storageDetailsSlice'
 
+
 function DashboardStorageFolder() {
     // get user ID
     const userData = useSelector((state)=> state.loginReducer)
@@ -45,7 +46,7 @@ function DashboardStorageFolder() {
           formData.append('file', file);
           formData.append('userid', userId);
           formData.append('bucket', 'Public_storage_0');
-          
+
           setUploadWait(true)
 
           
@@ -97,7 +98,7 @@ console.log(uploadData)
     <div>
 
     {/* Heading section */}
-      <div className='flex'>
+      <div className='flex my-3'>
         <div>
           <img src={iconStorage} alt="" className='w-[20px] inline-block text-white' />
         </div>

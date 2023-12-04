@@ -1,7 +1,7 @@
 import axios from 'axios'
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-
+import iconStorage from "../Images/icons/icon-storage.png"
 import loaderGif from '../Images/Animation-gifs/loading-6324_256.gif'
 import LoginSlice from '../reducers/Loginreducer';
 import userDataSlice from '../reducers/userDataReducer'
@@ -72,6 +72,16 @@ export default function DashboardProfile() {
   return (
     <section>
       {/* Main profile content */}
+      <div className='flex mt-3 mb-5'>
+        <div>
+          <img src={iconStorage} alt="" className='w-[20px] inline-block text-white' />
+        </div>
+
+        <div className='ml-2'>
+          <h3 className='text-white'>/ DASHBOARD / STORAGE / FOLDER</h3>
+        </div>
+      </div>
+      
       <div className='flex lg:flex-row md:flex-row sm:flex-col min-[320px]:flex-col gap-x-5 gap-y-5 pr-2'>
         
         {/* Edit profile section */}
@@ -92,7 +102,7 @@ export default function DashboardProfile() {
                   clip-rule="evenodd" />
                   </svg>
                 <input class="pl-2 outline-none border-none bg-transparent text-white text-[12px]"
-                  type="text" name='firstName' value={values.firstName} placeholder='Enter first Name'
+                  type="text" name='firstName' value={values.firstName} placeholder={Details.details.firstName}
                   onChange={handleChange}
                     
                 />
@@ -108,7 +118,7 @@ export default function DashboardProfile() {
 
                   </svg>
                 <input class="pl-2 outline-none border-none bg-transparent text-white text-[12px] relative"
-                  type="text" name='lastName' value={values.lastName} placeholder='Enter Last Name'
+                  type="text" name='lastName' value={values.lastName} placeholder={Details.details.lastName}
                   onChange={handleChange}
                   
                 />
@@ -141,7 +151,7 @@ export default function DashboardProfile() {
 
                   </svg>
                 <input class="w-full pl-2 outline-none border-none bg-transparent text-white text-[12px] relative"
-                  type="number" name='mobile' value={values.mobile} placeholder='Enter your mobile number'
+                  type="number" name='mobile' value={values.mobile} placeholder={Details.details.mobile}
                   onChange={handleChange}
                   
                 />
