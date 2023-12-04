@@ -9,11 +9,13 @@ import DashboardStorageFolder from "./Dashboard-Storage_Folder";
 // import toggleSidebarSlice from "../reducers/toggleSidebar";
 import { useEffect, useState } from "react";
 import "../components/style.css"
-
-
+import { useDispatch } from "react-redux";
+import toggleSidebarSlice from "../reducers/toggleSidebar";
 
 function MainContent() {
   const [isLoading , setIsLoading] = useState(true)
+
+  const dispatch = useDispatch();
 
   useEffect(()=>{
 
@@ -21,6 +23,10 @@ function MainContent() {
       setIsLoading(false)
     }, 2000)
   },[])
+
+  const toggleSidebarClose = () =>{
+    dispatch(toggleSidebarSlice.actions.toggleSidebarClose())
+  }
 
   
   return (
@@ -51,7 +57,7 @@ function MainContent() {
         </div>
       </div>}
 
-      { !isLoading && <div  className="relative pt-24 lg:pl-[270px] lg:md-[270px] sm:pl-[10px] lg:px-0 md:px-0 sm:px-4 min-[320px]:px-4 w-full z-[10]">
+      { !isLoading && <div onClick={toggleSidebarClose} className="relative pt-24 lg:pl-[270px] lg:md-[270px] sm:pl-[10px] lg:px-0 md:px-0 sm:px-4 min-[320px]:px-4 w-full z-[10]">
         <Routes>
           <Route path="/dashboard" element={<DashboardHome />} />
           <Route path="/dashboard/storage" element={<DashboardStorage />} />

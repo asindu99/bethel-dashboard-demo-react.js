@@ -9,6 +9,9 @@ export const toggleSidebarSlice = createSlice({
   reducers: {
     toggleSidebar: (state) => {
       state.toggleSidebar = !state.toggleSidebar
+    },
+    toggleSidebarClose: (state) => {
+      state.toggleSidebar = true
     }
   }
 })

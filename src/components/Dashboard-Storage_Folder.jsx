@@ -28,7 +28,7 @@ function DashboardStorageFolder() {
       setFile(event.target.files[0]);
       setFileName(event.target.files[0].name);
       setHasFile(true);
-      console.log("asdadsada" , file)
+      
     }
 
   // cancel uplaod

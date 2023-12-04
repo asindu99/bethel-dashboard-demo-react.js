@@ -28,7 +28,8 @@ function DashboardHome() {
   // get all the data and save to the store funcs ----------------------
   const getStorageData = async () =>{
     const res = await axios.get('https://mw.bethel.network/storagedetails/' + userId,
-    {withCredentials : true})
+    {withCredentials : true}) 
+    console.log("zsdzsdsdaw",res.data)
 
     dispatch(storageDataSlice.actions.saveStorageData(res.data[0]))
    }
