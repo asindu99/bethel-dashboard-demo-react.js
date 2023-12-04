@@ -39,29 +39,26 @@ function DashboardStorageFolder() {
 
   // handle upload 
   const uplaodFile = async () =>{
-
-    setUploadWait(true)
-
-    const formData = new FormData();
-    formData.append('file', file);
-    formData.append('userid', userId);
-    formData.append('bucket', 'Public_storage_0');
-
     if(file != null){
-      setUploadWait(true)
         try {
+          const formData = new FormData();
+          formData.append('file', file);
+          formData.append('userid', userId);
+          formData.append('bucket', 'Public_storage_0');
+          
+          setUploadWait(true)
+
+          
           const res = await axios.post('https://api.bethelnet.io/upload', formData, {
             headers: {
               'Content-Type': 'multipart/form-data'
             },
         
           },{withCredentials : true})
-
-          console.log(res)
-          setUploadWait(false)
-
           dispatch(uploadSlice.actions.uploadData(res.data))
           dispatch(storageDataSlice.actions.saveStorageData());
+          setUploadWait(false)
+
 
         } catch (error) {
           console.log(error)
@@ -72,6 +69,10 @@ function DashboardStorageFolder() {
           setTimeout(() => {
             setUploadSucess(false)  
           }, 2000);
+          
+          // upadate new data
+          const res2 = await axios.get('https://mw.bethel.network/storage/' + userId ,{withCredentials :true})
+          dispatch(uploadSlice.actions.uploadData(res2.data))
         }
       }else {
         setUploadWait(false)
@@ -82,6 +83,8 @@ function DashboardStorageFolder() {
         setEmpty(false)
         }, 1000);
       }
+
+      dispatch(uploadSlice.actions.uploadData())
 
 
 }

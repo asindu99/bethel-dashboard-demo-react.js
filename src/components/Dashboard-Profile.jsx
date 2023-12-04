@@ -156,7 +156,7 @@ export default function DashboardProfile() {
 
         </form>
         </div>
-
+ 
 
         <div className='lg:w-1/3 md:w-full'>
           <ChangePasswordProfile></ChangePasswordProfile>
