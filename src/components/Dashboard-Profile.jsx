@@ -76,7 +76,7 @@ export default function DashboardProfile() {
         
         {/* Edit profile section */}
 
-        <div className='flex flex-col h-[610px] w-full  backdrop-blur-xl bg-gradient-to-b from-bethel-white/5 to-bethel-green/5 rounded-md '>
+        <div className='flex flex-col h-[610px] lg:w-1/3 md:w-full backdrop-blur-xl bg-gradient-to-b from-bethel-white/5 to-bethel-green/5 rounded-md '>
 
           <div className='flex w-full justify-center mt-6'>
             <h3 className='text-[24px] text-white '>Edit Profile</h3>
@@ -154,11 +154,14 @@ export default function DashboardProfile() {
 
         </form>
         </div>
-        <ChangePasswordProfile></ChangePasswordProfile>
+
+        <div className='lg:w-1/3 md:w-full'>
+          <ChangePasswordProfile></ChangePasswordProfile>
+        </div>
 
         
         {/* Information section */}
-        <div className='h-[610px] backdrop-blur-xl bg-gradient-to-b from-bethel-white/5 to-bethel-green/5 rounded-md gap-y-8 px-10 py-10'>
+        <div className='lg:w-1/3 md:w-full h-[610px] backdrop-blur-xl bg-gradient-to-b from-bethel-white/5 to-bethel-green/5 rounded-md gap-y-8 px-10 py-10'>
           
           {/*Profile section heading*/}
           <div>
