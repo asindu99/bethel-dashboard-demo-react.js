@@ -15,7 +15,7 @@ export default function DashboardBilling() {
         </div>
         </div>
         
-        <div className='flex flex-wrap w-full py-14 gap-y-4 gap-x-6 justify-evenly'>
+        <div className='flex flex-wrap w-full py-3 gap-y-4 gap-x-6 justify-evenly'>
             
             {/* Card one */}
             <div className='flex flex-col p-5 rounded-md w-[320px] backdrop-blur-xl bg-gradient-to-b from-bethel-white/20 to-bethel-green/40 px-10'>
