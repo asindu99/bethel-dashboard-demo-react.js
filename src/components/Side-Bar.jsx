@@ -47,7 +47,7 @@ function SideBar() {
 
           {/* topic */}
           <div className='w-full flex flex-col justify-center items-center text-[1.4rem] mt-5'>
-            <h1 className='text-white font-bold'>BETHEL TESTNET</h1>
+            <h1 className='font-bold text-white'>BETHEL TESTNET</h1>
             <hr className='w-[90%] mt-1 opacity-20' />
           </div>
           {/* end-topic */}
@@ -56,10 +56,10 @@ function SideBar() {
 
             {/* start-dashboard */}
             <Link to='/dashboard' className='w-full'>
-            <button onClick={toggle} className='flex w-full px-10  py-2 hover:bg-bethel-green/50'>
+            <button onClick={toggle} className='flex w-full px-10 py-2 hover:bg-bethel-green/50'>
               <div className=''>
                 {/* start-inside box */}
-                <div className='flex  w-full gap-2'>
+                <div className='flex w-full gap-2'>
                   <div>
                     <img src={iconHome} alt="" className='w-[20px]' />
                   </div>
@@ -73,10 +73,10 @@ function SideBar() {
 
             {/* start-storage */}
             <Link to='/dashboard/storage' className='w-full'>
-            <div onClick={toggle} className='flex  w-full px-10 hover:bg-bethel-green/50  py-2'>
+            <div onClick={toggle} className='flex w-full px-10 py-2 hover:bg-bethel-green/50'>
               <div>
                 {/* start-inside box */}
-                <div className='flex  w-full gap-2'>
+                <div className='flex w-full gap-2'>
                   <div>
                     <img src={iconStorage} alt="flex" className='w-[20px]' />
                   </div>
@@ -89,8 +89,10 @@ function SideBar() {
             {/* end-storage */}
 
             {/* start-dashboard */}
+
             <Link to="/dashboard/wallet" className='w-full' >
             <div onClick={toggle} className='flex  w-full px-10 hover:bg-bethel-green/10  py-2'>
+
               <div>
                 {/* start-inside box */}
                 <div className='flex w-full gap-2'>
@@ -106,7 +108,7 @@ function SideBar() {
             {/* end-dashboard */}
 
             {/* start-dashboard */}
-            <div className='flex  w-full px-10 hover:bg-bethel-green/50  py-2'>
+            <div className='flex w-full px-10 py-2 hover:bg-bethel-green/50'>
               <div>
                 {/* start-inside box */}
                 <div className='flex w-full gap-2'>
@@ -122,7 +124,7 @@ function SideBar() {
 
             {/* start-dashboard */}
             <Link to='/dashboard/profile' className='w-full'>
-            <div className='flex  w-full px-10 hover:bg-bethel-green/50 py-2'>
+            <div className='flex w-full px-10 py-2 hover:bg-bethel-green/50'>
               
               <div>
                 {/* start-inside box */}
@@ -139,7 +141,8 @@ function SideBar() {
             {/* end-dashboard */}
 
             {/* start-dashboard */}
-            <div onClick={toggle} className='flex  w-full px-10 hover:bg-bethel-green/10  py-2'>
+            <Link to='/dashboard/profile' className='w-full'>
+            <div onClick={toggle} className='flex w-full px-10 py-2 hover:bg-bethel-green/50'>
               <div>
                 {/* start-inside box */}
                 <div className='flex w-full gap-2'>
@@ -152,16 +155,16 @@ function SideBar() {
               </div>
             </div>
             {/* end-dashboard */}
-    
+          </Link>
           </div>
 
           {/* START-HELP AND LOGOUT FUNC */}
             <div className='absolute bottom-0 flex flex-col gap-y-4 justify-center w-[95%] text-[1rem] text-white'>
                 {/* start-dashboard */}
-              <div className='flex  w-full px-10 hover:bg-bethel-green/50 py-2'>
+              <div className='flex w-full px-10 py-2 hover:bg-bethel-green/50'>
                 <div>
                     {/* start-inside box */}
-                    <div className='flex  w-full gap-2'>
+                    <div className='flex w-full gap-2'>
                       <div>
                         <img src={iconHelp} alt="flex" className='w-[20px]' />
                       </div>
@@ -175,7 +178,7 @@ function SideBar() {
                 
                 {/* start-dashboard */}
                 <button onClick={logOut} className='w-full'>
-                  <div className='flex  w-full px-10 hover:bg-bethel-green/50 py-2'>
+                  <div className='flex w-full px-10 py-2 hover:bg-bethel-green/50'>
                   <div>
                     {/* start-inside box */}
                     <div className='flex w-full gap-2'>
@@ -207,7 +210,7 @@ function SideBar() {
 
           {/* topic */}
           <div className='w-full flex flex-col justify-center items-center text-[1.4rem] mt-3'>
-            <h1 className='text-white font-bold'>BETHEL TESTNET</h1>
+            <h1 className='font-bold text-white'>BETHEL TESTNET</h1>
             <hr className='w-[90%] mt-4 opacity-20' />
           </div>
           {/* end-topic */}
@@ -216,10 +219,10 @@ function SideBar() {
 
             {/* start-dashboard */}
             <Link to='/dashboard' className='w-full'>
-            <button  className='flex w-full px-10  py-2 hover:bg-bethel-green/50'>
+            <button  className='flex w-full px-10 py-2 hover:bg-bethel-green/50'>
               <div className=''>
                 {/* start-inside box */}
-                <div className='flex  w-full gap-2'>
+                <div className='flex w-full gap-2'>
                   <div>
                     <img src={iconHome} alt="" className='w-[20px]' />
                   </div>
@@ -233,10 +236,10 @@ function SideBar() {
 
             {/* start-storage */}
             <Link to='/dashboard/storage' className='w-full'>
-            <div className='flex  w-full px-10 hover:bg-bethel-green/50  py-2'>
+            <div className='flex w-full px-10 py-2 hover:bg-bethel-green/50'>
               <div>
                 {/* start-inside box */}
-                <div className='flex  w-full gap-2'>
+                <div className='flex w-full gap-2'>
                   <div>
                     <img src={iconStorage} alt="flex" className='w-[20px]' />
                   </div>
@@ -250,7 +253,7 @@ function SideBar() {
 
             {/* start-dashboard */}
             <Link to='/dashboard/wallet' className='w-full'>
-            <div className='flex  w-full px-10 hover:bg-bethel-green/50  py-2'>
+            <div className='flex w-full px-10 py-2 hover:bg-bethel-green/50'>
               <div>
                 {/* start-inside box */}
                 <div className='flex w-full gap-2'>
@@ -266,7 +269,7 @@ function SideBar() {
             {/* end-dashboard */}
 
             {/* start-dashboard */}
-            <div className='flex  w-full px-10 hover:bg-bethel-green/10  py-2'>
+            <div className='flex w-full px-10 py-2 hover:bg-bethel-green/10'>
               <div>
                 {/* start-inside box */}
                 <div className='flex w-full gap-2'>
@@ -282,7 +285,7 @@ function SideBar() {
 
             {/* start-dashboard */}
             <Link to='/dashboard/profile' className='w-full'>
-            <div className='flex  w-full px-10 hover:bg-bethel-green/50 py-2'>
+            <div className='flex w-full px-10 py-2 hover:bg-bethel-green/50'>
               
               <div>
                 {/* start-inside box */}
@@ -299,7 +302,8 @@ function SideBar() {
             {/* end-dashboard */}
 
             {/* start-dashboard */}
-            <div className='flex  w-full px-10 hover:bg-bethel-green/10  py-2'>
+            <Link to='/dashboard/billing' className='w-full'>
+            <div className='flex w-full px-10 py-2 hover:bg-bethel-green/50'>
               <div>
                 {/* start-inside box */}
                 <div className='flex w-full gap-2'>
@@ -311,6 +315,7 @@ function SideBar() {
                 {/* end-insidebox */}
               </div>
             </div>
+            </Link>
             {/* end-dashboard */}
     
           </div>
@@ -318,10 +323,10 @@ function SideBar() {
           {/* START-HELP AND LOGOUT FUNC */}
             <div className='absolute bottom-0 flex flex-col gap-y-4 justify-center w-[95%] text-[1rem] text-white'>
                 {/* start-dashboard */}
-              <div className='flex  w-full px-10 hover:bg-bethel-green/50 py-2'>
+              <div className='flex w-full px-10 py-2 hover:bg-bethel-green/50'>
                 <div>
                     {/* start-inside box */}
-                    <div className='flex  w-full gap-2'>
+                    <div className='flex w-full gap-2'>
                       <div>
                         <img src={iconHelp} alt="flex" className='w-[20px]' />
                       </div>
@@ -335,7 +340,7 @@ function SideBar() {
                 
                 {/* start-dashboard */}
                 <button onClick={logOut} className='w-full'>
-                  <div className='flex  w-full px-10 hover:bg-bethel-green/50 py-2'>
+                  <div className='flex w-full px-10 py-2 hover:bg-bethel-green/50'>
                   <div>
                     {/* start-inside box */}
                     <div className='flex w-full gap-2'>
