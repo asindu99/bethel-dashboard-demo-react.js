@@ -21,7 +21,7 @@ function DashboardStorage() {
         <div className='ml-2'>
           <h3 className='text-white'>/ DASHBOARD / STORAGE</h3>
         </div>
-      </div>
+    </div>
   
     {/* card section*/}
     	<div className='flex flex-wrap justify-start w-full pt-5 gap-x-5 gap-y-5'>

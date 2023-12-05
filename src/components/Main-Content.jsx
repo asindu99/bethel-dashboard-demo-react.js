@@ -12,6 +12,7 @@ import "../components/style.css"
 import { useDispatch } from "react-redux";
 import toggleSidebarSlice from "../reducers/toggleSidebar";
 import DashboardWallet from "./Dashboard-Wallet";
+import DashboardBilling from "./Dashboard-Billing";
 
 function MainContent() {
   const [isLoading , setIsLoading] = useState(true)
@@ -31,7 +32,7 @@ function MainContent() {
   
   return (
 
-    <div className="bg-black/90 min-h-screen relative">
+    <div className="relative min-h-screen bg-black/90">
 
       <div className="relative z-[100]">
         <div className="relative z-[100]">
@@ -69,6 +70,7 @@ function MainContent() {
           <Route path="/dashboard/profile" element={<DashboardProfile />} />
           <Route path="/dashboard/storage/folder" element={<DashboardStorageFolder />} />
           <Route path='/dashboard/wallet' element={<DashboardWallet />} />
+          <Route path="/dashboard/billing" element={<DashboardBilling></DashboardBilling>}></Route>
         </Routes>
       </div>}
       
