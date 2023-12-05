@@ -40,40 +40,45 @@ function DashboardStorageFolder() {
 
   // handle upload 
   const uplaodFile = async () =>{
-    if(file != null){
-        try {
-          const formData = new FormData();
+
+    if(file != null){  
+      const formData = new FormData();
+
           formData.append('file', file);
           formData.append('userid', userId);
           formData.append('bucket', 'Public_storage_0');
 
+        try {
+
           setUploadWait(true)
 
-          
           const res = await axios.post('https://api.bethelnet.io/upload', formData, {
             headers: {
               'Content-Type': 'multipart/form-data'
             },
         
           },{withCredentials : true})
+
           dispatch(uploadSlice.actions.uploadData(res.data))
+
           dispatch(storageDataSlice.actions.saveStorageData());
+
           setUploadWait(false)
 
+          setFile(null);
+          setFileName('')
 
         } catch (error) {
           console.log(error)
           setUploadWait(false)
 
-          setUploadSucess(true)
+          setFile(null);
+          setFileName('')
 
-          setTimeout(() => {
-            setUploadSucess(false)  
-          }, 2000);
-          
           // upadate new data
           const res2 = await axios.get('https://mw.bethel.network/storage/' + userId ,{withCredentials :true})
           dispatch(uploadSlice.actions.uploadData(res2.data))
+          dispatch(uploadSlice.actions.uploadData())
         }
       }else {
         setUploadWait(false)
@@ -85,14 +90,14 @@ function DashboardStorageFolder() {
         }, 1000);
       }
 
-      dispatch(uploadSlice.actions.uploadData())
+      
 
 
 }
 
 // get the upload details from store
 const uploadData = useSelector((state)=> state.uploadDetailsReducer)
-console.log(uploadData)
+
   
   return(
     <div>
@@ -146,7 +151,7 @@ console.log(uploadData)
           </footer>
         </article>
 
-        {/* using two similar templates for simplicity in js code */}
+
         <template id="file-template">
       <li class="block p-1 w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/6 xl:w-1/8 h-24">
         <article tabindex="0" class="group w-full h-full rounded-md focus:outline-none focus:shadow-outline elative bg-gray-100 cursor-pointer relative shadow-sm">

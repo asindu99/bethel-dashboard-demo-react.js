@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import iconUser from "../Images/icons/icon-male-user.png"
 import iconDrop from "../Images/icons/icon-drop.png"
 import iconHome from '../Images/icons/icon-home.png'
@@ -6,22 +6,41 @@ import iconLogoout from "../Images/icons/icon-logout.png"
 import { useDispatch, useSelector } from 'react-redux'
 import iconMenu from "../Images/icons/icons-menu.png"
 import toggleSidebarSlice from '../reducers/toggleSidebar'
+import { useNavigate } from 'react-router-dom'
+import axios from 'axios'
 
 
 
 function Navbar() {
   const [toggleDropDown, setToggleDropDown] = useState(false);
+  const Navigate = useNavigate()
+  const [data , setData] = useState(false)
 
-  const userData = useSelector((state) => state.loginReducer)
-   console.log(userData)
-  
-  //dispathc 
+  const userData = useSelector((state)=> state.loginReducer)
+  const userId = userData._id
+
+  const getStorageData = async () =>{
+    try {
+      const res = await axios.get('https://mw.bethel.network/storagedetails/' + userId,
+      {withCredentials : true}) 
+      console.log("zsdzsdsdaw",res.data)
+      setData(true)
+    } catch (error) {
+      Navigate('/')
+    }
+    
+   }
+    useEffect(()=>{
+    getStorageData();
+    
+   },[])
+
+   
+
+
+  //dispathch 
   const dispatch = useDispatch();  
-
-  // toggle drop down
-  const handleToggle = () =>{
-    setToggleDropDown(!toggleDropDown);
-  }
+ 
 
   const toggle = () =>{
     dispatch(toggleSidebarSlice.actions.toggleSidebar())
@@ -46,10 +65,10 @@ function Navbar() {
             </div>
 
             {/* name and the other */}
-            <div className='flex gap-2 uppercase lg:mr-0 md:mr-6 sm:mr-6 min-[320px]:mr-6'>
+            { data && <div className='flex gap-2 uppercase lg:mr-0 md:mr-6 sm:mr-6 min-[320px]:mr-6'>
               <h2>{userData.details.firstName}</h2>
               <h2>{userData.details.lastName}</h2>
-            </div>
+            </div> }
 
             {/* drop down menu */}
             {/* <button onClick={handleToggle} >

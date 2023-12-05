@@ -129,7 +129,7 @@ const handleSubmit = async(e) =>{
       <Link to='/register'><span class="text-bethel-green cursor-pointer text-center ">Register</span></Link>
 
       <div className='absolute bottom-[-30px] text-[10px] text-white'>
-        <h3>Version 3.4</h3>
+        <h3>Version 3.4.1</h3>
       </div>
       </div>
        

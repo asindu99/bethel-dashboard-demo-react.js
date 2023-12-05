@@ -26,7 +26,7 @@ export default function DashboardProfile() {
   const [isLoading , setIsLoading] = useState(false) //for the loading button
   const [success , setSuccess] = useState(false)
   const [countryName , setCountryName] = useState('')
- 
+
   const userData = useSelector((state)=> state.loginReducer) //get the user id
   const userId = userData._id
 
