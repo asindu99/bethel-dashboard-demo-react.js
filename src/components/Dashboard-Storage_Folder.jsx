@@ -15,6 +15,9 @@ function DashboardStorageFolder() {
     const userId = userData._id
 
     const dispatch = useDispatch()
+    
+    // get the upload details from store
+    const uploadData = useSelector((state)=> state.uploadDetailsReducer)
 
     const [file , setFile] = useState(null) 
     const [fileName , setFileName] = useState('')
@@ -95,10 +98,6 @@ function DashboardStorageFolder() {
 
 }
 
-// get the upload details from store
-const uploadData = useSelector((state)=> state.uploadDetailsReducer)
-
-  
   return(
     <div>
 
