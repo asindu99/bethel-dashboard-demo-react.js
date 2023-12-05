@@ -78,6 +78,7 @@ function DashboardStorageFolder() {
           // upadate new data
           const res2 = await axios.get('https://mw.bethel.network/storage/' + userId ,{withCredentials :true})
           dispatch(uploadSlice.actions.uploadData(res2.data))
+          dispatch(uploadSlice.actions.uploadData())
         }
       }else {
         setUploadWait(false)
@@ -89,7 +90,7 @@ function DashboardStorageFolder() {
         }, 1000);
       }
 
-      dispatch(uploadSlice.actions.uploadData())
+      
 
 
 }
