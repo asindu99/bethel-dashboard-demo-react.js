@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import "../components/Dashboard-Storage_Folder"
 import iconStorage from "../Images/icons/icon-storage.png"
 // import userDataSlice from '../reducers/userDataReducer'
@@ -10,14 +10,40 @@ import storageDataSlice from '../reducers/storageDetailsSlice'
 
 
 function DashboardStorageFolder() {
+
+  // const getUploadData = async () =>{
+  //   const res2 = await axios.get('https://mw.bethel.network/storage/' + userId ,{withCredentials :true})
+  //   localStorage.setItem('uploadData', JSON.stringify(res2.data))
+  //   console.log(res2.data)
+  //    }
+
+    const [delay , setDelay] = useState(false)
+
+    // get the upload details from store
+    const uploadData = useSelector((state)=> state.uploadDetailsReducer)
+    // const [uploadStats , setUploadStats] = useState(null)
+    
+
+     useEffect(()=>{
+      // getUploadData();
+      // let ups = localStorage.getItem("uploadData");
+      // setUploadStats(ups)
+
+      setTimeout(() => {
+        setDelay(true)
+      }, 3000);
+     },[])
+
     // get user ID
     const userData = useSelector((state)=> state.loginReducer)
     const userId = userData._id
 
     const dispatch = useDispatch()
-    
-    // get the upload details from store
-    const uploadData = useSelector((state)=> state.uploadDetailsReducer)
+
+
+
+
+
 
     const [file , setFile] = useState(null) 
     const [fileName , setFileName] = useState('')
@@ -80,8 +106,13 @@ function DashboardStorageFolder() {
 
           // upadate new data
           const res2 = await axios.get('https://mw.bethel.network/storage/' + userId ,{withCredentials :true})
+          setDelay(false)
           dispatch(uploadSlice.actions.uploadData(res2.data))
           dispatch(uploadSlice.actions.uploadData())
+
+          setTimeout(() => {
+            setDelay(true)
+          }, 500);
         }
       }else {
         setUploadWait(false)
@@ -243,31 +274,24 @@ function DashboardStorageFolder() {
                   </thead>
 
                   <tbody>
-                   {uploadData.map((upload ,index) =>{
-                   return <tr className='mt-2' key={index}>
+                   { delay && 
+                   uploadData.map((upload) =>{
+                   return <tr className='mt-2' key={upload._id}>
                       <td>{upload.filename}</td>
                       <td>{upload.cid}</td>
                       <td><a href={upload.downurl}>Download</a></td>
                       <td><a href={upload.gcsurl}>Download</a></td>
                     </tr>
-                   })}
+                   })
+                   }
                   </tbody>
+                  
 
                 </table>
               </div>
           </div>
         </div>
-{/* <footer class="relative pt-8 pb-6 mt-16">
-  <div class="container mx-auto px-4">
-    <div class="flex flex-wrap items-center md:justify-between justify-center">
-      <div class="w-full md:w-6/12 px-4 mx-auto text-center">
-        <div class="text-sm text-blueGray-500 font-semibold py-1">
-          Made with <a href="https://www.creative-tim.com/product/notus-js" class="text-blueGray-500 hover:text-gray-800" target="_blank" rel="noreferrer">Notus JS</a> by <a href="https://www.creative-tim.com" class="text-blueGray-500 hover:text-blueGray-800" target="_blank" rel="noreferrer"> Creative Tim</a>.
-        </div>
-      </div>
-    </div>
-  </div>
-</footer> */}
+
     </div>
       
      </div>
