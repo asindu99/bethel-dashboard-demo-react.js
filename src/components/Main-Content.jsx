@@ -32,7 +32,7 @@ function MainContent() {
   
   return (
 
-    <div className="relative min-h-screen bg-black/90">
+    <div className="relative min-h-screen bg-[#0F0F0F]">
 
       <div className="relative z-[100]">
         <div className="relative z-[100]">
@@ -64,6 +64,7 @@ function MainContent() {
       }
 
       { !isLoading && <div onClick={toggleSidebarClose} className="relative pt-24 lg:pl-[270px] lg:md-[270px] sm:pl-[10px] lg:px-0 md:px-0 sm:px-4 min-[320px]:px-4 w-full z-[10]">
+        <div className="fixed top-0 w-full h-[30px] bg-[#0F0F0F] z-[100]"></div>
         <Routes>
           <Route path="/dashboard" element={<DashboardHome />} />
           <Route path="/dashboard/storage" element={<DashboardStorage />} />
