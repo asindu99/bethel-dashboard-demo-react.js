@@ -46,6 +46,8 @@ function DashboardStorageFolder() {
     const [uplaodWait , setUploadWait] = useState(false)
     const [empty , setEmpty] = useState(false)
     const [uploadSucess , setUploadSucess] = useState(false)
+    const [uploadFail , setUploadFail] = useState(false)
+
 
   // handle file 
   const handleFileUpload = (event) => {
@@ -55,11 +57,6 @@ function DashboardStorageFolder() {
       
     }
 
-  // cancel uplaod
-  const cancelUpload = () =>{
-    setFile(null);
-    setFileName('');
-  }
 
   // handle upload 
   const uplaodFile = async () =>{
@@ -70,8 +67,6 @@ function DashboardStorageFolder() {
 
     if(file != null){  
           setUploadWait(true)
-
-
         try {
           const res = await axios.post('https://api.bethelnet.io/upload', formData, {
             headers: {
@@ -79,32 +74,60 @@ function DashboardStorageFolder() {
             },
           },{withCredentials : true})
 
-          dispatch(uploadSlice.actions.uploadData(res.data))
+          console.log(res)
+
+          if(res.status === 200) {
+            dispatch(uploadSlice.actions.uploadData(res.data))
+
+              setFile(null);
+              setFileName('')
+              setUploadWait(false)
+            }else{
+                setUploadWait(false)
+                setUploadFail(true)
+
+                setFile(null);
+                setFileName('')
+
+                setUploadSucess(true)
+
+                setTimeout(() => {
+                  setDelay(true)
+                }, 500);
+
+                setTimeout(() => {
+                setUploadSucess(false)
+              }, 2000);
+
+              setTimeout(() => {
+                setUploadFail(false)
+              }, 1000);
+
+            }
+        }catch(error){
+          setUploadWait(false);
+          
+          setTimeout(() => {
+              setDelay(true)
+            }, 500);
+
+          setFile(null);
+          setFileName('')
+        }
           dispatch(storageDataSlice.actions.saveStorageData());
 
-          setFile(null);
-          setFileName('')
-          setUploadWait(false)
-
-        } catch (error) {
-          console.log(error)
-          setUploadWait(false)
-
-          setFile(null);
-          setFileName('')
-
           // upadate new data
-          const res2 = await axios.get('https://mw.bethel.network/storage/' + userId ,{withCredentials :true})
-          setDelay(false)
-          dispatch(uploadSlice.actions.uploadData(res2.data))
-          dispatch(uploadSlice.actions.uploadData())
+            const res2 = await axios.get('https://mw.bethel.network/storage/' + userId ,{withCredentials :true})
+            setDelay(false)
+            dispatch(uploadSlice.actions.uploadData(res2.data))
+            dispatch(uploadSlice.actions.uploadData())
 
-          setUploadSucess(true)
-
+            setUploadWait(false)
+            
           setTimeout(() => {
-            setDelay(true)
-          }, 500);
-        }
+              setDelay(true)
+            }, 500);
+  
       }else {
         setUploadWait(false)
         setEmpty(true)
@@ -114,9 +137,7 @@ function DashboardStorageFolder() {
         setEmpty(false)
         }, 1000);
 
-        setTimeout(() => {
-          setUploadSucess(false)
-        }, 2000);
+        
       }
 
       
@@ -168,7 +189,8 @@ function DashboardStorageFolder() {
             <button onClick={uplaodFile}  id="submit" className="relative px-3 py-1 bg-bethel-green/50 hover:bg-bethel-green/30 text-white font-bold focus:shadow-outline focus:outline-none rounded-md">
               <h3>Upload Now</h3>  { uplaodWait && <img src={iconLoad} alt='' className='w-[25px] absolute -left-10 top-1' />}
               { empty && <h3 className='absolute left-[-100px] top-2 text-sm text-center text-red-700'>Browse File !</h3>}
-              { !!uploadSucess && <h3 className='absolute left-[-120px] top-2 text-sm text-center text-green-700'>Upload Sucess</h3>}
+              { uploadSucess && <h3 className='absolute left-[-120px] top-2 text-sm text-center text-green-700'>Upload Sucess</h3>}
+              { uploadFail && <h3 className='absolute left-[-120px] top-2 text-sm text-center text-red-700'>Upload Fail!</h3>}
             </button>
             
           </footer>
