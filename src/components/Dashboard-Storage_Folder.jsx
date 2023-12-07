@@ -4,7 +4,7 @@ import iconStorage from "../Images/icons/icon-storage.png"
 // import userDataSlice from '../reducers/userDataReducer'
 import { useDispatch, useSelector } from 'react-redux'
 import axios from 'axios'
-import iconLoad from "../Images/Animation-gifs/loading-6324_256.gif"
+import iconLoad from "../Images/Animation-gifs/Rolling-1s-200px(1).gif"
 import uploadSlice from '../reducers/uploadDetailsSlice'
 import storageDataSlice from '../reducers/storageDetailsSlice'
 
@@ -21,7 +21,6 @@ function DashboardStorageFolder() {
 
     // get the upload details from store
     const uploadData = useSelector((state)=> state.uploadDetailsReducer)
-    // const [uploadStats , setUploadStats] = useState(null)
     
 
      useEffect(()=>{
@@ -31,7 +30,7 @@ function DashboardStorageFolder() {
 
       setTimeout(() => {
         setDelay(true)
-      }, 3000);
+      }, 1000);
      },[])
 
     // get user ID
@@ -39,11 +38,6 @@ function DashboardStorageFolder() {
     const userId = userData._id
 
     const dispatch = useDispatch()
-
-
-
-
-
 
     const [file , setFile] = useState(null) 
     const [fileName , setFileName] = useState('')
@@ -69,33 +63,28 @@ function DashboardStorageFolder() {
 
   // handle upload 
   const uplaodFile = async () =>{
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('userid', userId);
+    formData.append('bucket', 'Public_storage_0');
 
     if(file != null){  
-      const formData = new FormData();
-
-          formData.append('file', file);
-          formData.append('userid', userId);
-          formData.append('bucket', 'Public_storage_0');
-
-        try {
-
           setUploadWait(true)
 
+
+        try {
           const res = await axios.post('https://api.bethelnet.io/upload', formData, {
             headers: {
               'Content-Type': 'multipart/form-data'
             },
-        
           },{withCredentials : true})
 
           dispatch(uploadSlice.actions.uploadData(res.data))
-
           dispatch(storageDataSlice.actions.saveStorageData());
-
-          setUploadWait(false)
 
           setFile(null);
           setFileName('')
+          setUploadWait(false)
 
         } catch (error) {
           console.log(error)
@@ -110,6 +99,8 @@ function DashboardStorageFolder() {
           dispatch(uploadSlice.actions.uploadData(res2.data))
           dispatch(uploadSlice.actions.uploadData())
 
+          setUploadSucess(true)
+
           setTimeout(() => {
             setDelay(true)
           }, 500);
@@ -122,6 +113,10 @@ function DashboardStorageFolder() {
         setTimeout(() => {
         setEmpty(false)
         }, 1000);
+
+        setTimeout(() => {
+          setUploadSucess(false)
+        }, 2000);
       }
 
       
@@ -171,13 +166,11 @@ function DashboardStorageFolder() {
            {/* sticky footer  */}
           <footer class=" flex justify-end px-8 pb-8 pt-4">
             <button onClick={uplaodFile}  id="submit" className="relative px-3 py-1 bg-bethel-green/50 hover:bg-bethel-green/30 text-white font-bold focus:shadow-outline focus:outline-none rounded-md">
-              { !uplaodWait && <h3>Upload Now</h3>}  { uplaodWait && <img src={iconLoad} alt='' className='w-[100px]' />}
-              { empty && <h3 className='absolute left-[-120px] top-2 text-sm text-center text-red-700'>Select a File</h3>}
-              { uploadSucess && <h3 className='absolute left-[-120px] top-2 text-sm text-center text-green-700'>Upload Sucess</h3>}
+              <h3>Upload Now</h3>  { uplaodWait && <img src={iconLoad} alt='' className='w-[25px] absolute -left-10 top-1' />}
+              { empty && <h3 className='absolute left-[-100px] top-2 text-sm text-center text-red-700'>Browse File !</h3>}
+              { !!uploadSucess && <h3 className='absolute left-[-120px] top-2 text-sm text-center text-green-700'>Upload Sucess</h3>}
             </button>
-            <button onClick={cancelUpload} id="cancel" class="ml-3 rounded-md px-3 py-1 bg-gray-300 hover:bg-gray-400 focus:shadow-outline focus:outline-none">
-              Cancel
-            </button>
+            
           </footer>
         </article>
 
