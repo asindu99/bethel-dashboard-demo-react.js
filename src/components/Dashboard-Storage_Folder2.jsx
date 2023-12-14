@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import iconStorage from "../Images/icons/icon-storage.png"
+import TableWithMoreButton from '../components/Test'
 
 export default function DashboardStorageFolder2() {
   const [file , setFile] = useState(null)
@@ -129,6 +130,7 @@ export default function DashboardStorageFolder2() {
                     <button>
                       <svg viewBox="0 0 24 24" fill="none"  className="w-5 h-5 " xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <circle cx="18" cy="12" r="1.5" transform="rotate(90 18 12)" fill="#ffffff"></circle> <circle cx="12" cy="12" r="1.5" transform="rotate(90 12 12)" fill="#ffffff"></circle> <circle cx="6" cy="12" r="1.5" transform="rotate(90 6 12)" fill="#ffffff"></circle> </g></svg>
                     </button>
+                    
 
                     {/* drop down */}
                     <div className='absolute top-16 right-1 flex flex-col py-5 bg-gray-800/60 gap-y-4 w-[130px] items-start pl-2 rounded-md justify-center'>
@@ -168,9 +170,15 @@ export default function DashboardStorageFolder2() {
 					      
 				      </tbody>
 			      </table>
+
+            
 		      </div>
 	      </div>
+
       </div>
+
+      <TableWithMoreButton />
+
    
     </section>
   )
