@@ -14,6 +14,7 @@ import { revertAll3 } from '../reducers/uploadDetailsSlice'
 import { revertAll4 } from '../reducers/userDataReducer'
 import toggleSidebarSlice from '../reducers/toggleSidebar'
 import iconClose from '../Images/icons/icons8-close-96.png'
+import fileIcon from "../Images/icons/icon-file.png" 
 
 
 function SideBar() {
@@ -78,9 +79,9 @@ function SideBar() {
                 {/* start-inside box */}
                 <div className='flex w-full gap-2'>
                   <div>
-                    <img src={iconStorage} alt="flex" className='w-[20px]' />
+                    <img src={fileIcon} alt="flex" className='w-[20px]' />
                   </div>
-                  <h1>STORAGE</h1>
+                  <h1>FILES</h1>
                 </div>
                 {/* end-insidebox */}
               </div>
@@ -241,9 +242,9 @@ function SideBar() {
                 {/* start-inside box */}
                 <div className='flex w-full gap-2'>
                   <div>
-                    <img src={iconStorage} alt="flex" className='w-[20px]' />
+                    <img src={fileIcon} alt="flex" className='w-[20px]' />
                   </div>
-                  <h1>STORAGE</h1>
+                  <h1>FILES</h1>
                 </div>
                 {/* end-insidebox */}
               </div>
