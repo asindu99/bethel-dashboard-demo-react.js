@@ -3,7 +3,7 @@ import walletImg from "../../Images/BG-Images/wallet-screen-img.jpg"
 import bethelLogo from "../../Images/icons/bethellogo.png"
 import { useDispatch } from "react-redux";
 import WalletAddressSlice from "../../reducers/WalletAddressSlice";
-const {ethers} = require("ethers")
+const {ethers} = require("ethers");
 
 function Login() {
   const Navigate = useNavigate();
@@ -22,23 +22,11 @@ function Login() {
     }else {
       alert("Please install Metamask to Connect Wallet !")
     }
-    
   }
 
-
-      } catch (error) {
-        console.log(error)
-      }
-    } else {
-      setConnected(false)
-      }
-    
-  }
-  
   return (
 
-
-    <section className='relative w-full min-h-screen bg-black'>
+ <section className='relative w-full min-h-screen bg-black'>
       <div className="text-white w-full min-h-screen flex">
           {/* right side of the div side */}
           <div className="relative flex flex-1/2 w-full overflow-hidden">
