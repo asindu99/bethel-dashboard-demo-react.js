@@ -1,78 +1,243 @@
-// import React, { useEffect, useState } from 'react'
-// import { useDispatch, useSelector } from 'react-redux';
-// import { Link, useNavigate } from 'react-router-dom'
-// import LoginSlice from '../../reducers/Loginreducer';
-// import axios from 'axios';
-// import loaderGif from '../../Images/Animation-gifs/loading-6324_256.gif'
-// import userDataSlice from '../../reducers/userDataReducer';
-import Web3Modal from "web3modal";
-const { ethers } = require("ethers");
-// import { ethers } from "ethers";
-
-
-const providerOptions = {
-
-}
+import { useEffect, useState } from "react"
+const { ethers } = require("ethers")
 
 function Login() {
+  const [connectedProvider , setConnectedProvider] = useState("")
+  const [connected , setConnected] = useState(false);
+  const [signer , setSigner] = useState();
+
+  useEffect(() =>{
+  },[connectedProvider])
+
   async function connectWallet(){
-    try {
-      let web3Modal = new Web3Modal({
-        cacheProvider : false,
-        providerOptions,
-      })
-
-      const web3ModalInstance = await web3Modal.connect();
-      const web3ModalProvider = new ethers.provider.web3Provider(web3ModalInstance);
-
-      console.log(web3ModalProvider)
-    } catch (error) {
-      console.log(error)
+    if(window.ethereum !== "undefined"){
+      try {
+        const accounts = await window.ethereum.request({method : "eth_requestAccounts"});
+        setConnected(true)
+        const contractAddress = "0x5FbDB2315678afecb367f032d93F642f64180aa3"
+        const abi = [
+    {
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "_name",
+          "type": "string"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_favoriteNumber",
+          "type": "uint256"
+        }
+      ],
+      "name": "addPerson",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "",
+          "type": "string"
+        }
+      ],
+      "name": "nameToFavoriteNumber",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "name": "people",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "favoriteNumber",
+          "type": "uint256"
+        },
+        {
+          "internalType": "string",
+          "name": "name",
+          "type": "string"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "retrieve",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_favoriteNumber",
+          "type": "uint256"
+        }
+      ],
+      "name": "store",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
     }
+        ]
+
+        let Provider = new ethers.BrowserProvider(window.ethereum);
+        const signer = Provider.getSigner();       
+        const contract = new ethers.Contract(contractAddress, abi , signer);
+        await contract.store(42);
+
+      } catch (error) {
+        console.log(error)
+      }
+    } else {
+      setConnected(false)
+      }
+    
   }
-// const [email , setEmail] = useState('')
-// const [password , setPassword] = useState('')
 
-// const [isLoading , setIsLoading] = useState(false)
-// const [logFail , setLogFail] = useState(false)
-
-
-// const dispatch = useDispatch(); 
-// const Navigate = useNavigate();
-
-// const handleSubmit = async(e) =>{
-//   e.preventDefault();
-//   setIsLoading(true)
-
-//   try {
-//     const res = await axios.post('https://mw.bethel.network/auth/login' ,
-//       {
-//         email: email,
-//         password: password,  
-//       },
-//       {withCredentials: true})
-   
-//     if(res.status === 200){
-//       dispatch(LoginSlice.actions.saveUser(res.data))
-//       setIsLoading(false)
-//       Navigate('/dashboard')
-//     } else{
-//       setLogFail(true)
-//     }
-//     } catch (error) {
-
-//       console.log(error)
-//       setIsLoading(false)
-//       setLogFail(true)
-
-//       setTimeout(() => {
-//         setLogFail(false)
-//       }, 3000);
-//     }
+  const handleSubmit = (e) =>{
+    e.preventdefault();
+  }
   
-  
- 
+  async function execute(){
+    if(typeof window.ethereum !== "undefined"){
+      try {
+        const contractAddress = "0x5FbDB2315678afecb367f032d93F642f64180aa3"
+        const abi = [
+    {
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "_name",
+          "type": "string"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_favoriteNumber",
+          "type": "uint256"
+        }
+      ],
+      "name": "addPerson",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "",
+          "type": "string"
+        }
+      ],
+      "name": "nameToFavoriteNumber",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "name": "people",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "favoriteNumber",
+          "type": "uint256"
+        },
+        {
+          "internalType": "string",
+          "name": "name",
+          "type": "string"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "retrieve",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_favoriteNumber",
+          "type": "uint256"
+        }
+      ],
+      "name": "store",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+        ]
 
+        const Provider = new ethers.BrowserProvider(window.ethereum);
+        console.log(Provider)
+        setSigner(Provider.getSigner());
+        console.log(signer)
+        const contract = new ethers.Contract(contractAddress,abi,signer); 
+        try{
+          await contract.store(22);
+        }catch(error){
+          console.log(error)
+        }      
+        
+
+      } catch (error) {
+        console.log(error)
+      }
+    } else {
+      setConnected(false)
+      }
+    
+  }
+  
   return (
 
     <section className='relative w-full min-h-screen px-5 bg-black'>
@@ -95,15 +260,8 @@ function Login() {
     
     {/* Middle content section */}
     <div className='flex items-center justify-center w-full min-h-screen'>
-     
-      {/* <div className='flex'>
-        <h3 className='text-center text-white text-[48px] font-bold'>Welcome!</h3>
-        <p className='text-center text-white text-[14px]'>Use these awesome forms to login or create new account in your project for free.</p>
-      </div> */}
       
-      
-
-      <div className='w-[400px] h-[400px] backdrop-blur-md bg-white/10 rounded-md  flex relative'>
+    <div className='w-[400px] h-[400px] backdrop-blur-md bg-white/10 rounded-md  flex relative'>
         
       <div className='absolute -top-36'>
         <h3 className='text-center text-white text-[48px] font-bold'>Welcome!</h3>
@@ -111,17 +269,13 @@ function Login() {
       </div>
         
       
-        <form class="px-10 relative left-16 top-10 ">
-        <h1 className='text-center text-[18px] text-white p-5 uppercase'>Login</h1>
-      <div class="flex items-center border-2 py-2 px-3 rounded-xl mb-4 mt-10">
-      <svg viewBox="0 0 1024 1024" className='w-5 h-5' xmlns="http://www.w3.org/2000/svg" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path fill="#ffffff" d="M688 512a112 112 0 1 0 0 224h208v160H128V352h768v160H688zm32 160h-32a48 48 0 0 1 0-96h32a48 48 0 0 1 0 96zm-80-544 128 160H384l256-160z"></path></g></svg>
-
-      <input class="pl-2 outline-none border-none bg-transparent text-white text-[12px]" type="email" name="" id="" placeholder="Wallet Address" />
-      </div> 
+       
       
       <button onClick={connectWallet} type="submit" class="block w-full bg-bethel-green/80 mt-4 py-2 rounded-xl text-white font-semibold mb-2 uppercase">
-       <h3>Connect Wallet</h3>
+       { connected ? (<div>Connected! {connectedProvider} </div>) : (<div>Connect Wallet</div>)}
         </button>
+      
+      <button onClick={execute} className="p-2 bg-red-400">EXcute</button> 
 
       {/* { logFail && <div>
 
@@ -140,8 +294,7 @@ function Login() {
         <h3>Version 3.4.1</h3>
       </div>
       </div>
-       
-        </form>  
+      
       </div>
 
       
