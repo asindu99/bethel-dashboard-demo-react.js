@@ -1,27 +1,43 @@
 import React from 'react'
+import iconStorage from "../Images/icons/icon-storage.png"
 
 export default function DashboardStorageFolder2() {
   return (
     <section>
+      
+      <div className='flex my-3'>
+        <div>
+          <img src={iconStorage} alt="" className='w-[20px] inline-block text-white' />
+        </div>
+
+        <div className='ml-2'>
+          <h3 className='text-white'>/ DASHBOARD / STORAGE / FOLDER</h3>
+        </div>
+      </div>
+      
       {/* Top section with import button */}
-        <div className='flex flex-row justify-between'>
+        <div className='flex px-3 pt-3'>
   
-          <div className='flex items-center justify-center px-6 py-2 text-sm font-semibold text-white rounded-md'>
+          {/* <div className='flex items-center justify-center px-6 py-2 text-sm font-semibold text-white rounded-md'>
     <div className='px-4 py-2 rounded-md bg-bethel-green/50'>Files</div>
-          </div>
+          </div> */}
   
           <div className='flex flex-row px-6 py-2 mr-3 text-white rounded-md bg-gray-100/20 gap-x-8'>
+           
               <div className=''>
-      <h3 className='text-white text-[18px]'>591 MiB</h3>
-      <h3 className='text-center uppercase text-[12px]'>Files</h3>
+                  <h3 className='text-white text-[14px] font-bold'>591 MiB</h3>
+                  <h3 className='text-center uppercase text-[10px] '>Files</h3>
               </div> 
+              
               <div>
-      <h3 className='text-white text-[18px]'>592 MiB</h3>
-      <h3 className='text-[12px] text-center uppercase'>All Blocks</h3>
+                <h3 className='text-white text-[14px] font-bold'>592 MiB</h3>
+                <h3 className='text-[10px] text-center uppercase'>All Blocks</h3>
               </div>
-              <div className='flex flex-row px-5 py-2 text-white rounded-md bg-bethel-green/50'>
-   <svg viewBox="0 0 24 24" fill="none" className="w-5 h-5 mt-1 cursor-pointer" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M6 12H18M12 6V18" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>         
-   <h3>Upload</h3>
+         
+              
+              <div className='flex flex-row items-center justify-center px-2 py-1 text-white rounded-md bg-bethel-green/50'>
+                <svg viewBox="0 0 24 24" fill="none" className="w-5 h-5" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M6 12H18M12 6V18" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
+                <h3 className='text-[14px]'>Upload</h3>
               </div>
    
           </div>
@@ -29,7 +45,7 @@ export default function DashboardStorageFolder2() {
         </div>
 
       {/* Upload Items */}
-      <div class="flex  w-full py-8 px-10 ">
+      <div class="flex  w-full py-8 px-2 ">
 	      <div class="w-full">
 		      <div class="overflow-auto lg:overflow-visible  w-full">
 			      <table class="table text-gray-400 text-sm w-full rounded-md border-separate border-spacing-2 border-transparent ">
@@ -126,7 +142,7 @@ export default function DashboardStorageFolder2() {
 
       {/* Show Import Items */}
       
-      <div class="overflow-x-auto mt-6 px-10">
+      <div class="overflow-x-auto mt-6 px-2">
         <table class="table-auto border-collapse w-full">
           <thead>
             <tr class="rounded-lg text-sm font-medium text-left flex justify-between bg-gray-800/20" >
