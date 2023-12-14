@@ -67,9 +67,8 @@ function MainContent() {
         <div className="fixed top-0 w-full h-[30px] bg-[#0F0F0F] z-[100]"></div>
         <Routes>
           <Route path="/dashboard" element={<DashboardHome />} />
-          <Route path="/dashboard/storage" element={<DashboardStorage />} />
           <Route path="/dashboard/profile" element={<DashboardProfile />} />
-          <Route path="/dashboard/storage/folder" element={<DashboardStorageFolder2 />} />
+          <Route path="/dashboard/files" element={<DashboardStorageFolder2 />} />
           <Route path='/dashboard/wallet' element={<DashboardWallet />} />
           <Route path="/dashboard/billing" element={<DashboardBilling></DashboardBilling>}></Route>
         </Routes>

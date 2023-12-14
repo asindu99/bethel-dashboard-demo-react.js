@@ -73,7 +73,7 @@ function SideBar() {
             {/* end-dashboard */}
 
             {/* start-storage */}
-            <Link to='/dashboard/storage' className='w-full'>
+            <Link to='/dashboard/files' className='w-full'>
             <div onClick={toggle} className='flex w-full px-10 py-2 hover:bg-bethel-green/50'>
               <div>
                 {/* start-inside box */}
@@ -236,7 +236,7 @@ function SideBar() {
             {/* end-dashboard */}
 
             {/* start-storage */}
-            <Link to='/dashboard/storage' className='w-full'>
+            <Link to='/dashboard/files' className='w-full'>
             <div className='flex w-full px-10 py-2 hover:bg-bethel-green/50'>
               <div>
                 {/* start-inside box */}
