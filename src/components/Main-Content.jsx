@@ -4,7 +4,7 @@ import SideBar from "./Side-Bar";
 import DashboardHome from "./Dashboard-Home";
 import DashboardStorage from "./Dashboard-Storage";
 import DashboardProfile from "./Dashboard-Profile";
-import DashboardStorageFolder from "./Dashboard-Storage_Folder";
+import DashboardStorageFolder2 from "./Dashboard-Storage_Folder2";
 // import { useDispatch } from "react-redux";
 // import toggleSidebarSlice from "../reducers/toggleSidebar";
 import { useEffect, useState } from "react";
@@ -69,7 +69,7 @@ function MainContent() {
           <Route path="/dashboard" element={<DashboardHome />} />
           <Route path="/dashboard/storage" element={<DashboardStorage />} />
           <Route path="/dashboard/profile" element={<DashboardProfile />} />
-          <Route path="/dashboard/storage/folder" element={<DashboardStorageFolder />} />
+          <Route path="/dashboard/storage/folder" element={<DashboardStorageFolder2 />} />
           <Route path='/dashboard/wallet' element={<DashboardWallet />} />
           <Route path="/dashboard/billing" element={<DashboardBilling></DashboardBilling>}></Route>
         </Routes>
