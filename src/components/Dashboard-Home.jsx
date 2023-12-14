@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import iconBucket from "../Images/icons/icon-bucket.png"
 import iconStorage from "../Images/icons/icon-storage.png"
 import iconFile from "../Images/icons/icon-file.png"
@@ -10,56 +10,13 @@ import iconMusic from "../Images/icons/icons8-music-100.png"
 
 import { Doughnut , Bar, Line } from 'react-chartjs-2'
 import { Chart as ChartJS } from 'chart.js/auto'
-import { useDispatch, useSelector } from 'react-redux'
-import axios from 'axios'
-import userDataSlice from '../reducers/userDataReducer'
-import storageDataSlice from '../reducers/storageDetailsSlice'
-import uploadSlice from '../reducers/uploadDetailsSlice'
-import { useNavigate } from 'react-router-dom'
-
 
 function DashboardHome() {
-  //  const [storageDetails , setStorageDetails] = useState(null)
-  const dispatch = useDispatch();
-  const Navigate = useNavigate();
-  // get user ID
-    const userData = useSelector((state)=> state.loginReducer)
-    const userId = userData._id
   
-  
-
-
-  // get all the data and save to the store funcs ----------------------
-  const getStorageData = async () =>{
-    const res = await axios.get('https://mw.bethel.network/storagedetails/' + userId,
-    {withCredentials : true}) 
-
-    dispatch(storageDataSlice.actions.saveStorageData(res.data[0]))
-   }
-
-   const getUploadData = async () =>{
-    const res2 = await axios.get('https://mw.bethel.network/storage/' + userId ,{withCredentials :true})
-    dispatch(uploadSlice.actions.uploadData(res2.data))
-   }
-
-    useEffect(()=>{
-      fetchData();
-      getStorageData();
-      getUploadData();
-    },[])
-  
-  
-
-    const fetchData = async() =>{
-      const res = await axios.get('https://mw.bethel.network/users/' + userId ,{withCredentials : true})
-      dispatch(userDataSlice.actions.saveUserData(res.data))
-    }
-
-    const storageDetails = useSelector((state) => state.storageDetailsReducer)
+ 
   return (
 
     <div className='w-full text-white'>
-
 
       {/* topic container */}
       <div className='flex mt-3 mb-5'>
@@ -109,7 +66,7 @@ function DashboardHome() {
                     <h3 className='text-[1.3rem] font-bold'>STORAGE</h3>
                     <h3 className='text-white/50 '>Total storage : </h3> 
                     <div className='absolute bottom-[-25px]'>
-                      {storageDetails.totalsize}
+                      10Gb
                     </div>
                   </div>
 
@@ -127,7 +84,7 @@ function DashboardHome() {
               <div className='flex items-center justify-between w-full px-8 py-12 rounded-md backdrop-blur-xl bg-gradient-to-b from-bethel-white/10 to-bethel-green/5'>
                   <div className='flex flex-col'>
                     <h3 className='text-[1.3rem] font-bold'>OBJECTS</h3>
-                    <h3 className='text-white/50'>Total objects : {storageDetails.filecount}</h3>
+                    <h3 className='text-white/50'>Total objects : 2</h3>
                   </div>
 
                   <div className="relative">
@@ -171,7 +128,7 @@ function DashboardHome() {
                 ],
                 datasets: [{
                   label: 'My First Dataset',
-                  data: [100,storageDetails.totalsize],
+                  data: [100,20],
                   backgroundColor: [
                     'rgb(255, 255 , 255 )',
                     'rgb(170, 255, 0)',
@@ -193,7 +150,7 @@ function DashboardHome() {
 
                                   <div class="flex flex-col items-center justify-center mt-[2px]">
                                       <h3 class="text-[1.1rem] text-white/80">Files</h3>
-                                      <h3 class="text-[#8d8d8d] text-[12px] ml-1">{storageDetails.filecount} files</h3>
+                                      <h3 class="text-[#8d8d8d] text-[12px] ml-1">1 files</h3>
                                   </div>
                               </div>
 
@@ -265,7 +222,7 @@ function DashboardHome() {
         labels: ['Files', 'Videos', 'Images', 'Musics'],
         datasets: [{
             label: 'Files',
-            data: [storageDetails.filecount, 0, 0, 0],
+            data: [2, 0, 0, 0],
             backgroundColor: [
                 'rgba(255, 255,255, .7)',
                 'rgba(255, 255,255, .6)',

@@ -1,45 +1,36 @@
-import React, { useEffect, useLayoutEffect, useRef, useState } from 'react'
+import React, {useEffect, useState } from 'react'
 import iconUser from "../Images/icons/icon-male-user.png"
-import iconDrop from "../Images/icons/icon-drop.png"
-import iconHome from '../Images/icons/icon-home.png'
-import iconLogoout from "../Images/icons/icon-logout.png"
 import { useDispatch, useSelector } from 'react-redux'
 import iconMenu from "../Images/icons/icons-menu.png"
 import toggleSidebarSlice from '../reducers/toggleSidebar'
 import { useNavigate } from 'react-router-dom'
-import axios from 'axios'
-
+import { revertAll4 } from '../reducers/userDataReducer'
+import { revertAll3 } from '../reducers/uploadDetailsSlice'
+import { revertAll2 } from '../reducers/storageDetailsSlice'
+import WalletAddressSlice, { revertAll5 } from '../reducers/WalletAddressSlice'
+import { revertAll } from '../reducers/Loginreducer'
 
 
 function Navbar() {
-  const [toggleDropDown, setToggleDropDown] = useState(false);
-  const Navigate = useNavigate()
-  const [data , setData] = useState(false)
+  const dispatch = useDispatch();  
+  const Navigate = useNavigate();
 
-  const userData = useSelector((state)=> state.loginReducer)
-  const userId = userData._id
-
-  const getStorageData = async () =>{
+  const accountChanged = async () =>{
     try {
-      const res = await axios.get('https://mw.bethel.network/storagedetails/' + userId,
-      {withCredentials : true}) 
-      console.log("zsdzsdsdaw",res.data)
-      setData(true)
+      const accounts = await window.ethereum.request({method : "eth_requestAccounts"})
+      dispatch(WalletAddressSlice.actions.saveWalletAddress(accounts[0]))
     } catch (error) {
       Navigate('/')
+      window.location.reload();
+    dispatch(revertAll(), revertAll4(),revertAll2(),revertAll3(), revertAll5())
+
     }
-    
-   }
-    useEffect(()=>{
-    getStorageData();
-    
-   },[])
-
-   
-
-
-  //dispathch 
-  const dispatch = useDispatch();  
+  } 
+  useEffect(() => {
+      window.ethereum.on('accountsChanged' , accountChanged)
+  });
+  const walletAddress = useSelector((state) => state.WalletAddressReducer)
+  const trimWalletAddress = walletAddress.substring(0, 4) + "..." + walletAddress.substring(39);
  
 
   const toggle = () =>{
@@ -65,17 +56,17 @@ function Navbar() {
             </div>
 
             {/* name and the other */}
-            { data && <div className='flex gap-2 uppercase lg:mr-0 md:mr-6 sm:mr-6 min-[320px]:mr-6'>
-              <h2>{userData.details.firstName}</h2>
-              <h2>{userData.details.lastName}</h2>
-            </div> }
+            <div className='flex gap-2 uppercase lg:mr-0 md:mr-6 sm:mr-6 min-[320px]:mr-6'>
+              <button className='px-2 bg-bethel-green/60 py-2 rounded-md'>
+                Connected : {trimWalletAddress}
+              </button>
+            </div>
 
-            {/* drop down menu */}
-            {/* <button onClick={handleToggle} >
-              <div>
-                <img src={iconDrop} alt="" className='w-[20px] lg:flex md:hidden sm:hidden min-[32px]:hidden'/>
-              </div>
-            </button> */}
+            <div className='flex gap-2 uppercase lg:mr-0 md:mr-6 sm:mr-6 min-[320px]:mr-6'>
+              <button className='px-2 bg-bethel-green/60 py-2 rounded-md'>
+                Create ID
+              </button>
+            </div>
            
           </div>
 
@@ -87,58 +78,6 @@ function Navbar() {
         </div>
       {/* end-nav bar */}
 
-
-
-      {/* start-drop down menu */}
-      {toggleDropDown && 
-      <div className='border-[1px] border-bethel-green z-100 absolute right-2 top-[80px] w-[220px] backdrop-blur-xl bg-white/10 flex flex-col gap-2 rounded-md p-2
-       '>
-        {/* email and user name  */}
-        <div className='flex flex-col text-white'>
-          <h3>{userData.email}</h3>
-          <h3>{userData.username}</h3>
-          <hr className='w-[90%] mt-1 opacity-20 ' />
-        </div>
-
-        {/* Dashboard */}
-        <div className='flex flex-col'>
-          {/* start-dashboard */}
-            <div className='flex text-white w-full px-10 hover:bg-bethel-green/50  py-2'>
-              <div>
-                {/* start-inside box */}
-                <div className='flex w-full gap-2'>
-                  <div>
-                    <img src={iconHome} alt="flex" className='w-[20px]' />
-                  </div>
-                  <h1>DASHBOARD</h1>
-                </div>
-                {/* end-insidebox */}
-              </div>
-            </div>
-            {/* end-dashboard */}
-        </div>
-
-        <div className='flex flex-col'>
-          {/* start-dashboard */}
-            <div className='flex text-white w-full px-10 hover:bg-bethel-green/50  py-2'>
-              <div>
-                {/* start-inside box */}
-                <div className='flex w-full gap-2'>
-                  <div>
-                    <img src={iconLogoout} alt="flex" className='w-[20px]' />
-                  </div>
-                  <h1>LOGOUT</h1>
-                </div>
-                {/* end-insidebox */}
-              </div>
-            </div>
-            {/* end-dashboard */}
-        </div>
-
-
-      </div>
-      // {/* end- drop down menu */}
-       }
       
     </div>
   )
