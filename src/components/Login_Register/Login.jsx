@@ -25,7 +25,18 @@ function Login() {
     
   }
 
+
+      } catch (error) {
+        console.log(error)
+      }
+    } else {
+      setConnected(false)
+      }
+    
+  }
+  
   return (
+
 
     <section className='relative w-full min-h-screen bg-black'>
       <div className="text-white w-full min-h-screen flex">
@@ -60,6 +71,7 @@ function Login() {
           </div>
       </div>
     </section>
+
 
   )
 }
