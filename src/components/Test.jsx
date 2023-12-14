@@ -8,11 +8,11 @@ const TableWithMoreButton = () => {
   };
 
   const data = [
-  { id: 1, name: 'Item 1' },
-  { id: 2, name: 'Item 2' },
-  { id: 3, name: 'Item 3' },
-  // Add more data as needed
-];
+    { id: 1, name: 'Item 1' },
+    { id: 2, name: 'Item 2' },
+    { id: 3, name: 'Item 3' },
+    // Add more data as needed
+  ];
 
   return (
     <table className='text-white'>
@@ -40,7 +40,7 @@ const TableWithMoreButton = () => {
                 <td colSpan="3">
                   <div className="menu">
                     {/* Add your unique menu content here */}
-                    <div className='flex flex-col py-5 bg-gray-800/60 gap-y-4 w-[130px] items-start pl-2 rounded-md justify-center'>
+                    <div className='absolute top-16 right-1 flex flex-col py-5 bg-gray-800/60 gap-y-4 w-[130px] items-start pl-2 rounded-md justify-center'>
                       <div className='flex flex-row gap-x-4'>
                         <div className='flex items-center justify-center w-6 h-6'>
                         <svg fill="#ffffff" className='w-5 h-5' viewBox="0 0 32 32" id="Outlined" xmlns="http://www.w3.org/2000/svg" stroke="#ffffff"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <title></title> <g id="Fill"> <path d="M25,22a4,4,0,0,0-3.26,1.69l-11-6.4A4,4,0,0,0,11,16a4.14,4.14,0,0,0-.1-.87L22,8.65A4,4,0,1,0,21,6a4.14,4.14,0,0,0,.1.87L10,13.35A4,4,0,1,0,7,20a4,4,0,0,0,2.66-1L21,25.6c0,.13,0,.26,0,.4a4,4,0,1,0,4-4ZM25,4a2,2,0,1,1-2,2A2,2,0,0,1,25,4ZM7,18a2,2,0,1,1,2-2A2,2,0,0,1,7,18ZM25,28a2,2,0,1,1,2-2A2,2,0,0,1,25,28Z"></path> </g> </g></svg>
