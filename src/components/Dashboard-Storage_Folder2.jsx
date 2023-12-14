@@ -35,10 +35,12 @@ export default function DashboardStorageFolder2() {
               </div>
          
               
-              <button type='file' onClick={handleUpload} className='flex flex-row items-center justify-center px-2 py-1 text-white rounded-md bg-bethel-green/50'>
+              <button type='fi' onClick={handleUpload} className='flex flex-row items-center justify-center px-2 py-1 text-white rounded-md bg-bethel-green/50'>
                 <svg viewBox="0 0 24 24" fill="none" className="w-5 h-5" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M6 12H18M12 6V18" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
                 <h3 className='text-[14px]'>Upload</h3>
               </button>
+
+              
    
           </div>
   
