@@ -21,7 +21,7 @@ function DashboardHome() {
       {/* topic container */}
       <div className='flex mt-3 mb-5'>
         <div className=''>
-          <img src={iconHome} alt="" className='w-[20px] inline-block' /> /
+          <img src={iconHome} alt="" className='w-[20px] inline-block -mt-1' /> /
         </div>
 
         <div className='ml-2'>

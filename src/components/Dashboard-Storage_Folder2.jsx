@@ -26,7 +26,7 @@ export default function DashboardStorageFolder2() {
       
       <div className='flex my-3'>
         <div>
-          <img src={iconStorage} alt="" className='w-[20px] inline-block text-white' />
+          <img src={iconStorage} alt="" className='w-[20px] inline-block text-white -mt-1' />
         </div>
 
         <div className='ml-2'>
