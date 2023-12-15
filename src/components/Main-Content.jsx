@@ -1,12 +1,9 @@
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import Navbar from "./Nav-bar";
 import SideBar from "./Side-Bar";
 import DashboardHome from "./Dashboard-Home";
-import DashboardStorage from "./Dashboard-Storage";
 import DashboardProfile from "./Dashboard-Profile";
 import DashboardStorageFolder2 from "./Dashboard-Storage_Folder2";
-// import { useDispatch } from "react-redux";
-// import toggleSidebarSlice from "../reducers/toggleSidebar";
 import { useEffect, useState } from "react";
 import "../components/style.css"
 import { useDispatch } from "react-redux";
@@ -14,9 +11,11 @@ import toggleSidebarSlice from "../reducers/toggleSidebar";
 import DashboardWallet from "./Dashboard-Wallet";
 import DashboardBilling from "./Dashboard-Billing";
 
-function MainContent() {
+  function MainContent() {
   const [isLoading , setIsLoading] = useState(true)
   const dispatch = useDispatch();
+  const Navigate = useNavigate()
+
 
   useEffect(()=>{
 
