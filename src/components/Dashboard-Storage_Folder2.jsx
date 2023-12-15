@@ -26,7 +26,7 @@ export default function DashboardStorageFolder2() {
       
       <div className='flex my-3'>
         <div>
-          <img src={iconStorage} alt="" className='w-[20px] inline-block text-white' />
+          <img src={iconStorage} alt="" className='w-[20px] inline-block text-white -mt-1' />
         </div>
 
         <div className='ml-2'>
@@ -50,7 +50,7 @@ export default function DashboardStorageFolder2() {
               </div>
          
               <input onChange={handleFileUpload} id="file-type" type="file" multiple hidden />
-              <label for="file-type" id="button" className='cursor-pointer flex flex-row items-center justify-center px-2 py-1 text-white rounded-md bg-bethel-green/50'>
+              <label for="file-type" id="button" className='flex flex-row items-center justify-center px-2 py-1 text-white rounded-md cursor-pointer bg-bethel-green/50'>
                 Select File
               </label>
    
@@ -58,8 +58,8 @@ export default function DashboardStorageFolder2() {
   
         </div>
 
-      {/* Show Import Items */}
       
+      {/* Show Import Items */}
       <div class="overflow-x-auto mt-6 px-2">
         <table class="table-auto border-collapse w-full">
           <thead>
@@ -83,8 +83,8 @@ export default function DashboardStorageFolder2() {
                       <h1>{fileSize} KiB</h1>
                     </div>
 
-                    <div className="gap-2 flex items-center">
-                      <button className="flex gap-2 bg-bethel-green/50 px-2 py-1 rounded-md">
+                    <div className="flex items-center gap-2">
+                      <button className="flex gap-2 px-2 py-1 rounded-md bg-bethel-green/50">
                         <h3 className='text-white'>Upload</h3>
                         <svg viewBox="0 0 20 15" className='w-4 h-4 cursor-pointer' xmlns="http://www.w3.org/2000/svg" fill="none"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path fill="#ffffff" fill-rule="evenodd" d="M9 12a1 1 0 102 0V4.26l3.827 3.48a1 1 0 001.346-1.48l-5.5-5a1 1 0 00-1.346 0l-5.5 5a1 1 0 101.346 1.48L9 4.26V12zm-5.895-.796A1 1 0 001.5 12v3.867a2.018 2.018 0 002.227 2.002c1.424-.147 3.96-.369 6.273-.369 2.386 0 5.248.236 6.795.383a2.013 2.013 0 002.205-2V12a1 1 0 10-2 0v3.884l-13.895-4.68zm0 0L2.5 11l.605.204zm0 0l13.892 4.683a.019.019 0 01-.007.005h-.006c-1.558-.148-4.499-.392-6.984-.392-2.416 0-5.034.23-6.478.38h-.009a.026.026 0 01-.013-.011V12a.998.998 0 00-.394-.796z"></path> </g></svg>              
                       </button>
@@ -102,7 +102,7 @@ export default function DashboardStorageFolder2() {
       </div>
 
        {/* Upload Items */}
-      <div class="flex  w-full py-8 px-2">
+      {/* <div class="flex  w-full py-8 px-2">
 	      <div class="w-full">
 		      <div class="overflow-auto lg:overflow-visible  w-full">
 			      <table class="table text-gray-400 text-sm w-full rounded-md border-separate border-spacing-2 border-transparent ">
@@ -113,7 +113,7 @@ export default function DashboardStorageFolder2() {
 					      </tr>
 				      </thead>
 				      <tbody>
-                <tr className="flex justify-between bg-gray-800/20 items-center">
+                <tr className="flex items-center justify-between bg-gray-800/20">
 						      <td class="p-3">
 							      <div className="flex items-center justify-center">
 								      <div class="flex items-center justify-center rounded-full h-12 w-12  object-cover">
@@ -130,6 +130,7 @@ export default function DashboardStorageFolder2() {
                     <button>
                       <svg viewBox="0 0 24 24" fill="none"  className="w-5 h-5 " xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <circle cx="18" cy="12" r="1.5" transform="rotate(90 18 12)" fill="#ffffff"></circle> <circle cx="12" cy="12" r="1.5" transform="rotate(90 12 12)" fill="#ffffff"></circle> <circle cx="6" cy="12" r="1.5" transform="rotate(90 6 12)" fill="#ffffff"></circle> </g></svg>
                     </button>
+
                     
 
                     {/* drop down */}
@@ -175,7 +176,7 @@ export default function DashboardStorageFolder2() {
 		      </div>
 	      </div>
 
-      </div>
+      </div>  */}
 
       <TableWithMoreButton />
 

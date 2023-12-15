@@ -41,6 +41,7 @@ function Login() {
     </div>
     
     <div className="-mt-48 font-bold text-center">
+      
       <button onClick={connectWallet} className="p-2 px-4 text-black bg-white rounded-md text-[20px] hover:text-white hover:bg-bethel-green/70 transition-all 1s ease-in-out">Connect Wallet</button>
       
     </div>
