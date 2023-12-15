@@ -20,18 +20,6 @@ import DashboardBilling from "./Dashboard-Billing";
   const dispatch = useDispatch();
   const Navigate = useNavigate()
 
-  const getAcc = async () =>{
-    const accounts = await window.ethereum.requires({method : "eth_requestAccounts"})
-    setAccounts(accounts)
-  }
-  useEffect(()=>{
-    getAcc();
-    console.log(accounts)
-  },[])
-
-  // if(!accounts){
-  //   Navigate('/')
-  // }
 
   useEffect(()=>{
 
