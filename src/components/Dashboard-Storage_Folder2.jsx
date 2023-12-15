@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import iconStorage from "../Images/icons/icon-storage.png"
 import TableWithMoreButton from '../components/Test'
+import "../loadingCss/InfiniteLoader.css"
 
 export default function DashboardStorageFolder2() {
   const [file , setFile] = useState(null)
@@ -30,7 +31,7 @@ export default function DashboardStorageFolder2() {
         </div>
 
         <div className='ml-2'>
-          <h3 className='text-white'>/ DASHBOARD / STORAGE / FOLDER</h3>
+          <h3 className='text-white'>/ DASHBOARD / FILES</h3>
         </div>
       </div>
       
@@ -62,13 +63,12 @@ export default function DashboardStorageFolder2() {
       
       <div class="overflow-x-auto mt-6 px-2">
         <table class="table-auto border-collapse w-full">
-          <thead>
+          <thead className="relative">
             <tr class="rounded-lg text-sm font-medium text-left flex justify-between bg-gray-800/20" >
-            <th class="px-4 py-2  text-gray-300" >Selected Item :</th>
-            <th class="px-4 py-2  text-gray-300 flex flex-row gap-x-4" >
-                     
+              <th class="px-4 py-2  text-gray-300" >Selected Item :</th>
+              <th class="px-4 py-2  text-gray-300 flex flex-row gap-x-4" >
             </th>
-            
+              <div class="loader"></div>
             </tr>
           </thead>
           <tbody class="text-sm font-normal text-gray-400">
