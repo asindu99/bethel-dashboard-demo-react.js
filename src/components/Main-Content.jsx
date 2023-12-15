@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import Navbar from "./Nav-bar";
 import SideBar from "./Side-Bar";
 import DashboardHome from "./Dashboard-Home";
@@ -14,9 +14,12 @@ import toggleSidebarSlice from "../reducers/toggleSidebar";
 import DashboardWallet from "./Dashboard-Wallet";
 import DashboardBilling from "./Dashboard-Billing";
 
-function MainContent() {
+  function MainContent() {
   const [isLoading , setIsLoading] = useState(true)
+  const [accounts , setAccounts] = useState('')
   const dispatch = useDispatch();
+  const Navigate = useNavigate()
+
 
   useEffect(()=>{
 

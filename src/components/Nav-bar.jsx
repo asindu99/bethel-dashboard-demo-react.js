@@ -39,34 +39,23 @@ function Navbar() {
     onSubmit : async (values) =>{
       console.log(values)
       setIsLoading(true)
-
-        const res = await axios.post('https://mw.bethel.network/auth/register', {
-                  email: values.email,
-                  username: values.userName,
-                  password: values.password,
-                  firstName : values.firstName,
-                  lastName : values.lastName,
-              }, 
-              {
-                  withCredentials: true
-              })
-    try {
-      res.status === 200 ? Navigate('/') : setIsLoading(false)
-    } catch (error) {
-      setIsLoading(false)
-      console.log(error)
     }
-  }
   })
 
-  const accountChanged = async () =>{
+  const accountChanged = async () => {
     try {
       const accounts = await window.ethereum.request({method : "eth_requestAccounts"})
       dispatch(WalletAddressSlice.actions.saveWalletAddress(accounts[0]))
+      console.log(accounts)
+      // if(!accounts){
+      //   dispatch(revertAll(), revertAll4(),revertAll2(),revertAll3(), revertAll5())
+      // }
+      // window.location.reload();
+
     } catch (error) {
       Navigate('/')
-      window.location.reload();
-    dispatch(revertAll(), revertAll4(),revertAll2(),revertAll3(), revertAll5())
+      // window.location.reload();
+      dispatch(revertAll(), revertAll4(),revertAll2(),revertAll3(), revertAll5())
 
     }
   } 
