@@ -11,7 +11,6 @@ const TableWithMoreButton = () => {
 
   { id: 1, name: 'Item 1', itemCode:'ewerwe3dpqwkdpok1231231damdk' , fileSize:'591MiB' },
   { id: 2, name: 'Item 2', itemCode:'ewerwe3dpqwkdpok1231231damdk', fileSize:'591MiB'},
-  { id: 3, name: 'Item 3', itemCode:'ewerwe3dpqwkdpok1231231damdk', fileSize:'591MiB' },
   // Add more data as needed
 ];
 
