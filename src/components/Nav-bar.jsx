@@ -14,6 +14,7 @@ import { useFormik } from 'formik';
 import { Validation } from '../components/Login_Register/Validation';
 import loaderGif from '../Images/Animation-gifs/loading-6324_256.gif'
 
+const {ethers} = require('ethers')
 
 let initialValues = {
   firstName : '',
@@ -24,32 +25,238 @@ let initialValues = {
   contactNumber : ''
 }
 
+
 function Navbar() {
   const dispatch = useDispatch();  
   const Navigate = useNavigate();
   const [isLoading , setIsLoading] = useState(false)
+  const contractAddress = '0x00ec27BC8AA68c7EC57074445b3cAAf7D7f95B8C'
+  let provider = new ethers.BrowserProvider(window.ethereum);
+
+  const abi = [
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "userAddress",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "string",
+          "name": "uname",
+          "type": "string"
+        },
+        {
+          "indexed": false,
+          "internalType": "string",
+          "name": "fname",
+          "type": "string"
+        },
+        {
+          "indexed": false,
+          "internalType": "string",
+          "name": "lname",
+          "type": "string"
+        },
+        {
+          "indexed": false,
+          "internalType": "string",
+          "name": "email",
+          "type": "string"
+        },
+        {
+          "indexed": false,
+          "internalType": "string",
+          "name": "country",
+          "type": "string"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "mobileNumber",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "bool",
+          "name": "isRegistered",
+          "type": "bool"
+        }
+      ],
+      "name": "UserCreated",
+      "type": "event"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "uname",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "fname",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "lname",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "email",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "country",
+          "type": "string"
+        },
+        {
+          "internalType": "uint256",
+          "name": "mobileNumber",
+          "type": "uint256"
+        }
+      ],
+      "name": "createUserId",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "success",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "name": "isVerified",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "name": "user",
+      "outputs": [
+        {
+          "internalType": "string",
+          "name": "uname",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "fname",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "lname",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "email",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "country",
+          "type": "string"
+        },
+        {
+          "internalType": "uint256",
+          "name": "mobileNumber",
+          "type": "uint256"
+        },
+        {
+          "internalType": "bool",
+          "name": "isRegistered",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "name": "userList",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ]
   
   const [toggleVal,setToggleVal] = useState(false)
-  // const [toggleVal , setToggleVal] = useState(false)
-
   const {values , handleChange, handleSubmit, errors } = useFormik({
     initialValues : initialValues,
     validationSchema: Validation,
 
     // get the values from the form
     onSubmit : async (values) =>{
-      
-      values.firstName = '';
-      values.lastName = '';
-      values.email = '';
-      values.password = '';
-      values.userName = '';
-      values.address = '';
-      values.contactNumber = '';
+      setIsLoading(true);
 
-      setToggleVal(false)
+      try {
+        console.log(values)
+        const signer = await provider.getSigner();
+        console.log("sdsfsdfdf",signer)  
+        const userIdContract = new ethers.Contract(contractAddress , abi , signer)
+        const contract = await userIdContract.createUserId(values.userName,values.firstName,values.lastName,values.email,values.address,values.contactNumber)
+        console.log(contract)
+
+      } catch (error) {
+        console.log(error)
+      }
+      
+      
+      // values.firstName = '';
+      // values.lastName = '';
+      // values.email = '';
+      // values.password = '';
+      // values.userName = '';
+      // values.address = '';
+      // values.contactNumber = '';
+
+      // setToggleVal(false)
     }
   })
+  
+  
 
   const accountChanged = async () => {
     try {
@@ -75,7 +282,6 @@ function Navbar() {
   const walletAddress = useSelector((state) => state.WalletAddressReducer)
   const trimWalletAddress = walletAddress.substring(0, 4) + "..." + walletAddress.substring(39);
  
-
   const toggle = () =>{
     dispatch(toggleSidebarSlice.actions.toggleSidebar())
   }
@@ -84,6 +290,7 @@ function Navbar() {
     // setToggleVal(!toggleVal)
     setToggleVal(!toggleVal)
   }
+
 
   
   return (
@@ -200,7 +407,7 @@ function Navbar() {
                   </div>
       
                   <button type="submit" class="block w-full bg-[#aaff00]/80  py-2 rounded-xl text-white font-semibold mb-2 uppercase mt-8">
-                  { !isLoading && <h3>Sign Up</h3>} { isLoading && <div className='flex justify-center w-full'><img src={loaderGif} alt='' className='flex w-[100px] py-1 justify-center' /></div>}
+                  { !isLoading && <h3>Register</h3>} { isLoading && <div className='flex justify-center w-full'><img src={loaderGif} alt='' className='flex w-[100px] py-1 justify-center' /></div>}
       
                   </button>
       
@@ -214,11 +421,7 @@ function Navbar() {
               </div>}
               
             </div>
-            
-            
 
-            
-      
           </div>
 
 
