@@ -1,8 +1,6 @@
 import { StandardMerkleTree } from "@openzeppelin/merkle-tree";
 import fs from "fs";
 
-
-
 // Read the registeredUser array from input.json
 const registeredUser = JSON.parse(fs.readFileSync("input.json", "utf8"));
 
@@ -20,8 +18,6 @@ fs.writeFileSync("tree.json", JSON.stringify(merkelTree.dump()));
 // Write the root into the file
 fs.writeFileSync("root.json", JSON.stringify(root));
 
-//// Obtaining a Proof for aorresponding to address ////
-//-----------------------------------------------------
 
 
 // Load the tree from the file contains the tree 

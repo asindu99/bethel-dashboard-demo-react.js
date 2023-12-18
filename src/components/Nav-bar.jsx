@@ -1,3 +1,4 @@
+import MainMerkle from '../merkle'
 import React, {useEffect, useState } from 'react'
 import iconUser from "../Images/icons/icon-male-user.png"
 import { useDispatch, useSelector } from 'react-redux'
@@ -9,12 +10,11 @@ import { revertAll3 } from '../reducers/uploadDetailsSlice'
 import { revertAll2 } from '../reducers/storageDetailsSlice'
 import WalletAddressSlice, { revertAll5 } from '../reducers/WalletAddressSlice'
 import { revertAll } from '../reducers/Loginreducer'
-import axios from 'axios';
 import { useFormik } from 'formik';
 import { Validation } from '../components/Login_Register/Validation';
 import loaderGif from '../Images/Animation-gifs/loading-6324_256.gif'
-
 const {ethers} = require('ethers')
+
 
 let initialValues = {
   firstName : '',
@@ -24,7 +24,6 @@ let initialValues = {
   address : '',
   contactNumber : ''
 }
-
 
 function Navbar() {
   const dispatch = useDispatch();  
@@ -298,6 +297,31 @@ function Navbar() {
       }
       const details = JSON.stringify(data);
       console.log(details)
+    
+      fetch("http://localhost:3000/userInput", {
+        method : 'POST',
+        headers : {
+          'Content-Type' : 'application/json'
+        },
+        body : JSON.stringify({
+          walletAddress : walletAddress,
+          fname : values.firstName,
+          lname : values.lastName,
+          email : values.email,
+          userName : values.userName,
+          address : values.address,
+          mobile : values.contactNumber
+        })
+      })
+
+    
+
+      setTimeout(() => {
+        MainMerkle();
+      }, 2000);
+        
+      
+      
       // try {
       //   console.log(values)
       //   const signer = await provider.getSigner();
@@ -322,7 +346,6 @@ function Navbar() {
     }
   })
   
-  
 
   const accountChanged = async () => {
     try {
@@ -341,9 +364,8 @@ function Navbar() {
   useEffect(() => {
       window.ethereum.on('accountsChanged' , accountChanged)
   });
-  
+
   const trimWalletAddress = walletAddress.substring(0, 4) + "..." + walletAddress.substring(39);
- 
   const toggle = () =>{
     dispatch(toggleSidebarSlice.actions.toggleSidebar())
   }
@@ -351,6 +373,7 @@ function Navbar() {
   const toggleReg = () =>{
     // setToggleVal(!toggleVal)
     setToggleVal(!toggleVal)
+      
   }
 
 

@@ -1,0 +1,87 @@
+{
+  "userInput": [
+    {
+      "walletAddress": "0xb598c9de66b627db1425841ace56ca4ecd244941",
+      "fname": "asdasdsa",
+      "lname": "Shashan",
+      "email": "asindu24@gmail.com",
+      "userName": "ASINDU",
+      "address": "Sri Lanka",
+      "mobile": 1212312123,
+      "id": 1
+    },
+    {
+      "walletAddress": "0xb598c9de66b627db1425841ace56ca4ecd244941",
+      "fname": "asdasdsa",
+      "lname": "Shashan",
+      "email": "asindu24@gmail.com",
+      "userName": "ASINDU",
+      "address": "Sri Lanka",
+      "mobile": 1212312123,
+      "id": 2
+    },
+    {
+      "walletAddress": "0xb598c9de66b627db1425841ace56ca4ecd244941",
+      "fname": "asdasdsa",
+      "lname": "Shashan",
+      "email": "asindu24@gmail.com",
+      "userName": "ASINDU",
+      "address": "Sri Lanka",
+      "mobile": 1212312123,
+      "id": 3
+    },
+    {
+      "walletAddress": "0xb598c9de66b627db1425841ace56ca4ecd244941",
+      "fname": "asdasdsa",
+      "lname": "Shashan",
+      "email": "asindu24@gmail.com",
+      "userName": "ASINDU",
+      "address": "Sri Lanka",
+      "mobile": 1212312123,
+      "id": 4
+    },
+    {
+      "walletAddress": "0xb598c9de66b627db1425841ace56ca4ecd244941",
+      "fname": "SHASHAN",
+      "lname": "Shashan",
+      "email": "asindu24@gmail.com",
+      "userName": "ASINDU",
+      "address": "Sri Lanka",
+      "mobile": 123123123123123,
+      "id": 5
+    },
+    {
+      "walletAddress": "0xb598c9de66b627db1425841ace56ca4ecd244941",
+      "fname": "SHASHAN",
+      "lname": "Shashan",
+      "email": "asindu24@gmail.com",
+      "userName": "ASINDU",
+      "address": "Sri Lanka",
+      "mobile": 123123123123123,
+      "id": 6
+    },
+    {
+      "walletAddress": "0xb598c9de66b627db1425841ace56ca4ecd244941",
+      "fname": "SHASHAN",
+      "lname": "Shashan",
+      "email": "asindu24@gmail.com",
+      "userName": "ASINDU",
+      "address": "Sri Lanka",
+      "mobile": 123123123123123,
+      "id": 7
+    },
+    {
+      "walletAddress": "0xb598c9de66b627db1425841ace56ca4ecd244941",
+      "fname": "SHASHAN",
+      "lname": "SHASHAN",
+      "email": "asindu24@gmail.com",
+      "userName": "ASINDU",
+      "address": "Sri Lanka",
+      "mobile": 123123123132,
+      "id": 8
+    }
+  ],
+  "root": [],
+  "tree": [],
+  "proof": []
+}
