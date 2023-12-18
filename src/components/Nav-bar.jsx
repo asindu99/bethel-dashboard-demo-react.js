@@ -30,7 +30,7 @@ function Navbar() {
   const dispatch = useDispatch();  
   const Navigate = useNavigate();
   const [isLoading , setIsLoading] = useState(false)
-  const contractAddress = '0x00ec27BC8AA68c7EC57074445b3cAAf7D7f95B8C'
+  const contractAddress = '0xB2724675c46Ea9365FA86d43E70D3932196380A9'
   let provider = new ethers.BrowserProvider(window.ethereum);
 
   const abi = [
@@ -45,93 +45,51 @@ function Navbar() {
         },
         {
           "indexed": false,
-          "internalType": "string",
-          "name": "uname",
-          "type": "string"
-        },
-        {
-          "indexed": false,
-          "internalType": "string",
-          "name": "fname",
-          "type": "string"
-        },
-        {
-          "indexed": false,
-          "internalType": "string",
-          "name": "lname",
-          "type": "string"
-        },
-        {
-          "indexed": false,
-          "internalType": "string",
-          "name": "email",
-          "type": "string"
-        },
-        {
-          "indexed": false,
-          "internalType": "string",
-          "name": "country",
-          "type": "string"
-        },
-        {
-          "indexed": false,
-          "internalType": "uint256",
-          "name": "mobileNumber",
-          "type": "uint256"
-        },
-        {
-          "indexed": false,
           "internalType": "bool",
-          "name": "isRegistered",
+          "name": "isProofCreated",
           "type": "bool"
         }
       ],
-      "name": "UserCreated",
+      "name": "ProofCreated",
       "type": "event"
     },
     {
+      "anonymous": false,
       "inputs": [
         {
-          "internalType": "string",
-          "name": "uname",
-          "type": "string"
+          "indexed": true,
+          "internalType": "address",
+          "name": "userAddress",
+          "type": "address"
         },
         {
-          "internalType": "string",
-          "name": "fname",
-          "type": "string"
-        },
-        {
-          "internalType": "string",
-          "name": "lname",
-          "type": "string"
-        },
-        {
-          "internalType": "string",
-          "name": "email",
-          "type": "string"
-        },
-        {
-          "internalType": "string",
-          "name": "country",
-          "type": "string"
-        },
-        {
-          "internalType": "uint256",
-          "name": "mobileNumber",
-          "type": "uint256"
-        }
-      ],
-      "name": "createUserId",
-      "outputs": [
-        {
+          "indexed": false,
           "internalType": "bool",
-          "name": "success",
+          "name": "isRootUpdated",
           "type": "bool"
         }
       ],
-      "stateMutability": "nonpayable",
-      "type": "function"
+      "name": "RootUpdated",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "userAddress",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "bool",
+          "name": "isUserRegistered",
+          "type": "bool"
+        }
+      ],
+      "name": "UserRegistered",
+      "type": "event"
     },
     {
       "inputs": [
@@ -141,7 +99,7 @@ function Navbar() {
           "type": "address"
         }
       ],
-      "name": "isVerified",
+      "name": "isUserRegistered",
       "outputs": [
         {
           "internalType": "bool",
@@ -150,6 +108,64 @@ function Navbar() {
         }
       ],
       "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "merkleRoot",
+      "outputs": [
+        {
+          "internalType": "bytes32",
+          "name": "",
+          "type": "bytes32"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "name": "registeredUsers",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32[]",
+          "name": "_proof",
+          "type": "bytes32[]"
+        }
+      ],
+      "name": "updateProof",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "_merkleRoot",
+          "type": "bytes32"
+        }
+      ],
+      "name": "updateRoot",
+      "outputs": [],
+      "stateMutability": "nonpayable",
       "type": "function"
     },
     {
@@ -164,11 +180,6 @@ function Navbar() {
       "outputs": [
         {
           "internalType": "string",
-          "name": "uname",
-          "type": "string"
-        },
-        {
-          "internalType": "string",
           "name": "fname",
           "type": "string"
         },
@@ -184,18 +195,18 @@ function Navbar() {
         },
         {
           "internalType": "string",
-          "name": "country",
+          "name": "username",
           "type": "string"
         },
         {
           "internalType": "uint256",
-          "name": "mobileNumber",
+          "name": "mobilenumber",
           "type": "uint256"
         },
         {
-          "internalType": "bool",
-          "name": "isRegistered",
-          "type": "bool"
+          "internalType": "string",
+          "name": "country",
+          "type": "string"
         }
       ],
       "stateMutability": "view",
@@ -204,44 +215,99 @@ function Navbar() {
     {
       "inputs": [
         {
+          "internalType": "bytes32",
+          "name": "_merkleRoot",
+          "type": "bytes32"
+        },
+        {
+          "internalType": "string",
+          "name": "_fname",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "_lname",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "_email",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "_username",
+          "type": "string"
+        },
+        {
           "internalType": "uint256",
-          "name": "",
+          "name": "_mobilenumber",
           "type": "uint256"
+        },
+        {
+          "internalType": "string",
+          "name": "_country",
+          "type": "string"
         }
       ],
-      "name": "userList",
+      "name": "verifyRoot",
       "outputs": [
         {
-          "internalType": "address",
+          "internalType": "bool",
           "name": "",
-          "type": "address"
+          "type": "bool"
         }
       ],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32[]",
+          "name": "_proof",
+          "type": "bytes32[]"
+        }
+      ],
+      "name": "verifyUser",
+      "outputs": [],
       "stateMutability": "view",
       "type": "function"
     }
   ]
   
+  // get the wallet address 
+  const walletAddress = useSelector((state) => state.WalletAddressReducer)
+
   const [toggleVal,setToggleVal] = useState(false)
   const {values , handleChange, handleSubmit, errors } = useFormik({
     initialValues : initialValues,
     validationSchema: Validation,
 
     // get the values from the form
-    onSubmit : async (values) =>{
+    onSubmit :  (values) =>{
       setIsLoading(true);
-
-      try {
-        console.log(values)
-        const signer = await provider.getSigner();
-        console.log("sdsfsdfdf",signer)  
-        const userIdContract = new ethers.Contract(contractAddress , abi , signer)
-        const contract = await userIdContract.createUserId(values.userName,values.firstName,values.lastName,values.email,values.address,values.contactNumber)
-        console.log(contract)
-
-      } catch (error) {
-        console.log(error)
+      const data = {
+        walletAddress : walletAddress,
+        fname : values.firstName,
+        lname : values.lastName,
+        email : values.email,
+        userName : values.userName,
+        address : values.address,
+        mobile : values.contactNumber
       }
+      const details = JSON.stringify(data);
+      console.log(details)
+      // try {
+      //   console.log(values)
+      //   const signer = await provider.getSigner();
+      //   const userIdContract = new ethers.Contract(contractAddress , abi , signer)
+      //   const contract = await userIdContract.verifyRoot(values.firstName,values.lastName,values.email,values.userName,values.contactNumber,values.address)
+      //   console.log(contract)
+
+      // } catch (error) {
+      //   console.log(error)  
+      // }
       
       
       // values.firstName = '';
@@ -263,14 +329,10 @@ function Navbar() {
       const accounts = await window.ethereum.request({method : "eth_requestAccounts"})
       dispatch(WalletAddressSlice.actions.saveWalletAddress(accounts[0]))
       console.log(accounts)
-      // if(!accounts){
-      //   dispatch(revertAll(), revertAll4(),revertAll2(),revertAll3(), revertAll5())
-      // }
-      // window.location.reload();
 
     } catch (error) {
       Navigate('/')
-      // window.location.reload();
+      window.location.reload();
       dispatch(revertAll(), revertAll4(),revertAll2(),revertAll3(), revertAll5())
 
     }
@@ -279,7 +341,7 @@ function Navbar() {
   useEffect(() => {
       window.ethereum.on('accountsChanged' , accountChanged)
   });
-  const walletAddress = useSelector((state) => state.WalletAddressReducer)
+  
   const trimWalletAddress = walletAddress.substring(0, 4) + "..." + walletAddress.substring(39);
  
   const toggle = () =>{
