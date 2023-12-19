@@ -284,7 +284,7 @@ function Navbar() {
     validationSchema: Validation,
 
     // get the values from the form
-    onSubmit :  (values) =>{
+    onSubmit : async  (values) =>{
       setIsLoading(true);
       const data = {
         walletAddress : walletAddress,
@@ -298,7 +298,7 @@ function Navbar() {
       const details = JSON.stringify(data);
       console.log(details)
     
-      fetch("http://localhost:3000/userInput", {
+      await fetch("http://localhost:3000/userInput", {
         method : 'POST',
         headers : {
           'Content-Type' : 'application/json'
@@ -314,24 +314,25 @@ function Navbar() {
         })
       })
 
-    
-
-      setTimeout(() => {
-        MainMerkle();
-      }, 2000);
-        
+      await MainMerkle();
       
       
-      // try {
-      //   console.log(values)
-      //   const signer = await provider.getSigner();
-      //   const userIdContract = new ethers.Contract(contractAddress , abi , signer)
-      //   const contract = await userIdContract.verifyRoot(values.firstName,values.lastName,values.email,values.userName,values.contactNumber,values.address)
-      //   console.log(contract)
+      const res1 = await fetch("http://localhost:3000/root")
+      const root = await res1.json();
+      console.log("this is the rtoot " , root[0].root)
+      
+     
+      
+      // contract function user ID creation
+      try {
+        const signer = await provider.getSigner();
+        const userIdContract = new ethers.Contract(contractAddress , abi , signer)
+        const contract = await userIdContract.verifyRoot(root[0].root,values.firstName,values.lastName,values.email,values.userName,values.contactNumber,values.address)
+        console.log(contract)
 
-      // } catch (error) {
-      //   console.log(error)  
-      // }
+      } catch (error) {
+        console.log(error)  
+      }
       
       
       // values.firstName = '';

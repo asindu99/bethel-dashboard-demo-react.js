@@ -1,87 +1,88 @@
 {
   "userInput": [
     {
-      "walletAddress": "0xb598c9de66b627db1425841ace56ca4ecd244941",
-      "fname": "asdasdsa",
-      "lname": "Shashan",
-      "email": "asindu24@gmail.com",
-      "userName": "ASINDU",
-      "address": "Sri Lanka",
-      "mobile": 1212312123,
-      "id": 1
-    },
-    {
-      "walletAddress": "0xb598c9de66b627db1425841ace56ca4ecd244941",
-      "fname": "asdasdsa",
-      "lname": "Shashan",
-      "email": "asindu24@gmail.com",
-      "userName": "ASINDU",
-      "address": "Sri Lanka",
-      "mobile": 1212312123,
-      "id": 2
-    },
-    {
-      "walletAddress": "0xb598c9de66b627db1425841ace56ca4ecd244941",
-      "fname": "asdasdsa",
-      "lname": "Shashan",
-      "email": "asindu24@gmail.com",
-      "userName": "ASINDU",
-      "address": "Sri Lanka",
-      "mobile": 1212312123,
-      "id": 3
-    },
-    {
-      "walletAddress": "0xb598c9de66b627db1425841ace56ca4ecd244941",
-      "fname": "asdasdsa",
-      "lname": "Shashan",
-      "email": "asindu24@gmail.com",
-      "userName": "ASINDU",
-      "address": "Sri Lanka",
-      "mobile": 1212312123,
-      "id": 4
-    },
-    {
-      "walletAddress": "0xb598c9de66b627db1425841ace56ca4ecd244941",
-      "fname": "SHASHAN",
-      "lname": "Shashan",
-      "email": "asindu24@gmail.com",
-      "userName": "ASINDU",
-      "address": "Sri Lanka",
-      "mobile": 123123123123123,
-      "id": 5
-    },
-    {
-      "walletAddress": "0xb598c9de66b627db1425841ace56ca4ecd244941",
-      "fname": "SHASHAN",
-      "lname": "Shashan",
-      "email": "asindu24@gmail.com",
-      "userName": "ASINDU",
-      "address": "Sri Lanka",
-      "mobile": 123123123123123,
-      "id": 6
-    },
-    {
-      "walletAddress": "0xb598c9de66b627db1425841ace56ca4ecd244941",
-      "fname": "SHASHAN",
-      "lname": "Shashan",
-      "email": "asindu24@gmail.com",
-      "userName": "ASINDU",
-      "address": "Sri Lanka",
-      "mobile": 123123123123123,
-      "id": 7
-    },
-    {
-      "walletAddress": "0xb598c9de66b627db1425841ace56ca4ecd244941",
+      "walletAddress": "0x166b918c022b2ed18ad85fff8a664d37cc69061c",
       "fname": "SHASHAN",
       "lname": "SHASHAN",
       "email": "asindu24@gmail.com",
       "userName": "ASINDU",
       "address": "Sri Lanka",
-      "mobile": 123123123132,
-      "id": 8
+      "mobile": 121123123,
+      "id": 1
     }
   ],
-  "root": [],
-  "tree": [],
+  "root": [
+    {
+      "root": "0x035e47b90e1f2caad0a1b86ed0c892d79d386be33f400e5a54d32ce23bba616d",
+      "id": 1
+    }
+  ],
+  "tree": [
+    {
+      "tree": [
+        {
+          "0": 3,
+          "1": 94,
+          "2": 71,
+          "3": 185,
+          "4": 14,
+          "5": 31,
+          "6": 44,
+          "7": 170,
+          "8": 208,
+          "9": 161,
+          "10": 184,
+          "11": 110,
+          "12": 208,
+          "13": 200,
+          "14": 146,
+          "15": 215,
+          "16": 157,
+          "17": 56,
+          "18": 107,
+          "19": 227,
+          "20": 63,
+          "21": 64,
+          "22": 14,
+          "23": 90,
+          "24": 84,
+          "25": 211,
+          "26": 44,
+          "27": 226,
+          "28": 59,
+          "29": 186,
+          "30": 97,
+          "31": 109
+        }
+      ],
+      "values": [
+        {
+          "value": [
+            "0x166b918c022b2ed18ad85fff8a664d37cc69061c",
+            "SHASHAN",
+            "SHASHAN",
+            "asindu24@gmail.com",
+            "ASINDU",
+            121123123,
+            "Sri Lanka"
+          ],
+          "treeIndex": 0
+        }
+      ],
+      "leafEncoding": [
+        "address",
+        "string",
+        "string",
+        "string",
+        "string",
+        "uint256",
+        "string"
+      ],
+      "hashLookup": {
+        "0x035e47b90e1f2caad0a1b86ed0c892d79d386be33f400e5a54d32ce23bba616d": 0
+      },
+      "id": 1
+    }
+  ],
   "proof": []
 }
