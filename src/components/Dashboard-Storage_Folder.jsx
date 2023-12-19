@@ -3,26 +3,18 @@ import "../components/Dashboard-Storage_Folder"
 import iconStorage from "../Images/icons/icon-storage.png"
 // import userDataSlice from '../reducers/userDataReducer'
 import { useDispatch, useSelector } from 'react-redux'
-import axios from 'axios'
-import iconLoad from "../Images/Animation-gifs/Rolling-1s-200px(1).gif"
-import uploadSlice from '../reducers/uploadDetailsSlice'
-import storageDataSlice from '../reducers/storageDetailsSlice'
+// import axios from 'axios'
+// import iconLoad from "../Images/Animation-gifs/Rolling-1s-200px(1).gif"
+// import uploadSlice from '../reducers/uploadDetailsSlice'
+// import storageDataSlice from '../reducers/storageDetailsSlice'
 
 
 function DashboardStorageFolder() {
-
-  // const getUploadData = async () =>{
-  //   const res2 = await axios.get('https://mw.bethel.network/storage/' + userId ,{withCredentials :true})
-  //   localStorage.setItem('uploadData', JSON.stringify(res2.data))
-  //   console.log(res2.data)
-  //    }
 
     const [delay , setDelay] = useState(false)
 
     // get the upload details from store
     const uploadData = useSelector((state)=> state.uploadDetailsReducer)
-    
-
      useEffect(()=>{
       // getUploadData();
       // let ups = localStorage.getItem("uploadData");
@@ -34,116 +26,116 @@ function DashboardStorageFolder() {
      },[])
 
     // get user ID
-    const userData = useSelector((state)=> state.loginReducer)
-    const userId = userData._id
+    // const userData = useSelector((state)=> state.loginReducer)
+    // const userId = userData._id
 
-    const dispatch = useDispatch()
+    // const dispatch = useDispatch()
 
-    const [file , setFile] = useState(null) 
-    const [fileName , setFileName] = useState('')
-    const [hasFile , setHasFile] = useState(false)
+    // const [file , setFile] = useState(null) 
+    // const [fileName , setFileName] = useState('')
+    // const [hasFile , setHasFile] = useState(false)
 
-    const [uplaodWait , setUploadWait] = useState(false)
-    const [empty , setEmpty] = useState(false)
-    const [uploadSucess , setUploadSucess] = useState(false)
-    const [uploadFail , setUploadFail] = useState(false)
+    // const [uplaodWait , setUploadWait] = useState(false)
+    // const [empty , setEmpty] = useState(false)
+    // const [uploadSucess , setUploadSucess] = useState(false)
+    // const [uploadFail , setUploadFail] = useState(false)
 
 
   // handle file 
-  const handleFileUpload = (event) => {
-      setFile(event.target.files[0]);
-      setFileName(event.target.files[0].name);
-      setHasFile(true);
+  // const handleFileUpload = (event) => {
+  //     setFile(event.target.files[0]);
+  //     setFileName(event.target.files[0].name);
+  //     setHasFile(true);
       
-    }
+  //   }
 
 
   // handle upload 
-  const uplaodFile = async () =>{
-    const formData = new FormData();
-    formData.append('file', file);
-    formData.append('userid', userId);
-    formData.append('bucket', 'Public_storage_0');
+//   const uplaodFile = async () =>{
+//     const formData = new FormData();
+//     formData.append('file', file);
+//     formData.append('userid', userId);
+//     formData.append('bucket', 'Public_storage_0');
 
-    if(file != null){  
-          setUploadWait(true)
-        try {
-          const res = await axios.post('https://api.bethelnet.io/upload', formData, {
-            headers: {
-              'Content-Type': 'multipart/form-data'
-            },
-          },{withCredentials : true})
+//     if(file != null){  
+//           setUploadWait(true)
+//         try {
+//           const res = await axios.post('https://api.bethelnet.io/upload', formData, {
+//             headers: {
+//               'Content-Type': 'multipart/form-data'
+//             },
+//           },{withCredentials : true})
 
-          console.log(res)
+//           console.log(res)
 
-          if(res.status === 200) {
-            dispatch(uploadSlice.actions.uploadData(res.data))
+//           if(res.status === 200) {
+//             dispatch(uploadSlice.actions.uploadData(res.data))
 
-              setFile(null);
-              setFileName('')
-              setUploadWait(false)
-            }else{
-                setUploadWait(false)
-                setUploadFail(true)
+//               setFile(null);
+//               setFileName('')
+//               setUploadWait(false)
+//             }else{
+//                 setUploadWait(false)
+//                 setUploadFail(true)
 
-                setFile(null);
-                setFileName('')
+//                 setFile(null);
+//                 setFileName('')
 
-                setUploadSucess(true)
+//                 setUploadSucess(true)
 
-                setTimeout(() => {
-                  setDelay(true)
-                }, 500);
+//                 setTimeout(() => {
+//                   setDelay(true)
+//                 }, 500);
 
-                setTimeout(() => {
-                setUploadSucess(false)
-              }, 2000);
+//                 setTimeout(() => {
+//                 setUploadSucess(false)
+//               }, 2000);
 
-              setTimeout(() => {
-                setUploadFail(false)
-              }, 1000);
+//               setTimeout(() => {
+//                 setUploadFail(false)
+//               }, 1000);
 
-            }
-        }catch(error){
-          setUploadWait(false);
+//             }
+//         }catch(error){
+//           setUploadWait(false);
           
-          setTimeout(() => {
-              setDelay(true)
-            }, 500);
+//           setTimeout(() => {
+//               setDelay(true)
+//             }, 500);
 
-          setFile(null);
-          setFileName('')
-        }
-          dispatch(storageDataSlice.actions.saveStorageData());
+//           setFile(null);
+//           setFileName('')
+//         }
+//           dispatch(storageDataSlice.actions.saveStorageData());
 
-          // upadate new data
-            const res2 = await axios.get('https://mw.bethel.network/storage/' + userId ,{withCredentials :true})
-            setDelay(false)
-            dispatch(uploadSlice.actions.uploadData(res2.data))
-            dispatch(uploadSlice.actions.uploadData())
+//           // upadate new data
+//             const res2 = await axios.get('https://mw.bethel.network/storage/' + userId ,{withCredentials :true})
+//             setDelay(false)
+//             dispatch(uploadSlice.actions.uploadData(res2.data))
+//             dispatch(uploadSlice.actions.uploadData())
 
-            setUploadWait(false)
+//             setUploadWait(false)
             
-          setTimeout(() => {
-              setDelay(true)
-            }, 500);
+//           setTimeout(() => {
+//               setDelay(true)
+//             }, 500);
   
-      }else {
-        setUploadWait(false)
-        setEmpty(true)
+//       }else {
+//         setUploadWait(false)
+//         setEmpty(true)
 
-        // time out
-        setTimeout(() => {
-        setEmpty(false)
-        }, 1000);
+//         // time out
+//         setTimeout(() => {
+//         setEmpty(false)
+//         }, 1000);
 
         
-      }
+//       }
 
       
 
 
-}
+// }
 
   return(
     <div>
@@ -170,7 +162,7 @@ function DashboardStorageFolder() {
               <p class="mb-3 font-semibold text-white flex flex-wrap justify-center">
                 <span>Drag and drop your</span>&nbsp;<span>files anywhere or</span>
               </p>
-              <input onChange={handleFileUpload} id="file-type" type="file" multiple hidden />
+              <input id="file-type" type="file" multiple hidden />
               <label for="file-type" id="button" class="mt-2 rounded-sm px-3 py-1 bg-gray-200 hover:bg-gray-300 focus:shadow-outline focus:outline-none">
                 Upload a file
               </label>
@@ -179,18 +171,19 @@ function DashboardStorageFolder() {
             <ul id="gallery" class="flex flex-1 flex-wrap -m-1">
               <li id="empty" class="h-full w-full text-center flex flex-col  justify-center items-center">
                 <img class="mx-auto w-32" src="https://user-images.githubusercontent.com/507615/54591670-ac0a0180-4a65-11e9-846c-e55ffce0fe7b.png" alt="no data" />
-                <span class="text-small text-gray-500">{!hasFile && <h3>No file selected</h3>}{hasFile && <h3>{fileName}</h3>} </span>
+                <span class="text-small text-gray-500"></span>
               </li>
             </ul>
           </section>
 
            {/* sticky footer  */}
           <footer class=" flex justify-end px-8 pb-8 pt-4">
-            <button onClick={uplaodFile}  id="submit" className="relative px-3 py-1 bg-bethel-green/50 hover:bg-bethel-green/30 text-white font-bold focus:shadow-outline focus:outline-none rounded-md">
-              <h3>Upload Now</h3>  { uplaodWait && <img src={iconLoad} alt='' className='w-[25px] absolute -left-10 top-1' />}
+            <button  id="submit" className="relative px-3 py-1 bg-bethel-green/50 hover:bg-bethel-green/30 text-white font-bold focus:shadow-outline focus:outline-none rounded-md">
+              <h3>Upload Now</h3> 
+               {/* { uplaodWait && <img src={iconLoad} alt='' className='w-[25px] absolute -left-10 top-1' />}
               { empty && <h3 className='absolute left-[-100px] top-2 text-sm text-center text-red-700'>Browse File !</h3>}
               { uploadSucess && <h3 className='absolute left-[-120px] top-2 text-sm text-center text-green-700'>Upload Sucess</h3>}
-              { uploadFail && <h3 className='absolute left-[-120px] top-2 text-sm text-center text-red-700'>Upload Fail!</h3>}
+              { uploadFail && <h3 className='absolute left-[-120px] top-2 text-sm text-center text-red-700'>Upload Fail!</h3>} */}
             </button>
             
           </footer>

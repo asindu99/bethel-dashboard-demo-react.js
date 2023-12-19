@@ -104,7 +104,7 @@ export default function DashboardProfile() {
       {/* Main profile content */}
       <div className='flex mt-3 mb-5'>
         <div>
-          <img src={iconStorage} alt="" className='w-[20px] inline-block text-white' />
+          <img src={iconStorage} alt="" className='w-[20px] inline-block text-white -mt-1' />
         </div>
 
         <div className='ml-2'>

@@ -7,7 +7,7 @@ function DashboardWallet() {
       {/* Heading */}
       <div className='flex mt-3 mb-5'>
         <div>
-          <img src={iconWallet} alt="" className='w-[20px] inline-block text-white' />
+          <img src={iconWallet} alt="" className='w-[20px] inline-block text-white -mt-1' />
         </div>
 
         <div className='ml-2'>
@@ -15,130 +15,15 @@ function DashboardWallet() {
         </div>
       </div>
       
-      {/* table */}
-      <div class="py-1 ">
-        <div class="w-full xl:w-11/12 mb-12 xl:mb-0 px-4 mx-auto mt-12">
-          <div class="relative flex flex-col min-w-0 break-words backdrop-blur-xl bg-gradient-to-b from-bethel-white/10 to-bethel-green/5 w-full mb-6 shadow-lg rounded text-white">
-            <div class="rounded-t mb-0 px-4 py-3 border-0">
-              <div class="flex flex-wrap items-center">
-                <div class="relative w-full px-4 max-w-full flex-grow flex-1">
-                  {/* <h3 class="font-semibold text-base text-blueGray-700">Page Visits</h3> */}
-                </div>
-                <div class="relative w-full px-4 max-w-full flex-grow flex-1 text-right">
-                <button class="bg-bethel-green/50 text-white active:bg-bethel-green/50 text-xs font-bold uppercase px-3 py-2 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">Create Faucet</button>
-                </div>
-              </div>
-            </div>
-
-            <div class="block w-full overflow-x-auto">
-              <table class="items-center bg-transparent w-full border-collapse ">
-                <thead>
-                  <tr>
-                        <th class="px-44 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-                          Wallet Address
-                        </th>
-                        <th class="px-44 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-                          Seeds
-                        </th>
-                        <th class="px-44 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-                          Public Key
-                        </th>
-          
-                  </tr>
-                </thead>
-
-                <tbody>
-          {/* <tr>
-            <th class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left text-blueGray-700 ">
-              /argon/
-            </th>
-            <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 ">
-              4,569
-            </td>
-            <td class="border-t-0 px-6 align-center border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-              340
-            </td>
-            <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-              <i class="fas fa-arrow-up text-emerald-500 mr-4"></i>
-              46,53%
-            </td>
-          </tr>
-          
-          <tr>
-            <th class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left text-blueGray-700">
-              /argon/index.html
-            </th>
-            <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-              3,985
-            </td>
-            <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-              319
-            </td>
-            <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-              <i class="fas fa-arrow-down text-orange-500 mr-4"></i>
-              46,53%
-            </td>
-          </tr>
-          
-          <tr>
-            <th class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left text-blueGray-700">
-              /argon/charts.html
-            </th>
-            <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-              3,513
-            </td>
-            <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-              294
-            </td>
-            <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-              <i class="fas fa-arrow-down text-orange-500 mr-4"></i>
-              36,49%
-            </td>
-          </tr>
-          
-          <tr>
-            <th class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left text-blueGray-700">
-              /argon/tables.html
-            </th>
-            <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-              2,050
-            </td>
-            <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-              147
-            </td>
-            <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-              <i class="fas fa-arrow-up text-emerald-500 mr-4"></i>
-              50,87%
-            </td>
-          </tr> */}
-          
-          {/* <tr>
-            <th class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left text-blueGray-700">
-              /argon/profile.html
-            </th>
-            <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-              1,795
-            </td>
-            <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-              190
-            </td>
-            <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-              <i class="fas fa-arrow-down text-red-500 mr-4"></i>
-              46,53%
-            </td>
-          </tr> */}
-                </tbody>
-
-              </table>
-            </div>
-          </div>
-        </div>
+      <div class="ml-44">
+        <button class="bg-bethel-green/50 text-white active:bg-bethel-green/50 text-xs font-bold uppercase px-3 py-2 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">Create Faucet</button>
       </div>
-      
-      <div className='flex lg:flex-row gap-x-12 md:flex-col sm:flex-col min-[320px]:flex-col gap-y-12'>
+     
+      <div className='flex lg:flex-col gap-x-12 md:flex-col sm:flex-col min-[320px]:flex-col gap-y-12'>
         
-        <div className='lg:pl-20'>
-        <form class="backdrop-blur-xl bg-gradient-to-b from-bethel-white/10 to-bethel-green/5 p-10">
+        <div className='py-4 px-44'>
+          
+          <form class="backdrop-blur-xl bg-gradient-to-b from-bethel-white/10 to-bethel-green/5 p-10">
 			    <div class="flex items-center border-2 py-2 px-3 rounded-2xl mb-4">
           <svg viewBox="0 0 1024 1024" className='w-5 h-5' xmlns="http://www.w3.org/2000/svg" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path fill="#ffffff" d="M688 512a112 112 0 1 0 0 224h208v160H128V352h768v160H688zm32 160h-32a48 48 0 0 1 0-96h32a48 48 0 0 1 0 96zm-80-544 128 160H384l256-160z"></path></g></svg>
 				<input class="pl-2 outline-none border-none bg-transparent text-white" type="text" name="" id="" placeholder="Wallet Address" />
@@ -148,11 +33,12 @@ function DashboardWallet() {
 					<input class="pl-2 outline-none border-none bg-transparent text-white" type="text" name="" id="" placeholder="Amount" />
           </div>
 					<button type="submit" class="block w-full bg-bethel-green/50 mt-4 py-2  text-white font-semibold mb-2 uppercase rounded-md">TRansfer</button>
-		    </form>
+		      </form>
+        
         </div>
                 
         <div className=''>
-        <div class="block w-full overflow-x-auto backdrop-blur-xl bg-gradient-to-b from-bethel-white/10 to-bethel-green/5 text-white">
+            <div class="block w-full overflow-x-auto backdrop-blur-xl bg-gradient-to-b from-bethel-white/10 to-bethel-green/5 text-white">
               <table class="items-center bg-transparent w-full border-collapse ">
                 <thead>
                   <tr>

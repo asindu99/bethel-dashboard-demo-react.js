@@ -1,12 +1,9 @@
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import Navbar from "./Nav-bar";
 import SideBar from "./Side-Bar";
 import DashboardHome from "./Dashboard-Home";
-import DashboardStorage from "./Dashboard-Storage";
 import DashboardProfile from "./Dashboard-Profile";
-import DashboardStorageFolder from "./Dashboard-Storage_Folder";
-// import { useDispatch } from "react-redux";
-// import toggleSidebarSlice from "../reducers/toggleSidebar";
+import DashboardStorageFolder2 from "./Dashboard-Storage_Folder2";
 import { useEffect, useState } from "react";
 import "../components/style.css"
 import { useDispatch } from "react-redux";
@@ -14,9 +11,11 @@ import toggleSidebarSlice from "../reducers/toggleSidebar";
 import DashboardWallet from "./Dashboard-Wallet";
 import DashboardBilling from "./Dashboard-Billing";
 
-function MainContent() {
+  function MainContent() {
   const [isLoading , setIsLoading] = useState(true)
   const dispatch = useDispatch();
+  const Navigate = useNavigate()
+
 
   useEffect(()=>{
 
@@ -67,9 +66,8 @@ function MainContent() {
         <div className="fixed top-0 w-full h-[30px] bg-[#0F0F0F] z-[100]"></div>
         <Routes>
           <Route path="/dashboard" element={<DashboardHome />} />
-          <Route path="/dashboard/storage" element={<DashboardStorage />} />
           <Route path="/dashboard/profile" element={<DashboardProfile />} />
-          <Route path="/dashboard/storage/folder" element={<DashboardStorageFolder />} />
+          <Route path="/dashboard/files" element={<DashboardStorageFolder2 />} />
           <Route path='/dashboard/wallet' element={<DashboardWallet />} />
           <Route path="/dashboard/billing" element={<DashboardBilling></DashboardBilling>}></Route>
         </Routes>
