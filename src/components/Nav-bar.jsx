@@ -13,6 +13,7 @@ import axios from 'axios';
 import { useFormik } from 'formik';
 import { Validation } from '../components/Login_Register/Validation';
 import loaderGif from '../Images/Animation-gifs/loading-6324_256.gif'
+// import MainMerkle from '../merkle'
 
 const {ethers} = require('ethers')
 
@@ -298,6 +299,8 @@ function Navbar() {
       }
       const details = JSON.stringify(data);
       console.log(details)
+      // MainMerkle(values);
+      
       // try {
       //   console.log(values)
       //   const signer = await provider.getSigner();
