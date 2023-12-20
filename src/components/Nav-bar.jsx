@@ -28,6 +28,8 @@ let initialValues = {
 
 
 function Navbar() {
+  const [toggleSuccess,setSuccess] = useState(false);
+  
   const dispatch = useDispatch();  
   const Navigate = useNavigate();
   const [isLoading , setIsLoading] = useState(false)
@@ -322,6 +324,11 @@ function Navbar() {
       // values.contactNumber = '';
 
       // setToggleVal(false)
+      setToggleVal(false);
+      setSuccess(true)
+       setTimeout(() => {
+        setSuccess(false)
+      }, 2000);
     }
   })
   
@@ -484,6 +491,12 @@ function Navbar() {
                 </div>
                 
               </div>}
+              
+             { toggleSuccess &&
+               <div className='absolute -bottom-10'>
+               <h3 className='text-bethel-green text-[15px]'>Success!</h3>
+             </div>
+             }
               
             </div>
 
