@@ -2,9 +2,12 @@ import React, { useState } from 'react'
 import iconStorage from "../Images/icons/icon-storage.png"
 import TableWithMoreButton from '../components/Test'
 import "../loadingCss/InfiniteLoader.css"
+import iconWrong from "../Images/icons/icons-close.png"
 
 export default function DashboardStorageFolder2() {
   const [file , setFile] = useState(null)
+  const [uploadSuccess , setUploadSuccess] = useState(false)
+  const [uploadFail , setUploadFail] = useState(false)
   const [fileName , setFileName] = useState("");
   const [fileSize , setFileSize] = useState('');
 
@@ -59,9 +62,10 @@ export default function DashboardStorageFolder2() {
   
         </div>
 
-      {/* Show Import Items */}
+
       
-      <div class="overflow-x-auto mt-6 px-2">
+      {/* Show Import Items */}
+      <div class="relative after:overflow-x-auto mt-6 px-2">
         <table class="table-auto border-collapse w-full">
           <thead className="relative">
             <tr class="rounded-lg text-sm font-medium text-left flex justify-between bg-gray-800/20" >
@@ -99,7 +103,33 @@ export default function DashboardStorageFolder2() {
               
           </tbody>        
         </table>
+
+      {/* upload success and fail  */}
+      { uploadSuccess &&
+       <div className=' w-[200px] bg-black/20 border-bethel-green border-[1px]  h-[40px] rounded-sm absolute
+       top-[-50px] right-2 py-2 flex-col flex popup items-center justify-center text-white' id="popup">
+        <div className='flex flex-row items-center justify-center gap-x-2'>
+            <button className="rounded-full shadow-md">
+              <svg viewBox="0 0 24 24" fill="none" className='w-5 ' xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M12 22C17.5 22 22 17.5 22 12C22 6.5 17.5 2 12 2C6.5 2 2 6.5 2 12C2 17.5 6.5 22 12 22Z" stroke="#aaff00" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M7.75 12L10.58 14.83L16.25 9.17004" stroke="#aaff00" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
+            </button>
+          <h1 className='text-sm font-sm text-bethel-green '>Upload Success</h1>
+        </div>                
       </div>
+      }
+
+      { uploadFail &&
+       <div className=' w-[200px] bg-black/20 border-red-500 border-[1px]  h-[40px] rounded-sm absolute
+       top-[-50px] right-2 py-2 flex-col flex popup items-center justify-center text-red-400' id="popup">
+        <div className='flex flex-row items-center justify-center gap-x-2'>
+            <button className="rounded-full shadow-md">
+              <img src={iconWrong} alt=""  className='w-[20px]'/>
+            </button>
+          <h1 className='text-sm font-sm text-red-500'>Upload Fail</h1>
+        </div>                
+      </div>
+      }
+      {/* end of upload success msg */}
+      </div> 
 
       <TableWithMoreButton />
 

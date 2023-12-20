@@ -335,8 +335,7 @@ function Navbar() {
       } catch (error) {
         console.log(error)  
       }
-      
-      
+ 
       // values.firstName = '';
       // values.lastName = '';
       // values.email = '';
@@ -354,15 +353,12 @@ function Navbar() {
       }, 2000);
     }
   })
-  
- 
-  
 
   const accountChanged = async () => {
     try {
       const accounts = await window.ethereum.request({method : "eth_requestAccounts"})
       dispatch(WalletAddressSlice.actions.saveWalletAddress(accounts[0]))
-      console.log(accounts)
+      window.location.reload();
 
     } catch (error) {
       Navigate('/')
@@ -382,15 +378,11 @@ function Navbar() {
   }
 
   const toggleReg = () =>{
-    // setToggleVal(!toggleVal)
     setToggleVal(!toggleVal)
       
   }
 
 
-  
-
-  
   return (
     <section className=''>
      <div className='fixed top-3 lg:pl-[270px] md:px-2 sm:px-2 min-[320px]:px-2 w-full px-2 z-100'>
@@ -525,12 +517,12 @@ function Navbar() {
               </div>}
               
              { toggleSuccess && 
-              <div className='w-[200px] bg-bethel-green/50 h-[50px] rounded-md absolute -bottom-[70px]  -right-4 py-2 flex-col flex popup items-center justify-center text-white' id="popup">
+              <div className='w-[200px] bg-black/20 border-bethel-green border-[1px]  h-[40px] rounded-sm absolute -bottom-[70px]  -right-4 py-2 flex-col flex popup items-center justify-center text-white' id="popup">
               <div className='flex flex-row items-center justify-center gap-x-2'>
                 <button className="rounded-full shadow-md" >
-                <svg viewBox="0 0 24 24" fill="none" className='w-10 h-10' xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M12 22C17.5 22 22 17.5 22 12C22 6.5 17.5 2 12 2C6.5 2 2 6.5 2 12C2 17.5 6.5 22 12 22Z" stroke="#aaff00" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M7.75 12L10.58 14.83L16.25 9.17004" stroke="#aaff00" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
+                <svg viewBox="0 0 24 24" fill="none" className='w-6' xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M12 22C17.5 22 22 17.5 22 12C22 6.5 17.5 2 12 2C6.5 2 2 6.5 2 12C2 17.5 6.5 22 12 22Z" stroke="#aaff00" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M7.75 12L10.58 14.83L16.25 9.17004" stroke="#aaff00" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
                 </button>
-                <h1 className='text-lg font-bold text-white'>Success!</h1>
+                <h1 className='text-md font-md text-bethel-green '>Success!</h1>
               </div>                
               </div>
              } 
