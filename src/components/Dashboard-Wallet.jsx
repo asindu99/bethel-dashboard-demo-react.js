@@ -15,6 +15,7 @@ function DashboardWallet() {
         </div>
       </div>
       
+      {/* button create faucet */}
       <div class="ml-44">
         <button class="bg-bethel-green/50 text-white active:bg-bethel-green/50 text-xs font-bold uppercase px-3 py-2 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">Create Faucet</button>
       </div>
@@ -36,7 +37,9 @@ function DashboardWallet() {
 		      </form>
         
         </div>
-                
+
+
+          {/* content table */}
         <div className=''>
             <div class="block w-full overflow-x-auto backdrop-blur-xl bg-gradient-to-b from-bethel-white/10 to-bethel-green/5 text-white">
               <table class="items-center bg-transparent w-full border-collapse ">
