@@ -26,6 +26,7 @@ let initialValues = {
 }
 
 function Navbar() {
+  const [toggleSuccess,setToggleSuccess] = useState(false);
   const dispatch = useDispatch();  
   const Navigate = useNavigate();
   const [isLoading , setIsLoading] = useState(false)
@@ -297,7 +298,8 @@ function Navbar() {
       }
       const details = JSON.stringify(data);
       console.log(details)
-    
+      // let popup = document.getElementById("popup"); 
+      
       await fetch("http://localhost:3000/userInput", {
         method : 'POST',
         headers : {
@@ -344,8 +346,16 @@ function Navbar() {
       // values.contactNumber = '';
 
       // setToggleVal(false)
+
+      setToggleSuccess(true)
+      setToggleVal(false)
+      setTimeout(() => {
+       setToggleSuccess(false);
+      }, 2000);
     }
   })
+  
+ 
   
 
   const accountChanged = async () => {
@@ -379,6 +389,8 @@ function Navbar() {
 
 
   
+
+  
   return (
     <section className=''>
      <div className='fixed top-3 lg:pl-[270px] md:px-2 sm:px-2 min-[320px]:px-2 w-full px-2 z-100'>
@@ -407,7 +419,7 @@ function Navbar() {
 
             {/* create Id  */}
             <div className='flex gap-2 uppercase lg:mr-0 md:mr-6 sm:mr-6 min-[320px]:mr-6 relative'>
-              <button className='px-2 py-2 rounded-md bg-bethel-green/60' onClick={toggleReg} >
+              <button className='px-2 py-2 text-white rounded-md bg-bethel-green/60' onClick={toggleReg} >
                 Create ID
               </button>
               
@@ -415,9 +427,12 @@ function Navbar() {
               { toggleVal && <div className='absolute right-[200px] top-[665px]'>
               
                 <div className='flex items-center justify-center bg-transparent z-200'>
-                
+                <div class="w-0 h-0 border-l-[10px] border-l-transparent border-b-[15px] border-b-gray-950 border-r-[10px] border-r-transparent absolute bottom-[594px] left-[165px] z-40">
+                </div>
                 {/*Form Card  */}
-                <div className='w-[400px]  bottom-8 absolute backdrop-blur-md bg-[#1C1C1C] rounded-md items-center justify-center'>
+                <div className='w-[300px]  bottom-6 -left-[85px] absolute backdrop-blur-md bg-gray-950  shadow-[1px_1px_10px_1px_] shadow-white/20
+ rounded-md items-center justify-center ;
+'>
                 
                 {/* Heading section */}
                 <div className='relative'>
@@ -429,9 +444,9 @@ function Navbar() {
                 </div>
                 
                 {/* Form section */}
-                <form onSubmit={handleSubmit} className='px-10 py-5'>
+                <form onSubmit={handleSubmit} className='px-5' >
           
-                  <div className='relative flex items-center px-3 py-2 border-2 mt-8mb-4 rounded-xl'>
+                  <div className='relative flex items-center px-3 py-2 mt-8 mb-4 border-[0.2px] rounded-md'>
                     <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5 text-white" fill="none"
           viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -440,10 +455,10 @@ function Navbar() {
                     <input class="w-full pl-2 outline-none border-none bg-transparent text-white text-[12px] relative"
           type="text" name='userName' value={values.userName} placeholder='User Name'onChange={handleChange}
                     />
-                    {errors.userName && <h4 className='text-red-600 absolute bottom-[-25px] text-[12px]'>{errors.userName}</h4>}
+                    {errors.userName && <h4 className='text-red-600 absolute bottom-[-25px] text-[10px]'>{errors.userName}</h4>}
                   </div>
       
-                  <div className='relative flex items-center px-3 py-2 mt-8 mb-4 border-2 rounded-xl'>
+                  <div className='relative flex items-center px-3 py-2 mt-8 mb-4 border-[0.2px] rounded-md'>
                     <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5 text-white" viewBox="0 0 20 20"
         fill="currentColor">
         <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
@@ -451,10 +466,10 @@ function Navbar() {
                     </svg>
                     <input class="w-full pl-2 outline-none border-none bg-transparent text-white text-[12px]"
                     type="text" name='firstName' value={values.firstName} placeholder='First Name'onChange={handleChange}  />
-                    {errors.firstName && <h4 className='text-red-600 absolute bottom-[-25px] text-[12px]'>{errors.firstName}</h4>}
+                    {errors.firstName && <h4 className='text-red-600 absolute bottom-[-25px] text-[10px]'>{errors.firstName}</h4>}
                   </div>
       
-                  <div className='relative flex items-center px-3 py-2 mt-8 mb-4 border-2 rounded-xl'>
+                  <div className='relative flex items-center px-3 py-2 mt-8 mb-4 border-[0.2px] rounded-md'>
                     <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5 text-white" viewBox="0 0 20 20"
         fill="currentColor">
         <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
@@ -463,11 +478,11 @@ function Navbar() {
                     </svg>
                     <input class="w-full pl-2 outline-none border-none bg-transparent text-white text-[12px] relative"
                     type="text" name='lastName' value={values.lastName} placeholder='Last name'onChange={handleChange}/>
-                    {errors.lastName && <h4 className='text-red-600 absolute bottom-[-25px] text-[12px]'>{errors.lastName}</h4>}
+                    {errors.lastName && <h4 className='text-red-600 absolute bottom-[-25px] text-[10px]'>{errors.lastName}</h4>}
 
                   </div>
       
-                  <div className='relative flex items-center px-3 py-2 mt-8 mb-4 border-2 rounded-xl'>
+                  <div className='relative flex items-center px-3 py-2 mt-8 mb-4 border-[0.2px] rounded-md'>
                     <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5 text-white" fill="none"
             viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -475,27 +490,30 @@ function Navbar() {
                     </svg>
                     <input class="w-full pl-2 outline-none border-none bg-transparent text-white text-[12px] relative"
                     type="email" name='email' value={values.email} placeholder='Enter email' onChange={handleChange}/>
-                    {errors.email && <h4 className='text-red-600 absolute bottom-[-25px] text-[12px]'>{errors.email}</h4>}
+                    {errors.email && <h4 className='text-red-600 absolute bottom-[-25px] text-[10px]'>{errors.email}</h4>}
                   </div>
       
-                  <div className='relative flex items-center px-3 py-2 mt-8 mb-4 border-2 rounded-xl'>
+                  <div className='relative flex items-center px-3 py-2 mt-8 mb-4 border-[0.2px] rounded-md'>
                   <svg fill="#ffffff" className='w-5 h-5' viewBox="0 -8 72 72" id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" stroke="#ffffff"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><title>world</title><path d="M59.25,12.42l-.83.27L54,13.08l-1.27,2-.91-.29L48.23,11.6l-.52-1.66L47,8.16l-2.23-2-2.63-.51-.06,1.2,2.58,2.52,1.26,1.48-1.42.75-1.15-.34-1.73-.73,0-1.39L39.42,8.2l-.75,3.29L36.38,12l.23,1.84,3,.57.52-2.93,2.46.37,1.14.67h1.84L46.8,15l3.34,3.38-.25,1.32-2.69-.34-4.64,2.34-3.34,4-.43,1.78H37.58l-2.23-1-2.17,1,.54,2.29.94-1.09,1.67,0-.12,2,1.38.4L39,32.67,41.2,32l2.57.4,3,.8,1.48.18,2.52,2.86,4.87,2.86-3.15,6-3.32,1.54-1.26,3.44-4.81,3.21-.51,1.85A28,28,0,0,0,59.25,12.42Z"></path><path d="M39.22,42.63l-2-3.78L39.05,35l-1.87-.56-2.1-2.11-4.66-1L28.88,28v1.92H28.2l-4-5.44V20l-2.94-4.78-4.67.83H13.43l-1.59-1,2-1.6-2,.46A28,28,0,0,0,36,56a29,29,0,0,0,3.51-.25l-.29-3.39s1.29-5,1.29-5.2S39.22,42.63,39.22,42.63Z"></path><path d="M18.41,9l5-.7,2.29-1.25,2.58.74,4.12-.23,1.42-2.22,2.05.34,5-.47,1.38-1.52,2-1.29,2.74.41,1-.15a27.91,27.91,0,0,0-33.51,7.49h0ZM37.18,2.78,40,1.21l1.84,1.06-2.66,2-2.54.26-1.14-.74ZM28.71,3,30,3.54,31.63,3l.9,1.56-3.82,1L26.88,4.5S28.67,3.35,28.71,3Z"></path></g></svg>
                   <input class="w-full pl-2 outline-none border-none bg-transparent text-white text-[12px] relative"
                       type="address" name='address' value={values.address} placeholder='Country' onChange={handleChange}/>
-                      {errors.address && <h4 className='text-red-600 absolute bottom-[-25px] text-[12px]'>{errors.address}</h4>}
+                      {errors.address && <h4 className='text-red-600 absolute bottom-[-25px] text-[10px]'>{errors.address}</h4>}
                   </div>
       
-                  <div className='relative flex items-center px-3 py-2 mt-8 mb-4 border-2 rounded-xl'>
+                  <div className='relative flex items-center px-3 py-2 mt-8 mb-4 border-[0.2px] rounded-md'>
                   <svg viewBox="0 0 24 24" fill="none" className='w-5 h-5' xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M3 5.5C3 14.0604 9.93959 21 18.5 21C18.8862 21 19.2691 20.9859 19.6483 20.9581C20.0834 20.9262 20.3009 20.9103 20.499 20.7963C20.663 20.7019 20.8185 20.5345 20.9007 20.364C21 20.1582 21 19.9181 21 19.438V16.6207C21 16.2169 21 16.015 20.9335 15.842C20.8749 15.6891 20.7795 15.553 20.6559 15.4456C20.516 15.324 20.3262 15.255 19.9468 15.117L16.74 13.9509C16.2985 13.7904 16.0777 13.7101 15.8683 13.7237C15.6836 13.7357 15.5059 13.7988 15.3549 13.9058C15.1837 14.0271 15.0629 14.2285 14.8212 14.6314L14 16C11.3501 14.7999 9.2019 12.6489 8 10L9.36863 9.17882C9.77145 8.93713 9.97286 8.81628 10.0942 8.64506C10.2012 8.49408 10.2643 8.31637 10.2763 8.1317C10.2899 7.92227 10.2096 7.70153 10.0491 7.26005L8.88299 4.05321C8.745 3.67376 8.67601 3.48403 8.55442 3.3441C8.44701 3.22049 8.31089 3.12515 8.15802 3.06645C7.98496 3 7.78308 3 7.37932 3H4.56201C4.08188 3 3.84181 3 3.63598 3.09925C3.4655 3.18146 3.29814 3.33701 3.2037 3.50103C3.08968 3.69907 3.07375 3.91662 3.04189 4.35173C3.01413 4.73086 3 5.11378 3 5.5Z" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
                     <input class="w-full pl-2 outline-none border-none bg-transparent text-white text-[12px] relative"
                     type="number" name='contactNumber' value={values.contactNumber} placeholder='Contact Number'onChange={handleChange}/>
-                    {errors.contactNumber && <h4 className='text-red-600 absolute bottom-[-25px] text-[12px]'>{errors.contactNumber}</h4>}
+                    {errors.contactNumber && <h4 className='text-red-600 absolute bottom-[-25px] text-[10px]'>{errors.contactNumber}</h4>}
                   </div>
       
-                  <button type="submit" class="block w-full bg-[#aaff00]/80  py-2 rounded-xl text-white font-semibold mb-2 uppercase mt-8">
+                  <div className='w-full py-2'>
+                  <button type="submit" class="block w-full hover:bg-[#aaff00]/80  py-2 rounded-xl hover:text-white font-semibold mb-2 uppercase mt-8 bg-white text-black transition-all ease-in-out" >
                   { !isLoading && <h3>Register</h3>} { isLoading && <div className='flex justify-center w-full'><img src={loaderGif} alt='' className='flex w-[100px] py-1 justify-center' /></div>}
       
                   </button>
+                  </div>
+
       
      
                 </form>
@@ -506,6 +524,17 @@ function Navbar() {
                 
               </div>}
               
+             { toggleSuccess && 
+              <div className='w-[200px] bg-bethel-green/50 h-[50px] rounded-md absolute -bottom-[70px]  -right-4 py-2 flex-col flex popup items-center justify-center text-white' id="popup">
+              <div className='flex flex-row items-center justify-center gap-x-2'>
+                <button className="rounded-full shadow-md" >
+                <svg viewBox="0 0 24 24" fill="none" className='w-10 h-10' xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M12 22C17.5 22 22 17.5 22 12C22 6.5 17.5 2 12 2C6.5 2 2 6.5 2 12C2 17.5 6.5 22 12 22Z" stroke="#aaff00" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M7.75 12L10.58 14.83L16.25 9.17004" stroke="#aaff00" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
+                </button>
+                <h1 className='text-lg font-bold text-white'>Success!</h1>
+              </div>                
+              </div>
+             } 
+
             </div>
 
           </div>
