@@ -13,7 +13,8 @@ import axios from 'axios';
 import { useFormik } from 'formik';
 import { Validation } from '../components/Login_Register/Validation';
 import loaderGif from '../Images/Animation-gifs/loading-6324_256.gif'
-// import MainMerkle from '../merkle'
+import MainMerkle from '../merkle'
+import { root } from 'postcss'
 
 const {ethers} = require('ethers')
 
@@ -288,7 +289,7 @@ function Navbar() {
     validationSchema: Validation,
 
     // get the values from the form
-    onSubmit :  (values) =>{
+    onSubmit : async (values) =>{
       setIsLoading(true);
       const data = {
         walletAddress : walletAddress,
@@ -301,24 +302,46 @@ function Navbar() {
       }
       const details = JSON.stringify(data);
       console.log(details)
-      // MainMerkle(values);
       
-      // try {
-      //   console.log(values)
-      //   const signer = await provider.getSigner();
-      //   const userIdContract = new ethers.Contract(contractAddress , abi , signer)
-      //   const contract = await userIdContract.verifyRoot(values.firstName,values.lastName,values.email,values.userName,values.contactNumber,values.address)
-      //   console.log(contract)
+      await fetch("http://localhost:3000/userInput",{
+        method:'POST',
+        headers:{
+          'Content-Type' : 'application/json'
+        },
+        body:JSON.stringify({
+          walletAddress:walletAddress,
+          fname:values.firstName,
+          lname:values.lastName,
+          email:values.email,
+          userName:values.userName,
+          address:values.address,
+          mobile:values.contactNumber
+          
+        })
+      })
+      
+      await MainMerkle();
+      
+      const res1 = await fetch("http://localhost:3000/root")
+      const root = await res1.json();
+      console.log("This is the root:" , root[0].root)
+      
+      try {
+        
+        const signer = await provider.getSigner();
+        const userIdContract = new ethers.Contract(contractAddress , abi , signer)
+        const contract = await userIdContract.verifyRoot(values.firstName,values.lastName,values.email,values.userName,values.contactNumber,values.address)
+        console.log(contract)
 
-      // } catch (error) {
-      //   console.log(error)  
-      // }
+      } catch (error) {
+        console.log(error)  
+      }
       
       
       // values.firstName = '';
       // values.lastName = '';
       // values.email = '';
-      // values.password = '';
+      // values.password = ''; 
       // values.userName = '';
       // values.address = '';
       // values.contactNumber = '';
