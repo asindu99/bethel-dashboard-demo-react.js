@@ -382,6 +382,14 @@ function Navbar() {
       
   }
 
+  const [IdName , setIdName] = useState("");
+  const [IdBirthday , setIdBirthday] = useState("")
+
+  const testSubmit = (e) =>{
+    e.preventDefault();
+    console.log(IdName , IdBirthday)
+  }
+
 
   return (
     <section className=''>
@@ -511,11 +519,33 @@ function Navbar() {
                 </form>
             
                 </div> 
+
+                
       
                 </div>
                 
               </div>}
-              
+
+              {/*test form ==------------------------------*/}
+              <div className='absolute top-o bg-red-400 '>
+                <form onSubmit={testSubmit} className='text-black'>
+                  <div>
+                    <label htmlFor="">Id name</label>
+                    <input onChange={(e) => {setIdName(e.target.value)}} type="text" />
+                  </div>
+
+                  <div>
+                    <lable>Birthday</lable>
+                    <input onChange={(e) => {setIdBirthday(e.target.value)}} type='text' />
+                  </div>
+
+                  <button className='p-2 bg-green-200 text-black'>Submit</button>
+                  
+                </form>
+              </div>
+              {/* end of the test form */}
+
+
              { toggleSuccess && 
               <div className='w-[200px] bg-black/20 border-bethel-green border-[1px]  h-[40px] rounded-sm absolute -bottom-[70px]  -right-4 py-2 flex-col flex popup items-center justify-center text-white' id="popup">
               <div className='flex flex-row items-center justify-center gap-x-2'>
@@ -530,6 +560,7 @@ function Navbar() {
             </div>
 
           </div>
+        
 
 
 
