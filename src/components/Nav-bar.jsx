@@ -1,4 +1,7 @@
 import MainMerkle from '../merkle'
+import QRCode from 'react-qr-code'
+import { io } from "socket.io-client";
+
 import React, {useEffect, useState } from 'react'
 import iconUser from "../Images/icons/icon-male-user.png"
 import { useDispatch, useSelector } from 'react-redux'
@@ -25,13 +28,90 @@ let initialValues = {
   contactNumber : ''
 }
 
-function Navbar() {
+function Navbar({
+  
+}) {
   const [toggleSuccess,setToggleSuccess] = useState(false);
   const dispatch = useDispatch();  
   const Navigate = useNavigate();
   const [isLoading , setIsLoading] = useState(false)
   const contractAddress = '0xB2724675c46Ea9365FA86d43E70D3932196380A9'
   let provider = new ethers.BrowserProvider(window.ethereum);
+
+  // // for the verification funcs
+  // const [sessionId , setSessionId] = useState('')
+  // const [socketEvents, setSocketEvents] = useState([]);
+  // const [qrCodeData, setQrCodeData] = useState();
+  // const [isHandlingVerification, setIsHandlingVerification] = useState(false);
+  // const [verificationCheckComplete, setVerificationCheckComplete] = useState(false);
+  // const [verificationMessage, setVerfificationMessage] = useState("");
+  // const [onVerificationResult , setOnverificationResult] = useState(false) 
+
+
+  // const socket = io("server-url-goes-here") //get a socket from server url
+
+  // // get data api
+  // const getQrCodeApi = (sessionId) =>
+  //   "serverURL" + `/api/get-auth-qr?sessionId=${sessionId}`;
+
+  // // get the socket id 
+  // useEffect(() => {
+  //   socket.on("connect", () => {
+  //     setSessionId(socket.id);
+  //     console.log(socket.id)
+
+  //     // only watch this session's events
+  //     socket.on(socket.id, (arg) => {
+  //       setSocketEvents((socketEvents) => [...socketEvents, arg]);
+  //     });
+  //   });
+  // },[]);
+
+  // // get the fetch QR code api
+  // useEffect(() => {
+  //   const fetchQrCode = async () => {
+  //     const response = await fetch(getQrCodeApi(sessionId));
+  //     const data = await response.text();
+  //     return JSON.parse(data);
+  //   };
+
+  //   if (sessionId) {
+  //     fetchQrCode().then(setQrCodeData).catch(console.error);
+  //   }
+  // }, [sessionId]);
+
+
+  // // socket event side effects
+  // useEffect(() => {
+  //   if (socketEvents.length) {
+  //     const currentSocketEvent = socketEvents[socketEvents.length - 1];
+
+  //     if (currentSocketEvent.fn === "handleVerification") {
+  //       if (currentSocketEvent.status === "IN_PROGRESS") {
+  //         setIsHandlingVerification(true);
+  //       } else {
+  //         setIsHandlingVerification(false);
+  //         setVerificationCheckComplete(true);
+  //         if (currentSocketEvent.status === "DONE") {
+  //           setVerfificationMessage("✅ Verified proof");
+  //           setTimeout(() => {
+  //             setOnverificationResult(true);
+  //           }, "2000");
+  //           socket.close();
+  //         } else {
+  //           setVerfificationMessage("❌ Error verifying VC");
+  //         }
+  //       }
+  //     }
+  //   }
+  // }, [socketEvents]);
+
+  
+
+
+
+
+
 
   const abi = [
     {
@@ -382,13 +462,7 @@ function Navbar() {
       
   }
 
-  const [IdName , setIdName] = useState("");
-  const [IdBirthday , setIdBirthday] = useState("")
-
-  const testSubmit = (e) =>{
-    e.preventDefault();
-    console.log(IdName , IdBirthday)
-  }
+  
 
 
   return (
@@ -526,25 +600,6 @@ function Navbar() {
                 
               </div>}
 
-              {/*test form ==------------------------------*/}
-              <div className='absolute top-o bg-red-400 '>
-                <form onSubmit={testSubmit} className='text-black'>
-                  <div>
-                    <label htmlFor="">Id name</label>
-                    <input onChange={(e) => {setIdName(e.target.value)}} type="text" />
-                  </div>
-
-                  <div>
-                    <lable>Birthday</lable>
-                    <input onChange={(e) => {setIdBirthday(e.target.value)}} type='text' />
-                  </div>
-
-                  <button className='p-2 bg-green-200 text-black'>Submit</button>
-                  
-                </form>
-              </div>
-              {/* end of the test form */}
-
 
              { toggleSuccess && 
               <div className='w-[200px] bg-black/20 border-bethel-green border-[1px]  h-[40px] rounded-sm absolute -bottom-[70px]  -right-4 py-2 flex-col flex popup items-center justify-center text-white' id="popup">
@@ -568,6 +623,9 @@ function Navbar() {
           <button onClick={toggle} className='absolute right-3 lg:hidden md:flex sm:flex min-[32px]:flex'>
             <img src={iconMenu} alt="" className='w-[25px]'/>
           </button>
+          
+
+          
 
         </div>
       {/* end-nav bar */}   
