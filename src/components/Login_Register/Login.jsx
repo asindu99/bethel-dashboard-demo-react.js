@@ -8,6 +8,8 @@ import WalletAddressSlice from "../../reducers/WalletAddressSlice";
 import heroVid from '../../Images/Videos/video.mp4';
 import { useEffect, useState } from "react";
 import VerificationApproved from '../VerificationApproved';
+import loaderGif from '../../Images/Animation-gifs/loading-6324_256.gif'
+
 
 const {ethers} = require("ethers");
 
@@ -96,6 +98,7 @@ function Login() {
             setVerfificationMessage("✅ Verified proof");
             setTimeout(() => {
               setOnverificationResult(true);
+              setQRtoggle(false);
             }, "2000");
             socket.close();
           } else {
@@ -106,6 +109,9 @@ function Login() {
     }
   }, [socketEvents]);
 
+  // QR open and Close toggle
+  const [QRtoggle , setQRtoggle] = useState(false)
+
   return (
 
     <section className='w-full h-[90vh] top-[90px]'>
@@ -114,18 +120,6 @@ function Login() {
     <div className='w-full h-[90%] flex flex-col justify-center items-center text-white px-4 text-center'>
   
       <h1 className="text-[60px] font-bold py-2 ">BETHEL TESTNET</h1>
-      {
-        !onVerificationResult ? (
-          <p className='py-2 text-xl'>Scan QR using Bethel App to Verify your ID</p>
-        ) : (
-          <div>
-            <p className='py-2 text-xl'>Connect Your wallet to Start the Adventure !</p>
-            <button onClick={connectWallet} className="mt-2 p-2 px-4 text-black bg-white rounded-md text-[20px] hover:text-white hover:bg-bethel-green/70 transition-all 1s ease-in-out">Connect Wallet</button>
-          </div>
-           
-
-        )
-      }
 
     </div>
     
@@ -135,26 +129,61 @@ function Login() {
 
       {/* verification QR for */}
       { !onVerificationResult ? (
-      
         <div className=''>
            {qrCodeData &&
                 !isHandlingVerification &&
                 !verificationCheckComplete && (
-                  <div className='flex w-full justify-center flex-col items-center'>
-                    <h3 className='text-white'>Please scan QR </h3>
-                     <QRCode 
-                    value={JSON.stringify(qrCodeData)} className='flex w-24 h-24 p-1 bg-white top-0 right-[55%]' />
-                  </div>
-                   
+                   QRtoggle ?  (
+                    <div className='absolute -top-[240px] right-[40%]'>
+                      <div className='relative w-[350px] rounded-xl bg-white p-4 flex flex-col items-center justify-center'>
+                      <h3 className='text-black mb-2'>Please scan QR </h3>
+                      <QRCode 
+                        value={JSON.stringify(qrCodeData)}
+                      className='flex w-64 h-64 p-1 bg-white top-0' />
+                      <h3 className='text-black mb-2'>BETHEL NETWORK </h3>
+
+                        {/* little x */}
+                        <div className='absolute right-4 top-2 '>
+                          <button onClick={() => {setQRtoggle(false)}}>
+                            <h3 className='text-black text-xl'>x</h3>
+                          </button>
+                        </div>
+                      </div>
+                    </div> ) : (
+                      <div>
+                          <p className='py-2 text-xl text-white'>Scan QR using Bethel App to Verify your ID</p>
+
+                         <button onClick={() => {setQRtoggle(true)}}
+                        className="mt-2 p-2 px-4 text-black bg-white rounded-md text-[20px] hover:text-white hover:bg-bethel-green/70 transition-all 1s ease-in-out"
+                        >Click to Verify 
+                      </button>
+                      </div>
+                     
+                    )
+                  
+                    
+                  
                 )}
 
-            <h3>{verificationMessage}</h3>
+                {isHandlingVerification && (
+                <div className='w-full flex flex-col justify-center items-center'>
+                  <p className="text-white text-[28px]">Authenticating...</p>
+                  <img src={loaderGif} alt='' className='w-[150px]'/>
+                </div>
+              )}
+
+            <div className='mt-24'>
+              {verificationMessage}
+            </div>
         </div>
      
       // {/* end of the verification */}
       ) : (
       // {/* verification approved msg */}
-      <VerificationApproved />
+      <div className=''>
+      <p className=' text-xl text-white'>Connect Your wallet to Start the Adventure !</p>
+            <button onClick={connectWallet} className=" p-2 px-4 text-black bg-white rounded-md text-[20px] hover:text-white hover:bg-bethel-green/70 transition-all 1s ease-in-out">Connect Wallet</button>
+      </div>
       // {/* end of the verification approved*/}
       )
       }
