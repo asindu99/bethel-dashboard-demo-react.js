@@ -47,11 +47,11 @@ function Login() {
   const [onVerificationResult , setOnverificationResult] = useState(false) 
 
 
-  const socket = io("server-url-goes-here") //get a socket from server url
+  const socket = io("https://vc-birthday-server.onrender.com") //get a socket from server url
 
   // get data api
   const getQrCodeApi = (sessionId) =>
-    "serverURL" + `/api/get-auth-qr?sessionId=${sessionId}`;
+    `https://vc-birthday-server.onrender.com/api/get-auth-qr?sessionId=${sessionId}`;
 
   // get the socket id 
   useEffect(() => {
@@ -63,6 +63,7 @@ function Login() {
       socket.on(socket.id, (arg) => {
         setSocketEvents((socketEvents) => [...socketEvents, arg]);
       });
+      console.log("socket arr" , socketEvents)
     });
   },[]);
 
@@ -113,30 +114,45 @@ function Login() {
     <div className='w-full h-[90%] flex flex-col justify-center items-center text-white px-4 text-center'>
   
       <h1 className="text-[60px] font-bold py-2 ">BETHEL TESTNET</h1>
-                
-      <p className='py-2 text-xl'>Connect Your wallet to Start the Adventure !</p>
+      {
+        !onVerificationResult ? (
+          <p className='py-2 text-xl'>Scan QR using Bethel App to Verify your ID</p>
+        ) : (
+          <div>
+            <p className='py-2 text-xl'>Connect Your wallet to Start the Adventure !</p>
+            <button onClick={connectWallet} className="mt-2 p-2 px-4 text-black bg-white rounded-md text-[20px] hover:text-white hover:bg-bethel-green/70 transition-all 1s ease-in-out">Connect Wallet</button>
+          </div>
+           
+
+        )
+      }
 
     </div>
     
     <div className="-mt-48 font-bold text-center relative">
-      
-      <button onClick={connectWallet} className="p-2 px-4 text-black bg-white rounded-md text-[20px] hover:text-white hover:bg-bethel-green/70 transition-all 1s ease-in-out">Connect Wallet</button>
+      <div>
+      </div>
 
       {/* verification QR for */}
       { !onVerificationResult ? (
-      <div className='absolute right-2 top-24 bg-white p-2'>
-        <div style={{ height: "auto", margin: "0 auto", maxWidth: 64, width: "100%" }}>
-            <QRCode
-            size={256}
-            style={{ height: "auto", maxWidth: "100%", width: "100%" }}
-            value="{value}"
-            viewBox={`0 0 256 256`}
-            />
+      
+        <div className=''>
+           {qrCodeData &&
+                !isHandlingVerification &&
+                !verificationCheckComplete && (
+                  <div className='flex w-full justify-center flex-col items-center'>
+                    <h3 className='text-white'>Please scan QR </h3>
+                     <QRCode 
+                    value={JSON.stringify(qrCodeData)} className='flex w-24 h-24 p-1 bg-white top-0 right-[55%]' />
+                  </div>
+                   
+                )}
+
+            <h3>{verificationMessage}</h3>
         </div>
-      </div>
+     
       // {/* end of the verification */}
       ) : (
-
       // {/* verification approved msg */}
       <VerificationApproved />
       // {/* end of the verification approved*/}
