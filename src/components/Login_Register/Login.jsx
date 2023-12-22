@@ -182,7 +182,7 @@ function Login() {
       // {/* verification approved msg */}
       <div className=''>
       <p className=' text-xl text-white'>Connect Your wallet to Start the Adventure !</p>
-            <button onClick={connectWallet} className=" p-2 px-4 text-black bg-white rounded-md text-[20px] hover:text-white hover:bg-bethel-green/70 transition-all 1s ease-in-out">Connect Wallet</button>
+            <button onClick={connectWallet} className=" p-2 px-4 mt-4 text-black bg-white rounded-md text-[20px] hover:text-white hover:bg-bethel-green/70 transition-all 1s ease-in-out">Connect Wallet</button>
       </div>
       // {/* end of the verification approved*/}
       )
