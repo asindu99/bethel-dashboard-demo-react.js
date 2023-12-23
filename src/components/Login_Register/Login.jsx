@@ -173,7 +173,7 @@ function Login() {
               )}
 
             <div className='mt-24'>
-              {verificationMessage}
+             <h3 className="text-white text-md">{verificationMessage}</h3> 
             </div>
         </div>
      
