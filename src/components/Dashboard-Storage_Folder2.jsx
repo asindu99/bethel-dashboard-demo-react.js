@@ -187,7 +187,7 @@ export default function DashboardStorageFolder2() {
       {/* end of upload success msg */}
       </div> 
 
-      <TableWithMoreButton />
+      <TableWithMoreButton/>
 
    
     </section>

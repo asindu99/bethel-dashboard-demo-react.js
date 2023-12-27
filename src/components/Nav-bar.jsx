@@ -16,6 +16,7 @@ import { revertAll } from '../reducers/Loginreducer'
 import { useFormik } from 'formik';
 import { Validation } from '../components/Login_Register/Validation';
 import loaderGif from '../Images/Animation-gifs/loading-6324_256.gif'
+import closeIcon from "../Images/icons/icons8-close-30.png"
 const {ethers} = require('ethers')
 
 
@@ -498,22 +499,32 @@ function Navbar({
               </button>
               
               {/* Register form */}
-              { toggleVal && <div className='absolute right-[200px] top-[665px]'>
+              { toggleVal && 
+              <div className='absolute right-[200px] top-[665px]'> 
+
+              
               
                 <div className='flex items-center justify-center bg-transparent z-200'>
-                <div class="w-0 h-0 border-l-[10px] border-l-transparent border-b-[15px] border-b-gray-950 border-r-[10px] border-r-transparent absolute bottom-[594px] left-[165px] z-40">
+                    <div class="w-0 h-0 border-l-[10px] border-l-transparent border-b-[15px] border-b-gray-950 border-r-[10px] border-r-transparent absolute bottom-[594px] left-[165px] z-40">
                 </div>
                 {/*Form Card  */}
-                <div className='w-[300px]  bottom-6 -left-[85px] absolute backdrop-blur-md bg-gray-950  shadow-[1px_1px_10px_1px_] shadow-white/20
- rounded-md items-center justify-center ;
-'>
+                <div className='w-[300px] bottom-6 -left-[85px] absolute backdrop-blur-md bg-gray-950  shadow-[1px_1px_10px_1px_] shadow-white/20
+                  rounded-md items-center justify-center ;
+                  '>
+
+                {/* close button for the register comp */}
+                <div className='absolute top-5 right-3 font-medium text-lg z-[1000]'>
+                  <button onClick={toggleReg}>
+                    <img src={closeIcon} alt="" className='w-[18px]' />
+                  </button>
+                </div>
+                {/* end of the close button  */}
                 
                 {/* Heading section */}
                 <div className='relative'>
                   <h1 className='text-center text-[18px] text-white pt-4 uppercase'>Register</h1>
                   <div className='absolute left-12'>
-                  {/* <h3 className='text-center text-white text-[48px] font-bold'>Welcome!</h3>
-                  <p className='text-center text-white text-[14px]'>Enter Your email address and password details ! </p> */}
+
                 </div>
                 </div>
                 

@@ -2,28 +2,30 @@ import React, { useEffect, useState } from 'react';
 
 const TableWithMoreButton = () => {
   const [selectedRow, setSelectedRow] = useState(null);
+  const [totalFiles, setTotalFiles] = useState(null);
 
   const handleMoreButtonClick = (index) => {
     setSelectedRow(index === selectedRow ? null : index);
   };
 
   const [tableData , setTableData] = useState([]);
-
-  // add sample data in here from the back end 
+ 
+  // add sample data in here from the backend 
   const data = [
-  { id: 1, name: 'Item 1', itemCode:'ewerwe3dpqwkdpok1231231damdk' , fileSize:'591MiB' , downloadLink : 'https://public.bethelnet.io/ipfs/QmcMux1HfMHqRLJSGW4EizZ31ZBZeeoy19dNDm5pCFCaCG' },
-  { id: 2, name: 'Item 2', itemCode:'scsdsdadasda' , fileSize:'591MiB' , downloadLink : 'https://public.bethelnet.io/ipfs/QmeZuoQxNgQUbRXm9nj5YQxZNEFw6DMPqA2UXokD9L51Cz' } ]
+  { id: 1, name: 'Item 1', itemCode:'ewerwe3dpqwkdpok1231231damdk' , fileSize:'5MiB' , downloadLink : 'https://public.bethelnet.io/ipfs/QmcMux1HfMHqRLJSGW4EizZ31ZBZeeoy19dNDm5pCFCaCG' },
+  { id: 2, name: 'Item 2', itemCode:'scsdsdadasda' , fileSize:'1MiB' , downloadLink : 'https://public.bethelnet.io/ipfs/QmeZuoQxNgQUbRXm9nj5YQxZNEFw6DMPqA2UXokD9L51Cz' }
+ ]
 
 
   useEffect(()=>{
     setTableData((tableData) => [...tableData , data])
+    setTotalFiles(tableData.length)
   },[])
 
-
+  console.log(tableData.length)
 
   return (
     <div className='flex w-full px-2 py-8'>
-
       <div className='w-full'>
         <div className='w-full overflow-auto lg:overflow-visible'>
           <table className='table w-full text-sm text-gray-400 border-separate border-transparent rounded-md border-spacing-2'>
