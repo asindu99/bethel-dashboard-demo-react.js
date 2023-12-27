@@ -80,7 +80,7 @@ function Login() {
     if (sessionId) {
       fetchQrCode().then(setQrCodeData).catch(console.error);
     }
-  }, [sessionId]); //ass sessionId
+  }, [sessionId]); //pass sessionId
 
 
   // socket event side effects
@@ -106,7 +106,7 @@ function Login() {
           }
         }
       }
-    }
+    } 
   }, [socketEvents]);
 
   // QR open and Close toggle

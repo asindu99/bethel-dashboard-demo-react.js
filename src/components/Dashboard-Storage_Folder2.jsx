@@ -22,7 +22,7 @@ export default function DashboardStorageFolder2() {
     formData.append('bucket', 'Public_storage_0');
 
 
-    if(!file){
+    if(file){
       setUploadWait(true)
       
       try {
@@ -58,6 +58,10 @@ export default function DashboardStorageFolder2() {
 
         setUploadWait(false);
         setUploadFail(true)
+
+        setTimeout(() => {
+            setUploadFail(false)
+          }, 2000);
       }
     }
 
