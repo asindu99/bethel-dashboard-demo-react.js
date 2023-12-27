@@ -1,8 +1,11 @@
+import axios from 'axios'
 import React, { useState } from 'react'
 import iconStorage from "../Images/icons/icon-storage.png"
 import TableWithMoreButton from '../components/Test'
 import "../loadingCss/InfiniteLoader.css"
 import iconWrong from "../Images/icons/icons-close.png"
+
+
 
 export default function DashboardStorageFolder2() {
   const [file , setFile] = useState(null)
@@ -10,10 +13,59 @@ export default function DashboardStorageFolder2() {
   const [uploadFail , setUploadFail] = useState(false)
   const [fileName , setFileName] = useState("");
   const [fileSize , setFileSize] = useState('');
+  const [uploadWait , setUploadWait] = useState(false)
+
+  const upload = async () => {
+    const formData = new FormData();
+    formData.append("file" , file)
+    formData.append("userid" , "6576e136c22250034cc82abd");
+    formData.append('bucket', 'Public_storage_0');
+
+
+    if(!file){
+      setUploadWait(true)
+      
+      try {
+        const res = await axios.post("https://api.bethelnet.io/upload", formData, {
+                    headers: {
+                      'Content-Type': 'multipart/form-data'
+                    },
+                  },{withCredentials : true})
+        console.log(res);
+
+        if(res.status === 200){
+          setUploadSuccess(true)
+
+          setTimeout(() => {
+            setUploadSuccess(false)
+          }, 2000);
+
+          setFile(null);
+          setFileName('');
+          setFileSize('')
+        } 
+        else {
+
+          setUploadFail(true)
+          setUploadWait(false)
+
+          setTimeout(() => {
+            setUploadFail(false)
+          }, 2000);
+
+        }
+      } catch (error) {
+
+        setUploadWait(false);
+        setUploadFail(true)
+      }
+    }
+
+  }
 
  
   const handleFileUpload = (e) => {
-    setFile(e.target.files[0])
+    setFile(e.target.files[0]) 
     setFileName(e.target.files[0].name)
     setFileSize(e.target.files[0].size)
     console.log(fileName); 
@@ -72,7 +124,7 @@ export default function DashboardStorageFolder2() {
               <th class="px-4 py-2  text-gray-300" >Selected Item :</th>
               <th class="px-4 py-2  text-gray-300 flex flex-row gap-x-4" >
             </th>
-              <div class="loader"></div>
+              { uploadWait && <div class="loader"></div> }
             </tr>
           </thead>
           <tbody class="text-sm font-normal text-gray-400">
@@ -88,7 +140,7 @@ export default function DashboardStorageFolder2() {
                     </div>
 
                     <div className="gap-2 flex items-center">
-                      <button className="flex gap-2 bg-bethel-green/50 px-2 py-1 rounded-md">
+                      <button onClick={upload} className="flex gap-2 bg-bethel-green/50 px-2 py-1 rounded-md">
                         <h3 className='text-white'>Upload</h3>
                         <svg viewBox="0 0 20 15" className='w-4 h-4 cursor-pointer' xmlns="http://www.w3.org/2000/svg" fill="none"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path fill="#ffffff" fill-rule="evenodd" d="M9 12a1 1 0 102 0V4.26l3.827 3.48a1 1 0 001.346-1.48l-5.5-5a1 1 0 00-1.346 0l-5.5 5a1 1 0 101.346 1.48L9 4.26V12zm-5.895-.796A1 1 0 001.5 12v3.867a2.018 2.018 0 002.227 2.002c1.424-.147 3.96-.369 6.273-.369 2.386 0 5.248.236 6.795.383a2.013 2.013 0 002.205-2V12a1 1 0 10-2 0v3.884l-13.895-4.68zm0 0L2.5 11l.605.204zm0 0l13.892 4.683a.019.019 0 01-.007.005h-.006c-1.558-.148-4.499-.392-6.984-.392-2.416 0-5.034.23-6.478.38h-.009a.026.026 0 01-.013-.011V12a.998.998 0 00-.394-.796z"></path> </g></svg>              
                       </button>
