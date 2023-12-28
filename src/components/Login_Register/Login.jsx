@@ -21,7 +21,7 @@ function Login() {
   const connectWallet = async () =>{
     if(window.ethereum){
       try {
-        const accounts = await window.ethereum.request({method : "eth_requestAccounts"})
+         
         dispatch(WalletAddressSlice.actions.saveWalletAddress(accounts[0]))
         Navigate('/dashboard')
       
