@@ -98,6 +98,7 @@ function Login() {
           setVerificationCheckComplete(true);
           if (currentSocketEvent.status === "DONE") {
             setVerfificationMessage("Verified proof");
+            
             setTimeout(() => {
               setOnverificationResult(true);
               setQRtoggle(false);
