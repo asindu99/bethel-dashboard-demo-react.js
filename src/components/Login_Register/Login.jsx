@@ -21,7 +21,7 @@ function Login() {
   const connectWallet = async () =>{
     if(window.ethereum){
       try {
-         
+        const accounts = await window.ethereum.request({method : "eth_requestAccounts"})
         dispatch(WalletAddressSlice.actions.saveWalletAddress(accounts[0]))
         Navigate('/dashboard')
       
@@ -49,11 +49,26 @@ function Login() {
   const [onVerificationResult , setOnverificationResult] = useState(false) 
 
 
-  const socket = io("https://vc-birthday-server.onrender.com") //get a socket from server url
+  const socket = io("192.168.1.13:8080/") //get a socket from server url 
 
   // get data api
-  const getQrCodeApi = (sessionId) =>
-    `https://vc-birthday-server.onrender.com/api/get-auth-qr?sessionId=${sessionId}`;
+  // const getQrCodeApi = () =>
+  //   `http://192.168.1.13:8080/api/sign-in`;
+
+  // get the fetch QR code api
+  useEffect(() => {
+    const fetchQrCode = async () => {
+      console.log("fetching")
+
+      await fetch('http://192.168.1.13:8080/api/sign-in')
+        .then(response => response.json())
+        .then(data => setQrCodeData(data))
+        // catch errors
+        .catch(err => console.log(err));
+    };
+      fetchQrCode();
+
+  },[]); //pass sessionId
 
   // get the socket id 
   useEffect(() => {
@@ -69,19 +84,6 @@ function Login() {
     });
   },[]);
 
-  // get the fetch QR code api
-  useEffect(() => {
-    const fetchQrCode = async () => {
-      const response = await fetch(getQrCodeApi(sessionId));
-      const data = await response.text();
-      return JSON.parse(data);
-    };
-
-    if (sessionId) {
-      fetchQrCode().then(setQrCodeData).catch(console.error);
-    }
-  }, [sessionId]); //pass sessionId
-
 
   // socket event side effects
   useEffect(() => {
@@ -95,19 +97,21 @@ function Login() {
           setIsHandlingVerification(false);
           setVerificationCheckComplete(true);
           if (currentSocketEvent.status === "DONE") {
-            setVerfificationMessage("✅ Verified proof");
+            setVerfificationMessage("Verified proof");
             setTimeout(() => {
               setOnverificationResult(true);
               setQRtoggle(false);
             }, "2000");
             socket.close();
           } else {
-            setVerfificationMessage("❌ Error verifying VC");
+            setVerfificationMessage("Error verifying VC");
           }
         }
       }
     } 
   }, [socketEvents]);
+
+
 
   // QR open and Close toggle
   const [QRtoggle , setQRtoggle] = useState(false)
