@@ -86,7 +86,7 @@ export default function ChangePasswordProfile() {
 
                 </div>
 
-                <div className='relative flex items-center px-3 py-2 mt-8 mb-4 border-2 rounded-xl'>
+              <div className='relative flex items-center px-3 py-2 mt-8 mb-4 border-2 rounded-xl'>
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white" viewBox="0 0 20 20"
                         fill="currentColor">
                         <path fill-rule="evenodd"
@@ -99,7 +99,7 @@ export default function ChangePasswordProfile() {
                 />
                 {errors.oldPassword && <h4 className='text-red-600 absolute bottom-[-25px] text-[12px]'>{errors.oldPassword}</h4>}
 
-            </div>
+              </div>
 
               
              <div className='relative flex items-center px-3 py-2 mt-8 mb-4 border-2 rounded-xl'>
@@ -115,7 +115,7 @@ export default function ChangePasswordProfile() {
                 />
                 {errors.password && <h4 className='text-red-600 absolute bottom-[-25px] text-[12px]'>{errors.password}</h4>}
 
-            </div>
+             </div>
 
             <div className='relative flex items-center px-3 py-2 mt-8 mb-4 border-2 rounded-xl'>
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white" viewBox="0 0 20 20"
@@ -131,7 +131,7 @@ export default function ChangePasswordProfile() {
                   {errors.cPassword && <h4 className='text-red-600 absolute bottom-[-25px] text-[12px]'>{errors.cPassword}</h4>}
 
 
-                </div>
+            </div>
 
               
           
@@ -143,7 +143,7 @@ export default function ChangePasswordProfile() {
 
               
      
-        </form>
+            </form>
         </div>
     </section>
   )

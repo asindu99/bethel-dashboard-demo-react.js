@@ -14,6 +14,7 @@ import { revertAll3 } from '../reducers/uploadDetailsSlice'
 import { revertAll4 } from '../reducers/userDataReducer'
 import toggleSidebarSlice from '../reducers/toggleSidebar'
 import iconClose from '../Images/icons/icons8-close-96.png'
+import fileIcon from "../Images/icons/icon-file.png" 
 
 
 function SideBar() {
@@ -35,7 +36,7 @@ function SideBar() {
     // side nav bar for mobile
     <div>
       { !toggleSidebar.toggleSidebar &&
-      <div className=' fixed lg:hidden md:flex sm:fixed left-2 rounded-md w-[250px] backdrop-blur-xl bg-gradient-to-b from-bethel-white/5 to-bethel-green/5 top-2 bottom-2 p-2'>
+      <div className=' fixed lg:hidden md:flex sm:fixed left-2 rounded-md w-[250px] backdrop-blur-xl bg-gradient-to-b from-bethel-white/5 to-gray-800/10 top-2 bottom-2 p-2'>
         {/* inside contenet */}
         <div className='relative flex flex-col items-baseline justify-start h-full'>
           {/* inside flex boxes */}
@@ -72,15 +73,15 @@ function SideBar() {
             {/* end-dashboard */}
 
             {/* start-storage */}
-            <Link to='/dashboard/storage' className='w-full'>
+            <Link to='/dashboard/files' className='w-full'>
             <div onClick={toggle} className='flex w-full px-10 py-2 hover:bg-bethel-green/50'>
               <div>
                 {/* start-inside box */}
                 <div className='flex w-full gap-2'>
                   <div>
-                    <img src={iconStorage} alt="flex" className='w-[20px]' />
+                    <img src={fileIcon} alt="flex" className='w-[20px]' />
                   </div>
-                  <h1>STORAGE</h1>
+                  <h1>FILES</h1>
                 </div>
                 {/* end-insidebox */}
               </div>
@@ -91,7 +92,7 @@ function SideBar() {
             {/* start-dashboard */}
 
             <Link to="/dashboard/wallet" className='w-full' >
-            <div onClick={toggle} className='flex  w-full px-10 hover:bg-bethel-green/10  py-2'>
+            <div onClick={toggle} className='flex w-full px-10 py-2 hover:bg-bethel-green/10'>
 
               <div>
                 {/* start-inside box */}
@@ -203,7 +204,7 @@ function SideBar() {
     }
 
     {/* side bar for pc */}
-    <div className='fixed lg:flex md:hidden sm:hidden min-[320px]:hidden left-2 rounded-md w-[250px] backdrop-blur-xl bg-gradient-to-b from-bethel-white/5 to-bethel-green/5 top-2 bottom-2 p-2'>
+    <div className='fixed lg:flex md:hidden sm:hidden min-[320px]:hidden left-2 rounded-md w-[250px] backdrop-blur-xl bg-gradient-to-b from-bethel-white/5 to-gray-800/10 top-2 bottom-2 p-2'>
         {/* inside contenet */}
         <div className='flex flex-col items-baseline justify-start h-full'>
           {/* inside flex boxes */}
@@ -235,15 +236,15 @@ function SideBar() {
             {/* end-dashboard */}
 
             {/* start-storage */}
-            <Link to='/dashboard/storage' className='w-full'>
+            <Link to='/dashboard/files' className='w-full'>
             <div className='flex w-full px-10 py-2 hover:bg-bethel-green/50'>
               <div>
                 {/* start-inside box */}
                 <div className='flex w-full gap-2'>
                   <div>
-                    <img src={iconStorage} alt="flex" className='w-[20px]' />
+                    <img src={fileIcon} alt="flex" className='w-[20px]' />
                   </div>
-                  <h1>STORAGE</h1>
+                  <h1>FILES</h1>
                 </div>
                 {/* end-insidebox */}
               </div>

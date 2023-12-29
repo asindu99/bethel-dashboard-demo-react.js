@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import iconBucket from "../Images/icons/icon-bucket.png"
 import iconStorage from "../Images/icons/icon-storage.png"
 import iconFile from "../Images/icons/icon-file.png"
@@ -10,61 +10,18 @@ import iconMusic from "../Images/icons/icons8-music-100.png"
 
 import { Doughnut , Bar, Line } from 'react-chartjs-2'
 import { Chart as ChartJS } from 'chart.js/auto'
-import { useDispatch, useSelector } from 'react-redux'
-import axios from 'axios'
-import userDataSlice from '../reducers/userDataReducer'
-import storageDataSlice from '../reducers/storageDetailsSlice'
-import uploadSlice from '../reducers/uploadDetailsSlice'
-import { useNavigate } from 'react-router-dom'
-
 
 function DashboardHome() {
-  //  const [storageDetails , setStorageDetails] = useState(null)
-  const dispatch = useDispatch();
-  const Navigate = useNavigate();
-  // get user ID
-    const userData = useSelector((state)=> state.loginReducer)
-    const userId = userData._id
   
-  
-
-
-  // get all the data and save to the store funcs ----------------------
-  const getStorageData = async () =>{
-    const res = await axios.get('https://mw.bethel.network/storagedetails/' + userId,
-    {withCredentials : true}) 
-
-    dispatch(storageDataSlice.actions.saveStorageData(res.data[0]))
-   }
-
-   const getUploadData = async () =>{
-    const res2 = await axios.get('https://mw.bethel.network/storage/' + userId ,{withCredentials :true})
-    dispatch(uploadSlice.actions.uploadData(res2.data))
-   }
-
-    useEffect(()=>{
-      fetchData();
-      getStorageData();
-      getUploadData();
-    },[])
-  
-  
-
-    const fetchData = async() =>{
-      const res = await axios.get('https://mw.bethel.network/users/' + userId ,{withCredentials : true})
-      dispatch(userDataSlice.actions.saveUserData(res.data))
-    }
-
-    const storageDetails = useSelector((state) => state.storageDetailsReducer)
+ 
   return (
 
     <div className='w-full text-white'>
 
-
       {/* topic container */}
       <div className='flex mt-3 mb-5'>
         <div className=''>
-          <img src={iconHome} alt="" className='w-[20px] inline-block' /> /
+          <img src={iconHome} alt="" className='w-[20px] inline-block -mt-1' /> /
         </div>
 
         <div className='ml-2'>
@@ -89,7 +46,7 @@ function DashboardHome() {
             {/* 1 row - cards  */}
             <div className='flex lg:flex-row md:flex-row sm:flex-col min-[320px]:flex-col justify-center items-center gap-4'>
               {/* car 1 */}
-              <div className='flex items-center justify-between w-full px-8 py-12 rounded-md backdrop-blur-xl bg-gradient-to-b from-bethel-white/10 to-bethel-green/5'>
+              <div className='flex items-center justify-between w-full px-8 py-12 rounded-md backdrop-blur-xl bg-gradient-to-b from-bethel-white/5 to-gray-800/10'>
                   <div className='flex flex-col '>
                     <h3 className='text-[1.3rem] font-bold'>BUCKETS</h3>
                     <h3 className='text-white/50'>Total buckets : 1</h3>
@@ -104,12 +61,12 @@ function DashboardHome() {
 
               {/* card 2 */}
               <div className='flex items-center w-full justify-between px-8 lg:py-12 md:py-12 sm:py-10 min-[320px]:py-14 rounded-md
-              backdrop-blur-xl bg-gradient-to-b from-bethel-white/10 to-bethel-green/5'>
+              backdrop-blur-xl bg-gradient-to-b from-bethel-white/5 to-gray-800/10'>
                   <div className='relative flex flex-col '>
                     <h3 className='text-[1.3rem] font-bold'>STORAGE</h3>
                     <h3 className='text-white/50 '>Total storage : </h3> 
                     <div className='absolute bottom-[-25px]'>
-                      {storageDetails.totalsize}
+                      10Gb
                     </div>
                   </div>
 
@@ -124,10 +81,10 @@ function DashboardHome() {
             {/* 2nd cards DIVS */}
             <div className='flex gap-4 lg:flex-row md:flex-row sm:flex-col min-[320px]:flex-col justify-center items-center'>
               {/* car 1 */}
-              <div className='flex items-center justify-between w-full px-8 py-12 rounded-md backdrop-blur-xl bg-gradient-to-b from-bethel-white/10 to-bethel-green/5'>
+              <div className='flex items-center justify-between w-full px-8 py-12 rounded-md bg-gradient-to-b from-bethel-white/5 to-gray-800/10 backdrop-blur-xl'>
                   <div className='flex flex-col'>
                     <h3 className='text-[1.3rem] font-bold'>OBJECTS</h3>
-                    <h3 className='text-white/50'>Total objects : {storageDetails.filecount}</h3>
+                    <h3 className='text-white/50'>Total objects : 2</h3>
                   </div>
 
                   <div className="relative">
@@ -138,7 +95,7 @@ function DashboardHome() {
               </div>
 
               {/* card 2 */}
-              <div className='flex items-center justify-between w-full px-8 py-12 rounded-md backdrop-blur-xl bg-gradient-to-b from-bethel-white/10 to-bethel-green/5'>
+              <div className='flex items-center justify-between w-full px-8 py-12 rounded-md bg-gradient-to-b from-bethel-white/5 to-gray-800/10 backdrop-blur-xl'>
                   <div className='flex flex-col '>
                     <h3 className='text-[1.3rem] font-bold'>BANDWIDTH</h3>
                     <h3 className='text-white/50'>Total bandwidth : 0</h3>
@@ -159,7 +116,7 @@ function DashboardHome() {
 
           {/* start- chart div */}
           <div className='flex lg:mt-0 md:mt-2 sm:mt-2 min-[320px]:mt-4
-           lg:flex-row md:flex sm:flex-col min-[320px]:flex-col items-center gap-2 bg-gradient-to-b from-bethel-white/10 to-bethel-green/5  relative
+           lg:flex-row md:flex sm:flex-col min-[320px]:flex-col items-center gap-2 bg-gradient-to-b from-bethel-white/5 to-gray-800/10  relative
           lg:gap-0 md:gap-10  lg:w-1/2 rounded-md md:w-full sm:w-full min-[320px]:w-full'>
             <div className=''>
 
@@ -171,7 +128,7 @@ function DashboardHome() {
                 ],
                 datasets: [{
                   label: 'My First Dataset',
-                  data: [100,storageDetails.totalsize],
+                  data: [100,20],
                   backgroundColor: [
                     'rgb(255, 255 , 255 )',
                     'rgb(170, 255, 0)',
@@ -193,7 +150,7 @@ function DashboardHome() {
 
                                   <div class="flex flex-col items-center justify-center mt-[2px]">
                                       <h3 class="text-[1.1rem] text-white/80">Files</h3>
-                                      <h3 class="text-[#8d8d8d] text-[12px] ml-1">{storageDetails.filecount} files</h3>
+                                      <h3 class="text-[#8d8d8d] text-[12px] ml-1">1 files</h3>
                                   </div>
                               </div>
 
@@ -242,7 +199,7 @@ function DashboardHome() {
 
         {/* start-second container */}
         <div className='flex w-full pb-10 mt-6 lg:flex-row gap-x-6 md:flex-col sm:flex-col min-[320px]:flex-col gap-y-8 justify-evenly'>
-            <div className='rounded-md lg:w-1/2 md:w-full sm:w-full min-[320px]:w-full bg-gradient-to-b from-bethel-white/10 to-bethel-green/5'>
+            <div className='rounded-md lg:w-1/2 md:w-full sm:w-full min-[320px]:w-full bg-gray-800/20'>
               <Line data={{
             labels: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri','Sat'],
             datasets: [{
@@ -260,12 +217,12 @@ function DashboardHome() {
               }} />
             </div>
 
-            <div className='rounded-md lg:w-1/2 md:w-full sm:w-full min-[320px]:w-full lg:ml-4 bg-gradient-to-b from-bethel-white/10 to-bethel-green/5'>
+            <div className='rounded-md lg:w-1/2 md:w-full sm:w-full min-[320px]:w-full lg:ml-4 bg-gray-800/20'>
               <Bar data={{
         labels: ['Files', 'Videos', 'Images', 'Musics'],
         datasets: [{
             label: 'Files',
-            data: [storageDetails.filecount, 0, 0, 0],
+            data: [2, 0, 0, 0],
             backgroundColor: [
                 'rgba(255, 255,255, .7)',
                 'rgba(255, 255,255, .6)',
