@@ -49,68 +49,83 @@ function Login() {
   const [onVerificationResult , setOnverificationResult] = useState(false) 
 
 
-  const socket = io("192.168.1.13:8080/") //get a socket from server url 
+  // useEffect(() => {
+  //   const fetchQrCode = async () => {
+  //     console.log("fetching")
 
-  // get data api
-  // const getQrCodeApi = () =>
-  //   `http://192.168.1.13:8080/api/sign-in`;
+  //     await fetch('http://192.168.1.8:8080/api/sign-in')
+  //       .then(response => response.json())
+  //       .then(data => setQrCodeData(data))
+  //       // catch errors
+  //       .catch(err => console.log(err));
+  //   };
+  //     fetchQrCode();
 
-  // get the fetch QR code api
+  // },[]); //pass sessionId
+
+
   useEffect(() => {
-    const fetchQrCode = async () => {
-      console.log("fetching")
+    let interval: NodeJS.Timer;
+    const auth = async () => {
+      console.log("asindu")
 
-      await fetch('http://192.168.1.13:8080/api/sign-in')
-        .then(response => response.json())
-        .then(data => setQrCodeData(data))
-        // catch errors
-        .catch(err => console.log(err));
-    };
-      fetchQrCode();
-
-  },[]); //pass sessionId
-
-  // get the socket id 
-  useEffect(() => {
-    socket.on("connect", () => {
-      setSessionId(socket.id);
-      console.log(socket.id)
-
-      // only watch this session's events
-      socket.on(socket.id, (arg) => {
-        setSocketEvents((socketEvents) => [...socketEvents, arg]);
-      });
-      console.log("socket arr" , socketEvents)
-    });
-  },[]);
-
-
-  // socket event side effects
-  useEffect(() => {
-    if (socketEvents.length) {
-      const currentSocketEvent = socketEvents[socketEvents.length - 1];
-
-      if (currentSocketEvent.fn === "handleVerification") {
-        if (currentSocketEvent.status === "IN_PROGRESS") {
-          setIsHandlingVerification(true);
-        } else {
-          setIsHandlingVerification(false);
-          setVerificationCheckComplete(true);
-          if (currentSocketEvent.status === "DONE") {
-            setVerfificationMessage("Verified proof");
-            
-            setTimeout(() => {
-              setOnverificationResult(true);
-              setQRtoggle(false);
-            }, "2000");
-            socket.close();
-          } else {
-            setVerfificationMessage("Error verifying VC");
-          }
+      const QRR = {
+  "id": "f3c9ae6e-d8d4-45a1-89c3-6cd3d7de3960",
+  "typ": "application/iden3comm-plain-json",
+  "type": "https://iden3-communication.io/authorization/1.0/request",
+  "thid": "044bbbce-d33e-47e0-858c-aa33a67d4ef8",
+  "body": {
+    "callbackUrl": "/api/v1/callback?sessionId=764626",
+    "reason": "test flow",
+    "message": "message to sign",
+    "scope": [
+      {
+        "id": 1,
+        "circuitId": "credentialAtomicQuerySigV2",
+        "query": {
+          "allowedIssuers": [
+            "*"
+          ],
+          "context": "https://raw.githubusercontent.com/iden3/claim-schema-vocab/main/schemas/json-ld/kyc-v3.json-ld",
+          "credentialSubject": {
+            "birthday": {
+              "$lt": 20000101
+            }
+          },
+          "type": "KYCAgeCredential"
         }
       }
-    } 
-  }, [socketEvents]);
+    ]
+  },
+  "from": "did:polygonid:polygon:mumbai:2qG7bhdJKsk4tSbShiXiF2Eti2cVjUH3iTDXyyn6i7"
+}
+      setQrCodeData(QRR);
+      console.log(qrCodeData)
+       const authRequest = await fetch('http://192.168.1.8:8080/api/sign-in')
+
+      const sessionID = authRequest.headers.get('x-id');
+      console.log(qrCodeData)
+
+      console.log("This is the session ID :",sessionID)
+
+      interval = setInterval(async () => {
+        try {
+          const sessionResponse = await fetch(`http://192.168.1.8:8080/api/callback?sessionId=${sessionID}`);
+          if (sessionResponse.ok) {
+            const data = await sessionResponse.json();
+            clearInterval(interval);
+            console.log("QR succesfully Done!!!!!!")
+          }
+        } catch (e) {
+          console.log('err->', e);
+        }
+      }, 2000);
+    }
+    auth();
+    return () => clearInterval(interval);
+  },
+  []);
+
 
 
 
