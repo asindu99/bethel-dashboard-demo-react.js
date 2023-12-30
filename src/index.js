@@ -13,17 +13,15 @@ import { persistStore } from "redux-persist";
 const root = ReactDOM.createRoot(document.getElementById('root'));
 let persistor = persistStore(store)
 root.render(
-  <React.StrictMode>
 
-    <Provider store={store}>
-      <BrowserRouter>
-        <PersistGate persistor={persistor}>
-          <App />
-        </PersistGate>
-      </BrowserRouter>
-    </Provider>
+  <Provider store={store}>
+    <BrowserRouter>
+      <PersistGate persistor={persistor}>
+        <App />
+      </PersistGate>
+    </BrowserRouter>
+  </Provider>
 
-  </React.StrictMode >
 );
 
 

@@ -1,16 +1,11 @@
 import QRCode from 'react-qr-code'
-import { io } from "socket.io-client";
+import React from "react"
 import { useNavigate } from "react-router-dom"
-import walletImg from "../../Images/BG-Images/wallet-screen-img.jpg"
-import bethelLogo from "../../Images/icons/bethellogo.png"
 import { useDispatch } from "react-redux";
 import WalletAddressSlice from "../../reducers/WalletAddressSlice";
 import heroVid from '../../Images/Videos/video.mp4';
 import { useEffect, useState } from "react";
-import VerificationApproved from '../VerificationApproved';
 import loaderGif from '../../Images/Animation-gifs/loading-6324_256.gif'
-
-
 const {ethers} = require("ethers");
 
 
@@ -33,49 +28,21 @@ function Login() {
     }
   }
 
-
-
-
-
-
-
   // for the verification funcs
   const [sessionId , setSessionId] = useState('')
-  const [socketEvents, setSocketEvents] = useState([]);
   const [qrCodeData, setQrCodeData] = useState();
   const [isHandlingVerification, setIsHandlingVerification] = useState(false);
-  const [verificationCheckComplete, setVerificationCheckComplete] = useState(false);
+  // const [verificationCheckComplete, setVerificationCheckComplete] = useState(false);
   const [verificationMessage, setVerfificationMessage] = useState("");
   const [onVerificationResult , setOnverificationResult] = useState(false) 
 
-
-  // useEffect(() => {
-  //   const fetchQrCode = async () => {
-  //     console.log("fetching")
-
-  //     await fetch('http://192.168.1.8:8080/api/sign-in')
-  //       .then(response => response.json())
-  //       .then(data => setQrCodeData(data))
-  //       // catch errors
-  //       .catch(err => console.log(err));
-  //   };
-  //     fetchQrCode();
-
-  // },[]); //pass sessionId
-
-
-  useEffect(() => {
-    let interval: NodeJS.Timer;
-    const auth = async () => {
-      console.log("asindu")
-
-      const QRR = {
-  "id": "f3c9ae6e-d8d4-45a1-89c3-6cd3d7de3960",
+const QRR = {
+  "id": "b275cef6-b590-4d9b-971e-3373e843e13b",
   "typ": "application/iden3comm-plain-json",
   "type": "https://iden3-communication.io/authorization/1.0/request",
-  "thid": "044bbbce-d33e-47e0-858c-aa33a67d4ef8",
+  "thid": "d7893b49-5801-432e-8add-ac3ae3015811",
   "body": {
-    "callbackUrl": "/api/v1/callback?sessionId=764626",
+    "callbackUrl": "https://66e4-2402-d000-a500-7148-11b6-ba51-f93-8f93.ngrok-free.app/api/v1/callback?sessionId=749415",
     "reason": "test flow",
     "message": "message to sign",
     "scope": [
@@ -98,33 +65,43 @@ function Login() {
     ]
   },
   "from": "did:polygonid:polygon:mumbai:2qG7bhdJKsk4tSbShiXiF2Eti2cVjUH3iTDXyyn6i7"
-}
-      setQrCodeData(QRR);
-      console.log(qrCodeData)
-       const authRequest = await fetch('http://192.168.1.8:8080/api/sign-in')
+ ;
+    console.log(QRR1)
+    setQrCodeData(QRR1);
 
-      const sessionID = authRequest.headers.get('x-id');
-      console.log(qrCodeData)
+    
+    const sessionID = authRequest.headers.get('x-id');
+    console.log("This is the session ID :",sessionID)
 
-      console.log("This is the session ID :",sessionID)
-
-      interval = setInterval(async () => {
+      setInterval(async () => {
         try {
-          const sessionResponse = await fetch(`http://192.168.1.8:8080/api/callback?sessionId=${sessionID}`);
-          if (sessionResponse.ok) {
-            const data = await sessionResponse.json();
-            clearInterval(interval);
+          const sessionResponse = await fetch(`http://192.168.1.12:8080/api/v1/status?sessionId=${sessionID}`);
+          if (sessionResponse.ok){
             console.log("QR succesfully Done!!!!!!")
+            setVerfificationMessage("Verify Proofed!")
+            setIsHandlingVerification(false)
+            setOnverificationResult(false)
+          }
+          if (sessionResponse.rejected){
+            setVerfificationMessage("Authentication Fail")
+            setIsHandlingVerification(false)
+          }
+          if(sessionResponse.verifying){
+            setIsHandlingVerification(true)
           }
         } catch (e) {
           console.log('err->', e);
+
         }
       }, 2000);
     }
-    auth();
-    return () => clearInterval(interval);
-  },
-  []);
+  }
+      
+
+useEffect(() => {
+  auth();
+},
+[]);
 
 
 
@@ -151,8 +128,9 @@ function Login() {
       { !onVerificationResult ? (
         <div className=''>
            {qrCodeData &&
-                !isHandlingVerification &&
-                !verificationCheckComplete && (
+                // !isHandlingVerification &&
+                // !verificationCheckComplete && \
+                (
                    QRtoggle ?  (
                     <div className='absolute -top-[240px] right-[40%]'>
                       <div className='relative w-[350px] rounded-xl bg-white p-4 flex flex-col items-center justify-center'>
@@ -193,7 +171,7 @@ function Login() {
               )}
 
             <div className='mt-24'>
-             <h3 className="text-white text-md">{verificationMessage}</h3> 
+             <h3 className="text-white text-xl">{verificationMessage}</h3> 
             </div>
         </div>
      
@@ -216,4 +194,4 @@ function Login() {
   )
 }
 
-export default Login
+export default Login 
