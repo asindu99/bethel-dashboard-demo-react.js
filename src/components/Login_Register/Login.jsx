@@ -64,38 +64,40 @@ const QRR = {
       }
     ]
   },
-  "from": "did:polygonid:polygon:mumbai:2qG7bhdJKsk4tSbShiXiF2Eti2cVjUH3iTDXyyn6i7"
- ;
-    console.log(QRR1)
-    setQrCodeData(QRR1);
+  "from": "did:polygonid:polygon:mumbai:2qG7bhdJKsk4tSbShiXiF2Eti2cVjUH3iTDXyyn6i7" }
+
+
+    const auth =async  () =>{
+      
+    console.log(QRR)
+    setQrCodeData(QRR);
 
     
-    const sessionID = authRequest.headers.get('x-id');
-    console.log("This is the session ID :",sessionID)
+    // const sessionID = authRequest.headers.get('x-id');
+    // console.log("This is the session ID :",sessionID)
 
-      setInterval(async () => {
-        try {
-          const sessionResponse = await fetch(`http://192.168.1.12:8080/api/v1/status?sessionId=${sessionID}`);
-          if (sessionResponse.ok){
-            console.log("QR succesfully Done!!!!!!")
-            setVerfificationMessage("Verify Proofed!")
-            setIsHandlingVerification(false)
-            setOnverificationResult(false)
-          }
-          if (sessionResponse.rejected){
-            setVerfificationMessage("Authentication Fail")
-            setIsHandlingVerification(false)
-          }
-          if(sessionResponse.verifying){
-            setIsHandlingVerification(true)
-          }
-        } catch (e) {
-          console.log('err->', e);
+    //   setInterval(async () => {
+    //     try {
+    //       const sessionResponse = await fetch(`http://192.168.1.12:8080/api/v1/status?sessionId=${sessionID}`);
+    //       if (sessionResponse.ok){
+    //         console.log("QR succesfully Done!!!!!!")
+    //         setVerfificationMessage("Verify Proofed!")
+    //         setIsHandlingVerification(false)
+    //         setOnverificationResult(false)
+    //       }
+    //       if (sessionResponse.rejected){
+    //         setVerfificationMessage("Authentication Fail")
+    //         setIsHandlingVerification(false)
+    //       }
+    //       if(sessionResponse.verifying){
+    //         setIsHandlingVerification(true)
+    //       }
+    //     } catch (e) {
+    //       console.log('err->', e);
 
-        }
-      }, 2000);
+    //     }
+    //   }, 2000);
     }
-  }
       
 
 useEffect(() => {
