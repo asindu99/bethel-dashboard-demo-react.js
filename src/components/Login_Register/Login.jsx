@@ -68,35 +68,37 @@ const QRR = {
 
 
     const auth =async  () =>{
-      
-    console.log(QRR)
-    setQrCodeData(QRR);
-
     
-    // const sessionID = authRequest.headers.get('x-id');
-    // console.log("This is the session ID :",sessionID)
 
-    //   setInterval(async () => {
-    //     try {
-    //       const sessionResponse = await fetch(`http://192.168.1.12:8080/api/v1/status?sessionId=${sessionID}`);
-    //       if (sessionResponse.ok){
-    //         console.log("QR succesfully Done!!!!!!")
-    //         setVerfificationMessage("Verify Proofed!")
-    //         setIsHandlingVerification(false)
-    //         setOnverificationResult(false)
-    //       }
-    //       if (sessionResponse.rejected){
-    //         setVerfificationMessage("Authentication Fail")
-    //         setIsHandlingVerification(false)
-    //       }
-    //       if(sessionResponse.verifying){
-    //         setIsHandlingVerification(true)
-    //       }
-    //     } catch (e) {
-    //       console.log('err->', e);
+    const authRequest = await fetch("http://192.168.1.4:6543/api/v1/requests/auth")
+    setQrCodeData(await authRequest.json())
+    
+    const sessionID = authRequest.headers.get('x-id');
+    console.log("This is the session ID :",sessionID)
 
-    //     }
-    //   }, 2000);
+      const interval = setInterval(async () => {
+        try {
+          const sessionResponse = await fetch(`http://192.168.1.4:6543/api/v1/status?id=${sessionID}`);
+          console.log(sessionResponse)
+          if (sessionResponse.ok){
+            console.log("QR succesfully Done!!!!!!")
+            setVerfificationMessage("Verify Proofed!")
+            setIsHandlingVerification(false)
+            setOnverificationResult(false)
+             clearInterval(interval);
+          }
+          if (sessionResponse.rejected){
+            setVerfificationMessage("Authentication Fail")
+            setIsHandlingVerification(false)
+          }
+          if(sessionResponse.status === 404){
+            setIsHandlingVerification(true)
+          }
+        } catch (e) {
+          console.log('err->', e);
+
+        }
+      }, 3000);
     }
       
 
