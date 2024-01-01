@@ -32,7 +32,7 @@ function Login() {
   const [sessionId , setSessionId] = useState('')
   const [qrCodeData, setQrCodeData] = useState();
   const [isHandlingVerification, setIsHandlingVerification] = useState(false);
-  // const [verificationCheckComplete, setVerificationCheckComplete] = useState(false);
+  const [verificationCheckComplete, setVerificationCheckComplete] = useState(false);
   const [verificationMessage, setVerfificationMessage] = useState("");
   const [onVerificationResult , setOnverificationResult] = useState(false) 
 
@@ -71,6 +71,7 @@ const QRR = {
     
 
     const authRequest = await fetch("http://192.168.1.4:6543/api/v1/requests/auth")
+    console.log(authRequest)
     setQrCodeData(await authRequest.json())
     
     const sessionID = authRequest.headers.get('x-id');
@@ -84,7 +85,12 @@ const QRR = {
             console.log("QR succesfully Done!!!!!!")
             setVerfificationMessage("Verify Proofed!")
             setIsHandlingVerification(false)
-            setOnverificationResult(false)
+            setOnverificationResult(true)
+            setVerificationCheckComplete(true);
+
+            setTimeout(() => {
+              setVerificationCheckComplete(false);
+            }, 3000);
              clearInterval(interval);
           }
           if (sessionResponse.rejected){
@@ -92,7 +98,17 @@ const QRR = {
             setIsHandlingVerification(false)
           }
           if(sessionResponse.status === 404){
+            // setIsHandlingVerification(true)
+
+          }
+
+          const verificationStatus = sessionResponse.headers.get("X-Verification-Status");
+          console.log("this is verfiifjasdiao",verificationStatus)
+          if (verificationStatus === "Processing") {
+            console.log("Verification is still in progress...");
+            // You can update your state or take any other actions here
             setIsHandlingVerification(true)
+
           }
         } catch (e) {
           console.log('err->', e);
@@ -106,9 +122,6 @@ useEffect(() => {
   auth();
 },
 []);
-
-
-
 
   // QR open and Close toggle
   const [QRtoggle , setQRtoggle] = useState(false)
@@ -174,9 +187,7 @@ useEffect(() => {
                 </div>
               )}
 
-            <div className='mt-24'>
-             <h3 className="text-white text-xl">{verificationMessage}</h3> 
-            </div>
+            
         </div>
      
       // {/* end of the verification */}
@@ -185,6 +196,10 @@ useEffect(() => {
       <div className=''>
       <p className=' text-xl text-white'>Connect Your wallet to Start the Adventure !</p>
             <button onClick={connectWallet} className=" p-2 px-4 mt-4 text-black bg-white rounded-md text-[20px] hover:text-white hover:bg-bethel-green/70 transition-all 1s ease-in-out">Connect Wallet</button>
+      {verificationCheckComplete && 
+      <div className='mt-24'>
+        <h3 className="text-white text-xl">{verificationMessage}</h3> 
+      </div>}      
       </div>
       // {/* end of the verification approved*/}
       )
