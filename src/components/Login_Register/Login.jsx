@@ -70,7 +70,7 @@ const QRR = {
     const auth =async  () =>{
     
 
-    const authRequest = await fetch("http://192.168.1.4:6543/api/v1/requests/auth")
+    const authRequest = await fetch("http://192.168.1.3:6543/api/v1/requests/auth")
     console.log(authRequest)
     setQrCodeData(await authRequest.json())
     
@@ -79,9 +79,9 @@ const QRR = {
 
       const interval = setInterval(async () => {
         try {
-          const sessionResponse = await fetch(`http://192.168.1.4:6543/api/v1/status?id=${sessionID}`);
+          const sessionResponse = await fetch(`http://192.168.1.3:6543/api/v1/status?id=${sessionID}`);
           console.log(sessionResponse)
-          if (sessionResponse.ok){
+          if (sessionResponse.status === 200){
             console.log("QR succesfully Done!!!!!!")
             setVerfificationMessage("Verify Proofed!")
             setIsHandlingVerification(false)
@@ -97,16 +97,7 @@ const QRR = {
             setVerfificationMessage("Authentication Fail")
             setIsHandlingVerification(false)
           }
-          if(sessionResponse.status === 404){
-            // setIsHandlingVerification(true)
-
-          }
-
-          const verificationStatus = sessionResponse.headers.get("X-Verification-Status");
-          console.log("this is verfiifjasdiao",verificationStatus)
-          if (verificationStatus === "Processing") {
-            console.log("Verification is still in progress...");
-            // You can update your state or take any other actions here
+          if(sessionResponse.status === 102){
             setIsHandlingVerification(true)
 
           }
