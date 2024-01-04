@@ -1,4 +1,5 @@
 import QRCode from 'react-qr-code'
+import youKnow from "../../Images/BG-Images/Feb-Business_9.jpg"
 import React from "react"
 import { useNavigate } from "react-router-dom"
 import { useDispatch } from "react-redux";
@@ -70,7 +71,7 @@ const QRR = {
     const auth =async  () =>{
     
 
-    const authRequest = await fetch("http://192.168.1.8:6543/api/v1/requests/auth")
+    const authRequest = await fetch("http://192.168.1.7:6543/api/v1/requests/auth")
     console.log(authRequest)
     setQrCodeData(await authRequest.json())
     
@@ -79,7 +80,7 @@ const QRR = {
 
       const interval = setInterval(async () => {
         try {
-          const sessionResponse = await fetch(`http://192.168.1.15:6543/api/v1/status?id=${sessionID}`);
+          const sessionResponse = await fetch(`http://192.168.1.7:6543/api/v1/status?id=${sessionID}`);
           console.log(sessionResponse)
           if (sessionResponse.status === 200){
             console.log("QR succesfully Done!!!!!!")
@@ -116,6 +117,61 @@ useEffect(() => {
 
   // QR open and Close toggle
   const [QRtoggle , setQRtoggle] = useState(false)
+  const [QRtoggle2 , setQRtoggle2] = useState(false)
+  const [showIssueID , setShowIssueID] = useState(false)
+
+  const [QRLink, setQRLink] = useState('')
+  const [did , setDid] = useState('')
+  const [signUpQrData , setSignUpQrData] = useState(null)
+
+
+  // get the QR link data 
+  const getQRLink = async () => {
+    const authRequest = await fetch(`http://34.71.88.170:3002/v1/credentials/{schemeaId_goes_here}/qrcode`)
+    const res = await authRequest.json()
+    console.log("this is Qr link ", res.qrCodeLink)
+    setQRLink(res.qrCodeLink)
+  }
+
+  const dispachEvent = () => {
+    const _authEvent = new CustomEvent('authEvent', { detail: "iden3comm://?request_uri=https://issuer-admin.polygonid.me/v1/qr-store?id=7ced269c-b345-4c82-bf4b-f89ffe62cd37" });
+    document.dispatchEvent(_authEvent);
+  }
+
+  // get QR link data for sig up
+  const getSignUpQrData = async () =>{
+    const signUpQrData = await fetch("")
+    setSignUpQrData(await signUpQrData.json())
+  }
+
+  // handle did submit function  ---->
+  const handleDidSubmit = async (e) =>{
+    e.preventDefault();
+
+    // set Sign up QR data 
+    getSignUpQrData();
+
+
+    // fetch did here
+
+    setQRLink("iden3comm://?request_uri=https://issuer-admin.polygonid.me/v1/qr-store?id=7ced269c-b345-4c82-bf4b-f89ffe62cd37")
+    // show issue ID 
+    setShowIssueID(true)
+  }
+
+  
+
+  // Sign up qr toggle 
+  const QRRtoggle2 = () =>{
+    setQRtoggle2(false);
+    setShowIssueID(false)
+    setQRLink("")
+
+
+  }
+  useEffect(() => {
+    // getQRLink();
+  }, [])
 
   return (
 
@@ -154,14 +210,71 @@ useEffect(() => {
                             <h3 className='text-black text-xl'>x</h3>
                           </button>
                         </div>
+                        {/* close little x */}
+
+                        
                       </div>
                     </div> ) : (
                       <div>
                           <p className='py-2 text-xl text-white'>Scan QR using Bethel App to Verify your ID</p>
 
                          <button onClick={() => {setQRtoggle(true)}}
-                        className="mt-2 p-2 px-4 text-black bg-white rounded-md text-[20px] hover:text-white hover:bg-bethel-green/70 transition-all 1s ease-in-out"
-                        >Click to Verify 
+                        className="w-[200px] mt-2 p-2 px-4 text-black bg-white rounded-md text-[20px] hover:text-white hover:bg-bethel-green/70 transition-all 1s ease-in-out"
+                        >Click to Login 
+                      </button>
+                      </div>
+                     
+                    )
+                 
+                )}
+
+                {/* handle sign up button */}
+                
+                {qrCodeData &&
+                // !isHandlingVerification &&
+                // !verificationCheckComplete && \
+                (
+                   QRtoggle2 ?  (
+                    <div className='absolute -top-[240px] right-[40%]'>
+                      <div className='relative w-[350px] rounded-xl bg-white p-4 flex flex-col items-center justify-center'>
+                      <h3 className='text-black mb-2'>Please scan QR </h3>
+                      {QRLink ? (<div>
+                        <QRCode 
+                        value={QRLink}
+                      className='flex w-64 h-64 p-1 bg-white top-0' />
+                      <h3 className='text-black mb-2'>BETHEL NETWORK </h3> </div>) : (
+                        <div>
+                          <img src={youKnow} alt="" className='w-[300px]' />
+                        </div>
+                      )}
+
+                        {/* little x */}
+                        <div className='absolute right-4 top-2 '>
+                          <button onClick={QRRtoggle2}>
+                            <h3 className='text-black text-xl'>x</h3>
+                          </button>
+                        </div>
+
+                        {/* ENTER DID SECTION */}
+                        { !showIssueID ? (
+                        <div>
+                          <form action="" onSubmit={handleDidSubmit}>
+                            <input placeholder='Enter Your DID' type="text" className='border-[1px] border-black  mr-2 rounded-md p-1 mb-2' onChange={(e) => setDid(e.target.value)}/>
+                            <button className="px-2 py-1 rounded-md bg-bethel-green/50 text-white  " type="submit">submit</button>
+                          </form>
+                        </div> ) : 
+                        (
+                        <div>
+                          <button onClick={dispachEvent} className='p-2 px-4 text-white bg-bethel-green/70 rounded-md text-[20px] transition-all 1s ease-in-out'>Connect ID</button>
+                        </div>
+                         )}
+                      </div>
+                       
+                    </div> ) : (
+                      <div>
+                         <button onClick={() => {setQRtoggle2(true)}}
+                        className="mt-2 p-2 px-4 text-black w-[200px] bg-white rounded-md text-[20px] hover:text-white hover:bg-bethel-green/70 transition-all 1s ease-in-out"
+                        >Click to Sign up
                       </button>
                       </div>
                      
@@ -170,6 +283,7 @@ useEffect(() => {
                     
                   
                 )}
+                {/* end of the sign up button */}
 
                 {isHandlingVerification && (
                 <div className='w-full flex flex-col justify-center items-center'>

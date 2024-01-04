@@ -31,10 +31,11 @@ export default function DashboardStorageFolder2() {
                       'Content-Type': 'multipart/form-data'
                     },
                   },{withCredentials : true})
-        console.log(res);
+        console.log(res)
 
         if(res.status === 200){
           setUploadSuccess(true)
+          setUploadWait(false) 
 
           setTimeout(() => {
             setUploadSuccess(false)
