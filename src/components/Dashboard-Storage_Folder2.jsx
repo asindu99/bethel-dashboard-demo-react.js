@@ -35,7 +35,7 @@ export default function DashboardStorageFolder2() {
 
         if(res.status === 200){
           setUploadSuccess(true)
-          setUplaodwait 
+          setUploadWait(false) 
 
           setTimeout(() => {
             setUploadSuccess(false)

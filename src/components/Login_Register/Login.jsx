@@ -133,7 +133,7 @@ useEffect(() => {
       </div>
 
       {/* verification QR for */}
-      { onVerificationResult ? (
+      { !onVerificationResult ? (
         <div className=''>
            {qrCodeData &&
                 // !isHandlingVerification &&
