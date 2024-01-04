@@ -80,7 +80,7 @@ const QRR = {
 
       const interval = setInterval(async () => {
         try {
-          const sessionResponse = await fetch(`http://192.168.1.:6543/api/v1/status?id=${sessionID}`);
+          const sessionResponse = await fetch(`http://192.168.1.7:6543/api/v1/status?id=${sessionID}`);
           console.log(sessionResponse)
           if (sessionResponse.status === 200){
             console.log("QR succesfully Done!!!!!!")
@@ -219,8 +219,8 @@ useEffect(() => {
                           <p className='py-2 text-xl text-white'>Scan QR using Bethel App to Verify your ID</p>
 
                          <button onClick={() => {setQRtoggle(true)}}
-                        className="mt-2 p-2 px-4 text-black bg-white rounded-md text-[20px] hover:text-white hover:bg-bethel-green/70 transition-all 1s ease-in-out"
-                        >Click to Verify Login 
+                        className="w-[200px] mt-2 p-2 px-4 text-black bg-white rounded-md text-[20px] hover:text-white hover:bg-bethel-green/70 transition-all 1s ease-in-out"
+                        >Click to Login 
                       </button>
                       </div>
                      
@@ -273,7 +273,7 @@ useEffect(() => {
                     </div> ) : (
                       <div>
                          <button onClick={() => {setQRtoggle2(true)}}
-                        className="mt-2 p-2 px-4 text-black bg-white rounded-md text-[20px] hover:text-white hover:bg-bethel-green/70 transition-all 1s ease-in-out"
+                        className="mt-2 p-2 px-4 text-black w-[200px] bg-white rounded-md text-[20px] hover:text-white hover:bg-bethel-green/70 transition-all 1s ease-in-out"
                         >Click to Sign up
                       </button>
                       </div>
