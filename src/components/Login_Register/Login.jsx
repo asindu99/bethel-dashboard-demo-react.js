@@ -70,7 +70,7 @@ const QRR = {
     const auth =async  () =>{
     
 
-    const authRequest = await fetch("http://192.168.1.19:6543/api/v1/requests/auth")
+    const authRequest = await fetch("http://192.168.1.8:6543/api/v1/requests/auth")
     console.log(authRequest)
     setQrCodeData(await authRequest.json())
     
@@ -79,7 +79,7 @@ const QRR = {
 
       const interval = setInterval(async () => {
         try {
-          const sessionResponse = await fetch(`http://192.168.1.19:6543/api/v1/status?id=${sessionID}`);
+          const sessionResponse = await fetch(`http://192.168.1.15:6543/api/v1/status?id=${sessionID}`);
           console.log(sessionResponse)
           if (sessionResponse.status === 200){
             console.log("QR succesfully Done!!!!!!")
