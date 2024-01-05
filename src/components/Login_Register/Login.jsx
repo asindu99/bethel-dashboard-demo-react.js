@@ -37,53 +37,19 @@ function Login() {
   const [verificationMessage, setVerfificationMessage] = useState("");
   const [onVerificationResult , setOnverificationResult] = useState(false) 
 
-const QRR = {
-  "id": "b275cef6-b590-4d9b-971e-3373e843e13b",
-  "typ": "application/iden3comm-plain-json",
-  "type": "https://iden3-communication.io/authorization/1.0/request",
-  "thid": "d7893b49-5801-432e-8add-ac3ae3015811",
-  "body": {
-    "callbackUrl": "https://66e4-2402-d000-a500-7148-11b6-ba51-f93-8f93.ngrok-free.app/api/v1/callback?sessionId=749415",
-    "reason": "test flow",
-    "message": "message to sign",
-    "scope": [
-      {
-        "id": 1,
-        "circuitId": "credentialAtomicQuerySigV2",
-        "query": {
-          "allowedIssuers": [
-            "*"
-          ],
-          "context": "https://raw.githubusercontent.com/iden3/claim-schema-vocab/main/schemas/json-ld/kyc-v3.json-ld",
-          "credentialSubject": {
-            "birthday": {
-              "$lt": 20000101
-            }
-          },
-          "type": "KYCAgeCredential"
-        }
-      }
-    ]
-  },
-  "from": "did:polygonid:polygon:mumbai:2qG7bhdJKsk4tSbShiXiF2Eti2cVjUH3iTDXyyn6i7" }
+    const auth = async () =>{
 
-
-    const auth =async  () =>{
-    
-
-    const authRequest = await fetch("http://192.168.1.7:6543/api/v1/requests/auth")
+    const authRequest = await fetch("http://192.168.1.6:8080/api/v1/sign-in")
     console.log(authRequest)
     setQrCodeData(await authRequest.json())
     
     const sessionID = authRequest.headers.get('x-id');
-    console.log("This is the session ID :",sessionID)
 
       const interval = setInterval(async () => {
         try {
-          const sessionResponse = await fetch(`http://192.168.1.7:6543/api/v1/status?id=${sessionID}`);
+          const sessionResponse = await fetch(`http://192.168.1.6:6543/api/v1/status?id=${sessionID}`);
           console.log(sessionResponse)
           if (sessionResponse.status === 200){
-            console.log("QR succesfully Done!!!!!!")
             setVerfificationMessage("Verify Proofed!")
             setIsHandlingVerification(false)
             setOnverificationResult(true)
@@ -119,9 +85,13 @@ useEffect(() => {
   const [QRtoggle , setQRtoggle] = useState(false)
   const [QRtoggle2 , setQRtoggle2] = useState(false)
   const [showIssueID , setShowIssueID] = useState(false)
+  const [error,setError] = useState("")
 
   const [QRLink, setQRLink] = useState('')
   const [did , setDid] = useState('')
+  const [firstName , setFistName] = useState('')
+  const [LastName  , setLastName] = useState('')
+  const [email  , setEmail] = useState('')
   const [signUpQrData , setSignUpQrData] = useState(null)
 
 
@@ -140,23 +110,31 @@ useEffect(() => {
 
   // get QR link data for sig up
   const getSignUpQrData = async () =>{
-    const signUpQrData = await fetch("")
-    setSignUpQrData(await signUpQrData.json())
+    // const signUpQrData = await fetch("https://issuer-api.bethel.network/v1/did:polygonid:polygon:mumbai:2qGF2D8t7bPNKrZY8CveCYCRKHT4DbgaFLS45PZC2h/claims/a4f545fc-ab8e-11ee-b07f-0242ac1c0006/qrcode")
+    // setSignUpQrData(await signUpQrData.json())
+    // console.log("asdasdsad",await signUpQrData.json())
   }
 
   // handle did submit function  ---->
   const handleDidSubmit = async (e) =>{
     e.preventDefault();
 
+    if(!did){
+      setError("Did is Required!")
+      return;
+    }
+
     // set Sign up QR data 
     getSignUpQrData();
 
-
     // fetch did here
+ 
 
     setQRLink("iden3comm://?request_uri=https://issuer-admin.polygonid.me/v1/qr-store?id=7ced269c-b345-4c82-bf4b-f89ffe62cd37")
     // show issue ID 
     setShowIssueID(true)
+
+    setDid('')
   }
 
   
@@ -166,6 +144,7 @@ useEffect(() => {
     setQRtoggle2(false);
     setShowIssueID(false)
     setQRLink("")
+    setError('')
 
 
   }
@@ -237,14 +216,14 @@ useEffect(() => {
                    QRtoggle2 ?  (
                     <div className='absolute -top-[240px] right-[40%]'>
                       <div className='relative w-[350px] rounded-xl bg-white p-4 flex flex-col items-center justify-center'>
-                      <h3 className='text-black mb-2'>Please scan QR </h3>
+                      <h3 className='text-black mb-2'>Please Enter Require Info </h3>
                       {QRLink ? (<div>
                         <QRCode 
-                        value={QRLink}
+                        value={signUpQrData}
                       className='flex w-64 h-64 p-1 bg-white top-0' />
                       <h3 className='text-black mb-2'>BETHEL NETWORK </h3> </div>) : (
                         <div>
-                          <img src={youKnow} alt="" className='w-[300px]' />
+                          <img src={youKnow} alt="" className='w-[200px]' />
                         </div>
                       )}
 
@@ -258,9 +237,15 @@ useEffect(() => {
                         {/* ENTER DID SECTION */}
                         { !showIssueID ? (
                         <div>
-                          <form action="" onSubmit={handleDidSubmit}>
-                            <input placeholder='Enter Your DID' type="text" className='border-[1px] border-black  mr-2 rounded-md p-1 mb-2' onChange={(e) => setDid(e.target.value)}/>
-                            <button className="px-2 py-1 rounded-md bg-bethel-green/50 text-white  " type="submit">submit</button>
+                          <form action="" onSubmit={handleDidSubmit} className='flex flex-col justify-center items-center'>
+
+                            <input placeholder='Enter Your DID' type="text" className='relative border-[1px] border-black  mr-2 rounded-md p-1 mb-2' onChange={(e) => setDid(e.target.value)}/>
+                            {error && <div className='text-red-400 text-[10px] pb-2 flex w-full items-start text-start'>{error}</div>}
+
+                            <input placeholder='Enter Your Email' type="text" className='border-[1px] border-black  mr-2 rounded-md p-1 mb-2' onChange={(e) => setEmail(e.target.value)}/>
+                            <input placeholder='First Name here' type="text" className='border-[1px] border-black  mr-2 rounded-md p-1 mb-2' onChange={(e) => setFistName(e.target.value)}/>
+                            <input placeholder='Last Name here' type="text" className='border-[1px] border-black  mr-2 rounded-md p-1 mb-2' onChange={(e) => setLastName(e.target.value)}/>
+                            <button className="px-2 w-full py-1 rounded-md bg-bethel-green/70 text-white  " type="submit">CREATE ID</button>
                           </form>
                         </div> ) : 
                         (
