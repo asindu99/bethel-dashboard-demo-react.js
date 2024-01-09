@@ -36,18 +36,20 @@ function Login() {
   const [verificationCheckComplete, setVerificationCheckComplete] = useState(false);
   const [verificationMessage, setVerfificationMessage] = useState("");
   const [onVerificationResult , setOnverificationResult] = useState(false) 
+  const [signUpQRData , setSignUpQRData] = useState()
 
     const auth = async () =>{
 
-    const authRequest = await fetch("http://192.168.1.6:8080/api/v1/sign-in")
+    const authRequest = await fetch("http://192.168.1.13:8080/api/v1/sign-in")
     console.log(authRequest)
     setQrCodeData(await authRequest.json())
+    console.log(qrCodeData)
     
     const sessionID = authRequest.headers.get('x-id');
 
       const interval = setInterval(async () => {
         try {
-          const sessionResponse = await fetch(`http://192.168.1.6:6543/api/v1/status?id=${sessionID}`);
+          const sessionResponse = await fetch(`http://192.168.1.13:8080/api/v1/status?sessionId=${sessionID}`);
           console.log(sessionResponse)
           if (sessionResponse.status === 200){
             setVerfificationMessage("Verify Proofed!")
@@ -57,7 +59,7 @@ function Login() {
 
             setTimeout(() => {
               setVerificationCheckComplete(false);
-            }, 3000);
+            }, 1000);
              clearInterval(interval);
           }
           if (sessionResponse.rejected){
@@ -88,11 +90,10 @@ useEffect(() => {
   const [error,setError] = useState("")
 
   const [QRLink, setQRLink] = useState('')
-  const [did , setDid] = useState('')
+  const [did , setDid] = useState(null)
   const [firstName , setFistName] = useState('')
   const [LastName  , setLastName] = useState('')
   const [email  , setEmail] = useState('')
-  const [signUpQrData , setSignUpQrData] = useState(null)
 
 
   // get the QR link data 
@@ -108,12 +109,6 @@ useEffect(() => {
     document.dispatchEvent(_authEvent);
   }
 
-  // get QR link data for sig up
-  const getSignUpQrData = async () =>{
-    // const signUpQrData = await fetch("https://issuer-api.bethel.network/v1/did:polygonid:polygon:mumbai:2qGF2D8t7bPNKrZY8CveCYCRKHT4DbgaFLS45PZC2h/claims/a4f545fc-ab8e-11ee-b07f-0242ac1c0006/qrcode")
-    // setSignUpQrData(await signUpQrData.json())
-    // console.log("asdasdsad",await signUpQrData.json())
-  }
 
   // handle did submit function  ---->
   const handleDidSubmit = async (e) =>{
@@ -124,16 +119,34 @@ useEffect(() => {
       return;
     }
 
-    // set Sign up QR data 
-    getSignUpQrData();
+    try {
+     const QRdata =  await fetch("http://192.168.1.13:8080/api/v1/getQr", {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            "did": did
+          })
+      })
+
+      setSignUpQRData(await QRdata.json())
+
+    } catch (error) {
+      console.log(error)
+    }
+    
+    setTimeout(() => {
+      console.log("this is a delayy")
+    }, 1000);
 
     // fetch did here
  
 
     setQRLink("iden3comm://?request_uri=https://issuer-admin.polygonid.me/v1/qr-store?id=7ced269c-b345-4c82-bf4b-f89ffe62cd37")
-    // show issue ID 
-    setShowIssueID(true)
+    // show issue ID
 
+    setShowIssueID(true) 
     setDid('')
   }
 
@@ -145,12 +158,8 @@ useEffect(() => {
     setShowIssueID(false)
     setQRLink("")
     setError('')
-
-
   }
-  useEffect(() => {
-    // getQRLink();
-  }, [])
+
 
   return (
 
@@ -219,7 +228,7 @@ useEffect(() => {
                       <h3 className='text-black mb-2'>Please Enter Require Info </h3>
                       {QRLink ? (<div>
                         <QRCode 
-                        value={signUpQrData}
+                        value={JSON.stringify(signUpQRData)}
                       className='flex w-64 h-64 p-1 bg-white top-0' />
                       <h3 className='text-black mb-2'>BETHEL NETWORK </h3> </div>) : (
                         <div>
@@ -245,7 +254,7 @@ useEffect(() => {
                             <input placeholder='Enter Your Email' type="text" className='border-[1px] border-black  mr-2 rounded-md p-1 mb-2' onChange={(e) => setEmail(e.target.value)}/>
                             <input placeholder='First Name here' type="text" className='border-[1px] border-black  mr-2 rounded-md p-1 mb-2' onChange={(e) => setFistName(e.target.value)}/>
                             <input placeholder='Last Name here' type="text" className='border-[1px] border-black  mr-2 rounded-md p-1 mb-2' onChange={(e) => setLastName(e.target.value)}/>
-                            <button className="px-2 w-full py-1 rounded-md bg-bethel-green/70 text-white  " type="submit">CREATE ID</button>
+                            <button className="px-2 w-full py-1 rounded-md bg-bethel-green/70 text-white  " type="submit">REQUEST ID</button>
                           </form>
                         </div> ) : 
                         (
