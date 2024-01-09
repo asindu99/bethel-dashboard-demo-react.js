@@ -17,20 +17,14 @@ export default function DashboardStorageFolder2() {
 
   const upload = async () => {
     const formData = new FormData();
-    formData.append("file" , file)
-    formData.append("userid" , "6576e136c22250034cc82abd");
-    formData.append('bucket', 'Public_storage_0');
-
+    formData.append("fileName" , file)
 
     if(file){
       setUploadWait(true)
+      console.log(formData)
       
       try {
-        const res = await axios.post("https://api.bethelnet.io/upload", formData, {
-                    headers: {
-                      'Content-Type': 'multipart/form-data'
-                    },
-                  },{withCredentials : true})
+        const res = await fetch("http://192.168.1.13:8080/api/v1/upload",{ method : 'POST', body :formData})
         console.log(res)
 
         if(res.status === 200){
