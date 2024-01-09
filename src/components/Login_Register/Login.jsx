@@ -126,11 +126,16 @@ useEffect(() => {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            "did": did
+            "did": did,
+            "firstName" : firstName,
+            "lastName"  : LastName,
+            "email" : email 
           })
       })
 
       setSignUpQRData(await QRdata.json())
+
+      console.log(await QRdata.json())
 
     } catch (error) {
       console.log(error)
@@ -143,7 +148,7 @@ useEffect(() => {
     // fetch did here
  
 
-    setQRLink("iden3comm://?request_uri=https://issuer-admin.polygonid.me/v1/qr-store?id=7ced269c-b345-4c82-bf4b-f89ffe62cd37")
+    setQRLink("iden3comm://?request_uri=https://issuer-api2.bethel.network/v1/qr-store?id=ce6d0f12-c988-4def-9af5-228f1391c089")
     // show issue ID
 
     setShowIssueID(true) 
