@@ -95,20 +95,10 @@ useEffect(() => {
   const [LastName  , setLastName] = useState('')
   const [email  , setEmail] = useState('')
 
-
-  // get the QR link data 
-  const getQRLink = async () => {
-    const authRequest = await fetch(`http://34.71.88.170:3002/v1/credentials/{schemeaId_goes_here}/qrcode`)
-    const res = await authRequest.json()
-    console.log("this is Qr link ", res.qrCodeLink)
-    setQRLink(res.qrCodeLink)
-  }
-
   const dispachEvent = () => {
     const _authEvent = new CustomEvent('authEvent', { detail: "iden3comm://?request_uri=https://issuer-admin.polygonid.me/v1/qr-store?id=7ced269c-b345-4c82-bf4b-f89ffe62cd37" });
     document.dispatchEvent(_authEvent);
   }
-
 
   // handle did submit function  ---->
   const handleDidSubmit = async (e) =>{
@@ -126,15 +116,13 @@ useEffect(() => {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            "did": did,
-            "firstName" : firstName,
-            "lastName"  : LastName,
-            "email" : email 
+            "owner_did": did,
+            "owner_email" : email, 
+            "first_name" : firstName,
+            "last_name"  : LastName,
           })
       })
-
       setSignUpQRData(await QRdata.json())
-
       console.log(await QRdata.json())
 
     } catch (error) {
@@ -154,8 +142,6 @@ useEffect(() => {
     setShowIssueID(true) 
     setDid('')
   }
-
-  
 
   // Sign up qr toggle 
   const QRRtoggle2 = () =>{
