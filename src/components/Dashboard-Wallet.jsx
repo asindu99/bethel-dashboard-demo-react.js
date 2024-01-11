@@ -37,30 +37,28 @@ function DashboardWallet() {
 		      </form>
         
         </div>
-
-
           {/* content table */}
+
         <div className=''>
             <div class="block w-full overflow-x-auto backdrop-blur-xl bg-gradient-to-b from-bethel-white/10 to-bethel-green/5 text-white">
               <table class="items-center bg-transparent w-full border-collapse ">
                 <thead>
                   <tr>
-                        <th class="px-16 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-                          Time
-                        </th>
-                        <th class="px-16 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-                          Type
-                        </th>
-                        <th class="px-16 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-                          Wallet Address
-                        </th>
-                        <th class="px-16 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-                          Amount
-                        </th>
-                        <th class="px-16 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-                          Status
-                        </th>
-          
+                      <th class="px-16 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
+                        Time
+                      </th>
+                      <th class="px-16 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
+                        Type
+                      </th>
+                      <th class="px-16 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
+                        Wallet Address
+                      </th>
+                      <th class="px-16 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
+                        Amount
+                      </th>
+                      <th class="px-16 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
+                        Status
+                      </th>
                   </tr>
                 </thead>
 
@@ -144,9 +142,10 @@ function DashboardWallet() {
               46,53%
             </td>
           </tr> */}
-                </tbody>
 
-              </table>
+          </tbody>
+
+        </table>
             </div>
         </div>
       </div>

@@ -4,6 +4,7 @@ import React from "react"
 import { useNavigate } from "react-router-dom"
 import { useDispatch } from "react-redux";
 import WalletAddressSlice from "../../reducers/WalletAddressSlice";
+import didSlice from '../../reducers/didRedcuer';
 import heroVid from '../../Images/Videos/video.mp4';
 import { useEffect, useState } from "react";
 import loaderGif from '../../Images/Animation-gifs/loading-6324_256.gif'
@@ -40,7 +41,7 @@ function Login() {
 
     const auth = async () =>{
 
-    const authRequest = await fetch("http://192.168.1.13:8080/api/v1/sign-in")
+    const authRequest = await fetch("http://192.168.1.7:8080/api/v1/sign-in")
     console.log(authRequest)
     setQrCodeData(await authRequest.json())
     console.log(qrCodeData)
@@ -49,9 +50,10 @@ function Login() {
 
       const interval = setInterval(async () => {
         try {
-          const sessionResponse = await fetch(`http://192.168.1.13:8080/api/v1/status?sessionId=${sessionID}`);
+          const sessionResponse = await fetch(`http://192.168.1.7:8080/api/v1/status?sessionId=${sessionID}`);
           console.log(sessionResponse)
           if (sessionResponse.status === 200){
+
             setVerfificationMessage("Verify Proofed!")
             setIsHandlingVerification(false)
             setOnverificationResult(true)
@@ -110,7 +112,7 @@ useEffect(() => {
     }
 
     try {
-     const QRdata =  await fetch("http://192.168.1.13:8080/api/v1/getQr", {
+     const QRdata =  await fetch("http://192.168.1.7:8080/api/v1/getQr", {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

@@ -39,81 +39,6 @@ function Navbar({
   const contractAddress = '0xB2724675c46Ea9365FA86d43E70D3932196380A9'
   let provider = new ethers.BrowserProvider(window.ethereum);
 
-  // // for the verification funcs
-  // const [sessionId , setSessionId] = useState('')
-  // const [socketEvents, setSocketEvents] = useState([]);
-  // const [qrCodeData, setQrCodeData] = useState();
-  // const [isHandlingVerification, setIsHandlingVerification] = useState(false);
-  // const [verificationCheckComplete, setVerificationCheckComplete] = useState(false);
-  // const [verificationMessage, setVerfificationMessage] = useState("");
-  // const [onVerificationResult , setOnverificationResult] = useState(false) 
-
-
-  // const socket = io("server-url-goes-here") //get a socket from server url
-
-  // // get data api
-  // const getQrCodeApi = (sessionId) =>
-  //   "serverURL" + `/api/get-auth-qr?sessionId=${sessionId}`;
-
-  // // get the socket id 
-  // useEffect(() => {
-  //   socket.on("connect", () => {
-  //     setSessionId(socket.id);
-  //     console.log(socket.id)
-
-  //     // only watch this session's events
-  //     socket.on(socket.id, (arg) => {
-  //       setSocketEvents((socketEvents) => [...socketEvents, arg]);
-  //     });
-  //   });
-  // },[]);
-
-  // // get the fetch QR code api
-  // useEffect(() => {
-  //   const fetchQrCode = async () => {
-  //     const response = await fetch(getQrCodeApi(sessionId));
-  //     const data = await response.text();
-  //     return JSON.parse(data);
-  //   };
-
-  //   if (sessionId) {
-  //     fetchQrCode().then(setQrCodeData).catch(console.error);
-  //   }
-  // }, [sessionId]);
-
-
-  // // socket event side effects
-  // useEffect(() => {
-  //   if (socketEvents.length) {
-  //     const currentSocketEvent = socketEvents[socketEvents.length - 1];
-
-  //     if (currentSocketEvent.fn === "handleVerification") {
-  //       if (currentSocketEvent.status === "IN_PROGRESS") {
-  //         setIsHandlingVerification(true);
-  //       } else {
-  //         setIsHandlingVerification(false);
-  //         setVerificationCheckComplete(true);
-  //         if (currentSocketEvent.status === "DONE") {
-  //           setVerfificationMessage("✅ Verified proof");
-  //           setTimeout(() => {
-  //             setOnverificationResult(true);
-  //           }, "2000");
-  //           socket.close();
-  //         } else {
-  //           setVerfificationMessage("❌ Error verifying VC");
-  //         }
-  //       }
-  //     }
-  //   }
-  // }, [socketEvents]);
-
-  
-
-
-
-
-
-
   const abi = [
     {
       "anonymous": false,
@@ -460,11 +385,7 @@ function Navbar({
 
   const toggleReg = () =>{
     setToggleVal(!toggleVal)
-      
   }
-
-  
-
 
   return (
     <section className=''>
@@ -605,8 +526,6 @@ function Navbar({
             
                 </div> 
 
-                
-      
                 </div>
                 
               </div>}

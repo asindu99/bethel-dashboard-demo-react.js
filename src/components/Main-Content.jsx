@@ -18,7 +18,6 @@ import DashboardBilling from "./Dashboard-Billing";
 
 
   useEffect(()=>{
-
     setTimeout(() => {
       setIsLoading(false)
     }, 2000)
@@ -28,11 +27,9 @@ import DashboardBilling from "./Dashboard-Billing";
     dispatch(toggleSidebarSlice.actions.toggleSidebarClose())
   }
 
-  
   return (
 
     <div className="relative min-h-screen bg-[#0F0F0F]">
-
       <div className="relative z-[100]">
         <div className="relative z-[100]">
           <SideBar />
@@ -61,7 +58,6 @@ import DashboardBilling from "./Dashboard-Billing";
           </svg>
         </div>
       }
-
       { !isLoading && <div onClick={toggleSidebarClose} className="relative pt-24 lg:pl-[270px] lg:md-[270px] sm:pl-[10px] lg:px-0 md:px-0 sm:px-4 min-[320px]:px-4 w-full z-[10]">
         <div className="fixed top-0 w-full h-[30px] bg-[#0F0F0F] z-[100]"></div>
         <Routes>
@@ -72,7 +68,6 @@ import DashboardBilling from "./Dashboard-Billing";
           <Route path="/dashboard/billing" element={<DashboardBilling></DashboardBilling>}></Route>
         </Routes>
       </div>}
-      
       {/* end- middle routing */}
       
     </div>

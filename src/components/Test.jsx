@@ -13,7 +13,7 @@ const TableWithMoreButton = () => {
   // add sample data in here from the backend 
   const data = [
   { id: 1, name: 'Item 1', itemCode:'ewerwe3dpqwkdpok1231231damdk' , fileSize:'5MiB' , downloadLink : 'https://public.bethelnet.io/ipfs/QmcMux1HfMHqRLJSGW4EizZ31ZBZeeoy19dNDm5pCFCaCG' },
-  { id: 2, name: 'Item 2', itemCode:'scsdsdadasda' , fileSize:'1MiB' , downloadLink : 'https://public.bethelnet.io/ipfs/QmeZuoQxNgQUbRXm9nj5YQxZNEFw6DMPqA2UXokD9L51Cz' }
+  { id: 1, name: 'Item 1', itemCode:'123sdfsvfd' , fileSize:'10MiB' , downloadLink : 'https://public.bethelnet.io/ipfs/QmcMux1HfMHqRLJSGW4EizZ31ZBZeeoy19dNDm5pCFCaCG' },
  ]
 
 
