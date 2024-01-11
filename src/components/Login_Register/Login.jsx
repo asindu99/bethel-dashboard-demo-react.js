@@ -37,6 +37,7 @@ function Login() {
   // }
 
   // for the verification funcs
+  const [sessionID, setSessionID] = useState()
   const [qrCodeData, setQrCodeData] = useState();
   const [isHandlingVerification, setIsHandlingVerification] = useState(false);
   const [verificationCheckComplete, setVerificationCheckComplete] = useState(false);
@@ -45,12 +46,18 @@ function Login() {
   const [signUpQRData , setSignUpQRData] = useState()
     const auth = async () =>{
 
-    const authRequest = await fetch("http://192.168.1.7:8080/api/v1/sign-in")
-    console.log(authRequest)
-    setQrCodeData(await authRequest.json())
-    console.log(qrCodeData)
-    
+    try {
+      const authRequest = await fetch("http://192.168.1.7:8080/api/v1/sign-in")
+      console.log(authRequest)
+      setQrCodeData(await authRequest.json())
+      console.log(qrCodeData)
+
       const sessionID = authRequest.headers.get('x-id'); 
+      setSessionID(sessionID)
+    } catch (error) {
+      setVerfificationMessage("Internel Sever Error")
+    }
+    
       
 
       const interval = setInterval(async () => {

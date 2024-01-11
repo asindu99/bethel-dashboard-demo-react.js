@@ -9,18 +9,19 @@ const TableWithMoreButton = () => {
   };
 
   const IssueClaim = (index) =>{
-    if(index === selectedRow){
-      console.log("thius is ")
-    }
-    else{
-      return
-    } 
-  } 
+    data.map((i) =>{
+      if(index === i) {
+        console.log(i)
+      }
+      return null;
+    })
+  }
 
   const [tableData , setTableData] = useState([]);
  
   // add sample data in here from the backend 
   const data = [
+    { id: 1, name: 'Item 1', itemCode: 'ewerwe3dpqwkdpok1231231damdk', fileSize: '5MiB', downloadLink: 'https://public.bethelnet.io/ipfs/QmcMux1HfMHqRLJSGW4EizZ31ZBZeeoy19dNDm5pCFCaCG' },
     { id: 1, name: 'Item 1', itemCode: 'ewerwe3dpqwkdpok1231231damdk', fileSize: '5MiB', downloadLink: 'https://public.bethelnet.io/ipfs/QmcMux1HfMHqRLJSGW4EizZ31ZBZeeoy19dNDm5pCFCaCG' },
     { id: 1, name: 'Item 1', itemCode: 'ewerwe3dpqwkdpok1231231damdk', fileSize: '5MiB', downloadLink: 'https://public.bethelnet.io/ipfs/QmcMux1HfMHqRLJSGW4EizZ31ZBZeeoy19dNDm5pCFCaCG' },
  ]

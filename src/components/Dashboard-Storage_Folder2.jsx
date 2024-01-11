@@ -8,6 +8,7 @@ import { useSelector } from 'react-redux'
 
 
 export default function DashboardStorageFolder2() {
+
   const [file, setFile] = useState(null)
   const [uploadSuccess, setUploadSuccess] = useState(false)
   const [uploadFail, setUploadFail] = useState(false)
@@ -24,7 +25,6 @@ export default function DashboardStorageFolder2() {
     formData.append("ownerdid", Udid)
     formData.append("file", file)
     formData.append("fileName" , file.name)
-
 
     if (file) {
       setUploadWait(true)
