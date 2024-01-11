@@ -1,18 +1,10 @@
 import MainMerkle from '../merkle'
-import QRCode from 'react-qr-code'
-import { io } from "socket.io-client";
-
 import React, {useEffect, useState } from 'react'
 import iconUser from "../Images/icons/icon-male-user.png"
 import { useDispatch, useSelector } from 'react-redux'
 import iconMenu from "../Images/icons/icons-menu.png"
 import toggleSidebarSlice from '../reducers/toggleSidebar'
 import { useNavigate } from 'react-router-dom'
-import { revertAll4 } from '../reducers/userDataReducer'
-import { revertAll3 } from '../reducers/uploadDetailsSlice'
-import { revertAll2 } from '../reducers/storageDetailsSlice'
-import WalletAddressSlice, { revertAll5 } from '../reducers/WalletAddressSlice'
-import { revertAll } from '../reducers/Loginreducer'
 import { useFormik } from 'formik';
 import { Validation } from '../components/Login_Register/Validation';
 import loaderGif from '../Images/Animation-gifs/loading-6324_256.gif'
@@ -38,6 +30,8 @@ function Navbar({
   const [isLoading , setIsLoading] = useState(false)
   const contractAddress = '0xB2724675c46Ea9365FA86d43E70D3932196380A9'
   let provider = new ethers.BrowserProvider(window.ethereum);
+  const UdId = useSelector((state) => state.DidReducer)
+
 
   const abi = [
     {
@@ -360,25 +354,26 @@ function Navbar({
     }
   })
 
-  const accountChanged = async () => {
-    try {
-      const accounts = await window.ethereum.request({method : "eth_requestAccounts"})
-      dispatch(WalletAddressSlice.actions.saveWalletAddress(accounts[0]))
-      window.location.reload();
+  // const accountChanged = async () => {
+  //   try {
+  //     const accounts = await window.ethereum.request({method : "eth_requestAccounts"})
+  //     dispatch(WalletAddressSlice.actions.saveWalletAddress(accounts[0]))
+  //     window.location.reload();
 
-    } catch (error) {
-      Navigate('/')
-      window.location.reload();
-      dispatch(revertAll(), revertAll4(),revertAll2(),revertAll3(), revertAll5())
+  //   } catch (error) {
+  //     Navigate('/')
+  //     window.location.reload();
+  //     dispatch(revertAll(), revertAll4(),revertAll2(),revertAll3(), revertAll5())
 
-    }
-  } 
+  //   }
+  // } 
   
   useEffect(() => {
-      window.ethereum.on('accountsChanged' , accountChanged)
+      // window.ethereum.on('accountsChanged' , accountChanged)
   });
 
-  const trimWalletAddress = walletAddress.substring(0, 4) + "..." + walletAddress.substring(39);
+  const trimDid = UdId.substring(0, 4) + "..." + UdId.substring(60);
+
   const toggle = () =>{
     dispatch(toggleSidebarSlice.actions.toggleSidebar())
   }
@@ -409,7 +404,7 @@ function Navbar({
             {/* name and the other */}
             <div className='flex gap-2 uppercase lg:mr-0 md:mr-6 sm:mr-6 min-[320px]:mr-6'>
               <button className='px-2 py-2 rounded-md bg-bethel-green/60'>
-                Connected : {trimWalletAddress}
+                Connected : {trimDid}
               </button>
             </div>
 

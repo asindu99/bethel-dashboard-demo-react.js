@@ -14,21 +14,27 @@ export default function DashboardStorageFolder2() {
   const [fileName, setFileName] = useState("");
   const [fileSize, setFileSize] = useState('');
   const [uploadWait, setUploadWait] = useState(false)
-  
 
-  const dId = useSelector((state) => state.DidReducer)
+  const Udid = useSelector((state) => state.DidReducer)
+  console.log("this is Did" , Udid)
 
 
   const upload = async () => {
     const formData = new FormData();
-    formData.append("fileName", file)
+    formData.append("ownerdid", Udid)
+    formData.append("file", file)
+    formData.append("fileName" , file.name)
+
 
     if (file) {
       setUploadWait(true)
       console.log(formData)
 
       try {
-        const res = await fetch("http://192.168.1.19:8080/api/v1/upload", { method: 'POST', body: formData })
+        const res = await fetch("http://192.168.1.7:8080/api/v1/upload",
+        { method: 'POST', 
+         body: formData
+       })
         console.log(res)
 
         if (res.status === 200) {
@@ -69,7 +75,7 @@ export default function DashboardStorageFolder2() {
     setFile(e.target.files[0])
     setFileName(e.target.files[0].name)
     setFileSize(e.target.files[0].size)
-    console.log(fileName);
+    console.log("file :",file);
   }
 
   const deleteUpload = () => {

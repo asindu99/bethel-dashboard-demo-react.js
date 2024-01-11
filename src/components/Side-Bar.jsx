@@ -15,6 +15,7 @@ import { revertAll4 } from '../reducers/userDataReducer'
 import toggleSidebarSlice from '../reducers/toggleSidebar'
 import iconClose from '../Images/icons/icons8-close-96.png'
 import fileIcon from "../Images/icons/icon-file.png" 
+import { revertAll8 } from '../reducers/didRedcuer'
 
 
 function SideBar() {
@@ -27,7 +28,7 @@ function SideBar() {
 
   const logOut = () =>{
     Navigate('/')
-    dispatch(revertAll(), revertAll4() ,revertAll2() ,revertAll3())
+    dispatch(revertAll(), revertAll4() ,revertAll2() ,revertAll3() , revertAll8())
   }
 
   const toggleSidebar = useSelector((state) => state.toggleSidebarReducer)
@@ -90,7 +91,6 @@ function SideBar() {
             {/* end-storage */}
 
             {/* start-dashboard */}
-
             <Link to="/dashboard/wallet" className='w-full' >
             <div onClick={toggle} className='flex w-full px-10 py-2 hover:bg-bethel-green/10'>
 

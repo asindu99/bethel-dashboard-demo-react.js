@@ -2,8 +2,7 @@ import QRCode from 'react-qr-code'
 import youKnow from "../../Images/BG-Images/Feb-Business_9.jpg"
 import React from "react"
 import { useNavigate } from "react-router-dom"
-import { useDispatch } from "react-redux";
-import WalletAddressSlice from "../../reducers/WalletAddressSlice";
+import { useDispatch, useSelector } from "react-redux";
 import didSlice from '../../reducers/didRedcuer';
 import heroVid from '../../Images/Videos/video.mp4';
 import { useEffect, useState } from "react";
@@ -14,31 +13,36 @@ const {ethers} = require("ethers");
 function Login() {
   const Navigate = useNavigate();
   const dispatch = useDispatch();
+  const [Udid , setUdid] = useState(null)
+
+  useEffect(() =>{
+  },[])
+  
+
+  // const dispatch = useDispatch();
     
-  const connectWallet = async () =>{
-    if(window.ethereum){
-      try {
-        const accounts = await window.ethereum.request({method : "eth_requestAccounts"})
-        dispatch(WalletAddressSlice.actions.saveWalletAddress(accounts[0]))
-        Navigate('/dashboard')
+  // const connectWallet = async () =>{
+  //   if(window.ethereum){
+  //     try {
+  //       const accounts = await window.ethereum.request({method : "eth_requestAccounts"})
+  //       dispatch(WalletAddressSlice.actions.saveWalletAddress(accounts[0]))
+  //       Navigate('/dashboard')
       
-      } catch (error) {
-        console.log(error)
-      }
-    }else {
-      alert("Please install Metamask to Connect Wallet !")
-    }
-  }
+  //     } catch (error) {
+  //       console.log(error)
+  //     }
+  //   }else {
+  //     alert("Please install Metamask to Connect Wallet !")
+  //   }
+  // }
 
   // for the verification funcs
-  const [sessionId , setSessionId] = useState('')
   const [qrCodeData, setQrCodeData] = useState();
   const [isHandlingVerification, setIsHandlingVerification] = useState(false);
   const [verificationCheckComplete, setVerificationCheckComplete] = useState(false);
   const [verificationMessage, setVerfificationMessage] = useState("");
   const [onVerificationResult , setOnverificationResult] = useState(false) 
   const [signUpQRData , setSignUpQRData] = useState()
-
     const auth = async () =>{
 
     const authRequest = await fetch("http://192.168.1.7:8080/api/v1/sign-in")
@@ -46,11 +50,15 @@ function Login() {
     setQrCodeData(await authRequest.json())
     console.log(qrCodeData)
     
-    const sessionID = authRequest.headers.get('x-id');
+      const sessionID = authRequest.headers.get('x-id'); 
+      
 
       const interval = setInterval(async () => {
         try {
           const sessionResponse = await fetch(`http://192.168.1.7:8080/api/v1/status?sessionId=${sessionID}`);
+
+          const ress = await sessionResponse.json()
+
           console.log(sessionResponse)
           if (sessionResponse.status === 200){
 
@@ -58,7 +66,12 @@ function Login() {
             setIsHandlingVerification(false)
             setOnverificationResult(true)
             setVerificationCheckComplete(true);
-
+            console.log("idd",ress.id)
+            dispatch(didSlice.actions.didStore(ress.id))
+    
+            setTimeout(() => {
+              Navigate("/dashboard");
+            }, 1000);
             setTimeout(() => {
               setVerificationCheckComplete(false);
             }, 1000);
@@ -74,7 +87,6 @@ function Login() {
           }
         } catch (e) {
           console.log('err->', e);
-
         }
       }, 3000);
     }
@@ -90,6 +102,7 @@ useEffect(() => {
   const [QRtoggle2 , setQRtoggle2] = useState(false)
   const [showIssueID , setShowIssueID] = useState(false)
   const [error,setError] = useState("")
+
 
   const [QRLink, setQRLink] = useState('')
   const [did , setDid] = useState(null)
@@ -286,12 +299,12 @@ useEffect(() => {
       ) : (
       // {/* verification approved msg */}
       <div className=''>
-      <p className=' text-xl text-white'>Connect Your wallet to Start the Adventure !</p>
-            <button onClick={connectWallet} className=" p-2 px-4 mt-4 text-black bg-white rounded-md text-[20px] hover:text-white hover:bg-bethel-green/70 transition-all 1s ease-in-out">Connect Wallet</button>
-      {verificationCheckComplete && 
+      {/* // <p className=' text-xl text-white'>Connect Your wallet to Start the Adventure !</p>
+      //       <button onClick={connectWallet} className=" p-2 px-4 mt-4 text-black bg-white rounded-md text-[20px] hover:text-white hover:bg-bethel-green/70 transition-all 1s ease-in-out">Connect Wallet</button> */}
+      { verificationCheckComplete && 
       <div className='mt-24'>
         <h3 className="text-white text-xl">{verificationMessage}</h3> 
-      </div>}      
+      </div>}
       </div>
       // {/* end of the verification approved*/}
       )
