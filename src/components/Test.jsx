@@ -4,21 +4,24 @@ import QRCode from 'react-qr-code'
 
 const TableWithMoreButton = () => {
   const [selectedRow, setSelectedRow] = useState(null);
+  const [selectQR , setSelectQR] = useState(null)
   const [totalFiles, setTotalFiles] = useState(null);
-  const [qrClaim , setQrClaim] = useState(null)
+  const [qrClaim , setQrClaim] = useState(null);
+
 
   const handleMoreButtonClick = (index) => {
     setSelectedRow(index === selectedRow ? null : index);
   };
 
   const IssueClaim = async (index) =>{
+
     const selectedItem = tableData[0][index];
-    console.log(selectedItem);
-
-    console.log(index)
-
+    setSelectQR(index === selectedRow ? null : index);
     const getQr = await fetch("http://192.168.1.7:8080/api/v1/getQrFile")
-    setQrClaim(await getQr.json()) 
+    console.log(selectedItem)
+    setQrClaim(await getQr.json())
+
+    
     
   }
 
@@ -65,9 +68,22 @@ const TableWithMoreButton = () => {
                 </div>
               </td>
               <td className='flex flex-row p-3 gap-x-[50px] relative'>
-                <div>
+                <div className='relative'>
+                  {selectQR === index ? (
+                    <div className='flex bg-red-400 absolute left-[-120px] -top-6'>
+                      <button onClick={() => setSelectQR("24")} className='absolute text-white -top-6 right-0'>
+                        x
+                      </button>
+                      <QRCode
+                        value={JSON.stringify(qrClaim)}
+                        className='flex w-24 h-24 p-1 bg-white top-0' />
+                    </div>
+                  ) : (<div></div>)
+                  }
                   <button onClick={() => IssueClaim(index)} className='px-2 py-1 border-2 bg-bethel-green/50 text-white rounded-md'>Issue claim</button>
                 </div>
+                
+                
                 <h3>{item.fileSize}</h3>
                 <button onClick={() => handleMoreButtonClick(index)}>
                   <svg viewBox="0 0 24 24" fill="none"  className="w-5 h-5 " xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <circle cx="18" cy="12" r="1.5" transform="rotate(90 18 12)" fill="#ffffff"></circle> <circle cx="12" cy="12" r="1.5" transform="rotate(90 12 12)" fill="#ffffff"></circle> <circle cx="6" cy="12" r="1.5" transform="rotate(90 6 12)" fill="#ffffff"></circle> </g></svg>
