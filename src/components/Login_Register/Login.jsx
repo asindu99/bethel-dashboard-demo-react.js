@@ -46,7 +46,7 @@ function Login() {
   const [signUpQRData , setSignUpQRData] = useState()
     const auth = async () =>{
 
-    try {
+    
       const authRequest = await fetch("http://192.168.1.7:8080/api/v1/sign-in")
       console.log(authRequest)
       setQrCodeData(await authRequest.json())
@@ -54,11 +54,6 @@ function Login() {
 
       const sessionID = authRequest.headers.get('x-id'); 
       setSessionID(sessionID)
-    } catch (error) {
-      setVerfificationMessage("Internel Sever Error")
-    }
-    
-      
 
       const interval = setInterval(async () => {
         try {

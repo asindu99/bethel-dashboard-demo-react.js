@@ -1,20 +1,25 @@
 import React, { useEffect, useState } from 'react';
+import QRCode from 'react-qr-code'
+
 
 const TableWithMoreButton = () => {
   const [selectedRow, setSelectedRow] = useState(null);
   const [totalFiles, setTotalFiles] = useState(null);
+  const [qrClaim , setQrClaim] = useState(null)
 
   const handleMoreButtonClick = (index) => {
     setSelectedRow(index === selectedRow ? null : index);
   };
 
-  const IssueClaim = (index) =>{
-    data.map((i) =>{
-      if(index === i) {
-        console.log(i)
-      }
-      return null;
-    })
+  const IssueClaim = async (index) =>{
+    const selectedItem = tableData[0][index];
+    console.log(selectedItem);
+
+    console.log(index)
+
+    const getQr = await fetch("http://192.168.1.7:8080/api/v1/getQrFile")
+    setQrClaim(await getQr.json()) 
+    
   }
 
   const [tableData , setTableData] = useState([]);
@@ -22,8 +27,7 @@ const TableWithMoreButton = () => {
   // add sample data in here from the backend 
   const data = [
     { id: 1, name: 'Item 1', itemCode: 'ewerwe3dpqwkdpok1231231damdk', fileSize: '5MiB', downloadLink: 'https://public.bethelnet.io/ipfs/QmcMux1HfMHqRLJSGW4EizZ31ZBZeeoy19dNDm5pCFCaCG' },
-    { id: 1, name: 'Item 1', itemCode: 'ewerwe3dpqwkdpok1231231damdk', fileSize: '5MiB', downloadLink: 'https://public.bethelnet.io/ipfs/QmcMux1HfMHqRLJSGW4EizZ31ZBZeeoy19dNDm5pCFCaCG' },
-    { id: 1, name: 'Item 1', itemCode: 'ewerwe3dpqwkdpok1231231damdk', fileSize: '5MiB', downloadLink: 'https://public.bethelnet.io/ipfs/QmcMux1HfMHqRLJSGW4EizZ31ZBZeeoy19dNDm5pCFCaCG' },
+    { id: 3, name: 'Item 1', itemCode: 'ewerwe3dpqwkdpok1231231damdk', fileSize: '5MiB', downloadLink: 'https://public.bethelnet.io/ipfs/QmcMux1HfMHqRLJSGW4EizZ31ZBZeeoy19dNDm5pCFCaCG' },
  ]
 
 
@@ -62,7 +66,7 @@ const TableWithMoreButton = () => {
               </td>
               <td className='flex flex-row p-3 gap-x-[50px] relative'>
                 <div>
-                  <button onClick={IssueClaim(index)} className='px-2 py-1 border-2 bg-bethel-green/50 text-white rounded-md'>Issue claim</button>
+                  <button onClick={() => IssueClaim(index)} className='px-2 py-1 border-2 bg-bethel-green/50 text-white rounded-md'>Issue claim</button>
                 </div>
                 <h3>{item.fileSize}</h3>
                 <button onClick={() => handleMoreButtonClick(index)}>
