@@ -4,9 +4,13 @@ import QRCode from 'react-qr-code'
 
 const TableWithMoreButton = () => {
   const [selectedRow, setSelectedRow] = useState(null);
-  const [selectQR , setSelectQR] = useState(null)
+  const [selectQR, setSelectQR] = useState(null)
+  const [dowloadQr , setDownloadQr] = useState(null)
+  const [selectedDownload , setSelectedDownload] = useState(null)
   const [totalFiles, setTotalFiles] = useState(null);
   const [qrClaim , setQrClaim] = useState(null);
+
+  const []
 
 
   const handleMoreButtonClick = (index) => {
@@ -17,12 +21,18 @@ const TableWithMoreButton = () => {
 
     const selectedItem = tableData[0][index];
     setSelectQR(index === selectedRow ? null : index);
-    const getQr = await fetch("http://192.168.1.7:8080/api/v1/getQrFile")
+    const getQr = await fetch("http://192.168.1.11:8080/api/v1/fileQr")
     console.log(selectedItem)
     setQrClaim(await getQr.json())
+  }
 
-    
-    
+  const downloadFile = async (index) => {
+
+    const selectedItem = tableData[0][index];
+    setSelectedDownload(index === selectedRow ? null : index);
+    const getQr = await fetch("http://192.168.1.11:8080//api/v1/download")
+    console.log(selectedItem)
+    setDownloadQr(await getQr.json())
   }
 
   const [tableData , setTableData] = useState([]);
@@ -53,7 +63,9 @@ const TableWithMoreButton = () => {
               </tr>
             </thead>
             <tbody>
+
         { tableData[0] && tableData[0].map((item, index) => (
+          
           <React.Fragment key={index}>
             <tr className='flex items-center justify-between bg-gray-800/20'>
               <td className='p-3'>
@@ -81,6 +93,37 @@ const TableWithMoreButton = () => {
                   ) : (<div></div>)
                   }
                   <button onClick={() => IssueClaim(index)} className='px-2 py-1 border-2 bg-bethel-green/50 text-white rounded-md'>Issue claim</button>
+                </div>
+
+                  {/* file download button */}
+                <div className='relative'>
+                  {selectedDownload === index ? (
+                    <div className='flex bg-red-400 absolute left-[-120px] -top-6'>
+                      <button onClick={() => setSelectedDownload("24")} className='absolute text-white -top-6 right-0'>
+                        x
+                      </button>
+                      <QRCode
+                        value={JSON.stringify(dowloadQr)}
+                        className='flex w-24 h-24 p-1 bg-white top-0' />
+                    </div>
+                  ) : (<div></div>)
+                  }
+                  <button onClick={() => downloadFile(index)} className='px-2 py-1 border-2 bg-green/50 text-white rounded-md'>Download</button>
+                </div>
+
+                <div className='relative'>
+                  {selectedDownload === index ? (
+                    <div className='flex bg-red-400 absolute left-[-120px] -top-6'>
+                      <button onClick={() => setSelectedDownload("24")} className='absolute text-white -top-6 right-0'>
+                        x
+                      </button>
+                      <QRCode
+                        value={JSON.stringify(dowloadQr)}
+                        className='flex w-24 h-24 p-1 bg-white top-0' />
+                    </div>
+                  ) : (<div></div>)
+                  }
+                  <button onClick={() => downloadFile(index)} className='px-2 py-1 border-2 bg-green/50 text-white rounded-md'>Download</button>
                 </div>
                 
                 
