@@ -22,10 +22,10 @@ export default function DashboardStorageFolder2() {
 
   const upload = async () => {
     const formData = new FormData();
-    formData.append("ownerdid", Udid)
+    formData.append("owner_id", Udid)
     formData.append("file", file)
-    formData.append("fileName", file.name)
-    formData.append("fileSize", file.size)
+    formData.append("file_name", file.name)
+    formData.append("file_size", file.size)
 
     if (file) {
       setUploadWait(true)

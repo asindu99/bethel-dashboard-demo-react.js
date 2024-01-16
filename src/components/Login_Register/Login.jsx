@@ -68,7 +68,6 @@ function Login() {
             setIsHandlingVerification(false)
             setOnverificationResult(true)
             setVerificationCheckComplete(true);
-            console.log("idd",ress.id)
             dispatch(didSlice.actions.didStore(ress.id))
     
             setTimeout(() => {
@@ -79,6 +78,7 @@ function Login() {
             }, 1000);
              clearInterval(interval);
           }
+          
           if (sessionResponse.rejected){
             setVerfificationMessage("Authentication Fail")
             setIsHandlingVerification(false)
@@ -127,7 +127,7 @@ useEffect(() => {
     }
 
     try {
-     const QRdata =  await fetch("http://192.168.1.7:8080/api/v1/getQr", {
+      const QRdata = await fetch("http://192.168.1.253:8080/api/v1/getQr", {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
