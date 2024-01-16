@@ -47,7 +47,7 @@ function Login() {
     const auth = async () =>{
 
     
-      const authRequest = await fetch("http://192.168.1.7:8080/api/v1/sign-in")
+      const authRequest = await fetch(process.env.REACT_APP_BACKEND_URL + "/api/v1/sign-in")
       console.log(authRequest)
       setQrCodeData(await authRequest.json())
       console.log(qrCodeData)
@@ -57,7 +57,7 @@ function Login() {
 
       const interval = setInterval(async () => {
         try {
-          const sessionResponse = await fetch(`http://192.168.1.7:8080/api/v1/status?sessionId=${sessionID}`);
+          const sessionResponse = await fetch(process.env.REACT_APP_BACKEND_URL + `/api/v1/status?sessionId=${sessionID}`);
 
           const ress = await sessionResponse.json()
 

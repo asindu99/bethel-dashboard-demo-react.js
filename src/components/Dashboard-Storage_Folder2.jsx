@@ -24,14 +24,15 @@ export default function DashboardStorageFolder2() {
     const formData = new FormData();
     formData.append("ownerdid", Udid)
     formData.append("file", file)
-    formData.append("fileName" , file.name)
+    formData.append("fileName", file.name)
+    formData.append("fileSize", file.size)
 
     if (file) {
       setUploadWait(true)
-      console.log(formData)
+      console.log(file)
 
       try {
-        const res = await fetch("http://192.168.1.7:8080/api/v1/upload",
+        const res = await fetch(process.env.REACT_APP_BACKEND_URL + "/api/v1/upload",
         { method: 'POST', 
          body: formData
        })

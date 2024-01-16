@@ -10,8 +10,8 @@ const TableWithMoreButton = () => {
   const [totalFiles, setTotalFiles] = useState(null);
   const [qrClaim , setQrClaim] = useState(null);
 
-  const []
-
+const [downloadBtnVissible , setDownloadBtnVissible] = useState(false)
+const [downloadLink , setDownloadLink] = useState("")
 
   const handleMoreButtonClick = (index) => {
     setSelectedRow(index === selectedRow ? null : index);
@@ -21,18 +21,39 @@ const TableWithMoreButton = () => {
 
     const selectedItem = tableData[0][index];
     setSelectQR(index === selectedRow ? null : index);
-    const getQr = await fetch("http://192.168.1.11:8080/api/v1/fileQr")
+    const getQr = await fetch(process.env.REACT_APP_BACKEND_URL + "/api/v1/fileQr")
     console.log(selectedItem)
     setQrClaim(await getQr.json())
+  }
+
+  const proofDownload = async (index) => {
+
+    const selectedItem = tableData[0][index];
+    setSelectQR(index === selectedRow ? null : index);
+    
   }
 
   const downloadFile = async (index) => {
 
     const selectedItem = tableData[0][index];
     setSelectedDownload(index === selectedRow ? null : index);
-    const getQr = await fetch("http://192.168.1.11:8080//api/v1/download")
+    const getQr = await fetch("/api/v1/download")
     console.log(selectedItem)
     setDownloadQr(await getQr.json())
+
+    // get Response from the download
+    const interval = setInterval(async () => {
+      const downloadResponse = await fetch(process.env.REACT_APP_BACKEND_URL + "/api/v1/filestatus")
+      console.log(downloadResponse)
+
+      if (downloadResponse === 200) {
+        clearInterval()
+        setDownloadBtnVissible(true)
+      }
+
+    }, 2000)
+
+    
   }
 
   const [tableData , setTableData] = useState([]);
@@ -40,7 +61,6 @@ const TableWithMoreButton = () => {
   // add sample data in here from the backend 
   const data = [
     { id: 1, name: 'Item 1', itemCode: 'ewerwe3dpqwkdpok1231231damdk', fileSize: '5MiB', downloadLink: 'https://public.bethelnet.io/ipfs/QmcMux1HfMHqRLJSGW4EizZ31ZBZeeoy19dNDm5pCFCaCG' },
-    { id: 3, name: 'Item 1', itemCode: 'ewerwe3dpqwkdpok1231231damdk', fileSize: '5MiB', downloadLink: 'https://public.bethelnet.io/ipfs/QmcMux1HfMHqRLJSGW4EizZ31ZBZeeoy19dNDm5pCFCaCG' },
  ]
 
 
@@ -65,7 +85,7 @@ const TableWithMoreButton = () => {
             <tbody>
 
         { tableData[0] && tableData[0].map((item, index) => (
-          
+
           <React.Fragment key={index}>
             <tr className='flex items-center justify-between bg-gray-800/20'>
               <td className='p-3'>
@@ -96,7 +116,7 @@ const TableWithMoreButton = () => {
                 </div>
 
                   {/* file download button */}
-                <div className='relative'>
+                {downloadBtnVissible  ? (<div className='relative'>
                   {selectedDownload === index ? (
                     <div className='flex bg-red-400 absolute left-[-120px] -top-6'>
                       <button onClick={() => setSelectedDownload("24")} className='absolute text-white -top-6 right-0'>
@@ -108,8 +128,8 @@ const TableWithMoreButton = () => {
                     </div>
                   ) : (<div></div>)
                   }
-                  <button onClick={() => downloadFile(index)} className='px-2 py-1 border-2 bg-green/50 text-white rounded-md'>Download</button>
-                </div>
+                  <button onClick={() => proofDownload(index)} className='px-2 py-1 border-2 bg-green-600 text-white rounded-md'><a href={downloadLink}>Download</a></button>
+                </div> ) : (
 
                 <div className='relative'>
                   {selectedDownload === index ? (
@@ -123,8 +143,12 @@ const TableWithMoreButton = () => {
                     </div>
                   ) : (<div></div>)
                   }
-                  <button onClick={() => downloadFile(index)} className='px-2 py-1 border-2 bg-green/50 text-white rounded-md'>Download</button>
-                </div>
+                      <button onClick={() => downloadFile(index)} className='px-2 py-1 border-2 bg-red-600 text-white rounded-md'>Download</button>
+                </div> )}
+
+
+                {/*end file download button */}
+
                 
                 
                 <h3>{item.fileSize}</h3>
