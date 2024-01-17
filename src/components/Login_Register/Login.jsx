@@ -2,7 +2,7 @@ import QRCode from 'react-qr-code'
 import youKnow from "../../Images/BG-Images/Feb-Business_9.jpg"
 import React from "react"
 import { useNavigate } from "react-router-dom"
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import didSlice from '../../reducers/didRedcuer';
 import heroVid from '../../Images/Videos/video.mp4';
 import { useEffect, useState } from "react";
@@ -17,7 +17,6 @@ function Login() {
 
   useEffect(() =>{
   },[])
-  
 
   // const dispatch = useDispatch();
     
@@ -42,7 +41,7 @@ function Login() {
   const [isHandlingVerification, setIsHandlingVerification] = useState(false);
   const [verificationCheckComplete, setVerificationCheckComplete] = useState(false);
   const [verificationMessage, setVerfificationMessage] = useState("");
-  const [onVerificationResult , setOnverificationResult] = useState(false) 
+  const [onVerificationResult , setOnverificationResult] = useState(false);
   const [signUpQRData , setSignUpQRData] = useState()
     const auth = async () =>{
 
@@ -51,6 +50,7 @@ function Login() {
       console.log(authRequest)
       setQrCodeData(await authRequest.json())
       console.log(qrCodeData)
+
 
       const sessionID = authRequest.headers.get('x-id'); 
       setSessionID(sessionID)
@@ -78,7 +78,7 @@ function Login() {
             }, 1000);
              clearInterval(interval);
           }
-          
+
           if (sessionResponse.rejected){
             setVerfificationMessage("Authentication Fail")
             setIsHandlingVerification(false)

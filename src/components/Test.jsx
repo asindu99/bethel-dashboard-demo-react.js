@@ -42,7 +42,6 @@ const [downloadLink , setDownloadLink] = useState(null)
     const getQr = await fetch(process.env.REACT_APP_BACKEND_URL + "/api/v1/download")
     setDownloadQr(await getQr.json())
     
-
     // get Response from the download
     const interval = setInterval(async () => {
       const downloadResponse = await fetch(process.env.REACT_APP_BACKEND_URL + "/api/v1/filestatus")
@@ -136,9 +135,6 @@ const [downloadLink , setDownloadLink] = useState(null)
 
 
                 {/*end file download button */}
-
-                
-                
                 <h3>{item.fileSize}</h3>
                 <button onClick={() => handleMoreButtonClick(index)}>
                   <svg viewBox="0 0 24 24" fill="none"  className="w-5 h-5 " xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <circle cx="18" cy="12" r="1.5" transform="rotate(90 18 12)" fill="#ffffff"></circle> <circle cx="12" cy="12" r="1.5" transform="rotate(90 12 12)" fill="#ffffff"></circle> <circle cx="6" cy="12" r="1.5" transform="rotate(90 6 12)" fill="#ffffff"></circle> </g></svg>
