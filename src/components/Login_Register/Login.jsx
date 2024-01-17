@@ -7,7 +7,7 @@ import didSlice from '../../reducers/didRedcuer';
 import heroVid from '../../Images/Videos/video.mp4';
 import { useEffect, useState } from "react";
 import loaderGif from '../../Images/Animation-gifs/loading-6324_256.gif'
-import badRequest from "../../Images/BG-Images/bad_request.png"
+import badRequest from "../../Images/BG-Images/bad_request2.png"
 const {ethers} = require("ethers");
 
 
@@ -190,14 +190,14 @@ useEffect(() => {
 
       {/* server error msg */}
       { serverErrorFetch && <div className='flex flex-col items-center w-full '>
-          <h1 className='text-white text-[30px] font-bold py-2'>Server Error Please Try Another Time!</h1>
-          <img className="w-[200px]" src={badRequest} alt="" />
+          <h1 className='text-white text-[25px] font-bold py-2'>Service is not available</h1>
+          {/* <img className="w-[250px]" src={badRequest} alt="" /> */}
       </div>
       }
 
     </div>
     
-    <div className="-mt-48 font-bold text-center relative">
+    <div className="-mt-64 font-bold text-center relative">
       <div>
       </div>
 

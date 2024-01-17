@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import iconStorage from "../Images/icons/icon-storage.png"
 import TableWithMoreButton from '../components/Test'
 import "../loadingCss/InfiniteLoader.css"
@@ -8,6 +8,7 @@ import { useSelector } from 'react-redux'
 
 
 export default function DashboardStorageFolder2() {
+  const childRef = useRef()
 
   const [file, setFile] = useState(null)
   const [uploadSuccess, setUploadSuccess] = useState(false)
@@ -15,6 +16,7 @@ export default function DashboardStorageFolder2() {
   const [fileName, setFileName] = useState("");
   const [fileSize, setFileSize] = useState('');
   const [uploadWait, setUploadWait] = useState(false)
+
 
   const Udid = useSelector((state) => state.DidReducer)
   console.log("this is Did" , Udid)
@@ -45,6 +47,8 @@ export default function DashboardStorageFolder2() {
           setTimeout(() => {
             setUploadSuccess(false)
           }, 2000);
+
+         getDownloadDetails();
 
           setFile(null);
           setFileName('');
@@ -101,8 +105,8 @@ export default function DashboardStorageFolder2() {
       <div className='flex px-3 pt-3'>
 
         <div className='flex flex-row px-6 py-2 mr-3 text-white rounded-md bg-gray-100/20 gap-x-8'>
-          <div className=''>
-            <h3 className='text-white text-[14px] font-bold'>591 MiB</h3>
+          <div className='flex flex-col items-center'>
+            <h3 className='text-white text-[14px] font-bold'>3</h3>
             <h3 className='text-center uppercase text-[10px] '>Files</h3>
           </div>
 
