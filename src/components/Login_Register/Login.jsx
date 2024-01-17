@@ -43,47 +43,49 @@ function Login() {
   const [verificationMessage, setVerfificationMessage] = useState("");
   const [onVerificationResult , setOnverificationResult] = useState(false);
   const [signUpQRData , setSignUpQRData] = useState()
-    const auth = async () =>{
+  
+  const [serverErrorFetch , setServerErrorFetch] = useState(false)
 
-    
-      const authRequest = await fetch(process.env.REACT_APP_BACKEND_URL + "/api/v1/sign-in")
+  const auth = async () =>{
+
+    try {
+      const authRequest = await fetch(process.env.REACT_APP_LOGIN_QR_URL)
       console.log(authRequest)
       setQrCodeData(await authRequest.json())
       console.log(qrCodeData)
 
-
-      const sessionID = authRequest.headers.get('x-id'); 
+      const sessionID = authRequest.headers.get('x-id');
       setSessionID(sessionID)
 
       const interval = setInterval(async () => {
         try {
-          const sessionResponse = await fetch(process.env.REACT_APP_BACKEND_URL + `/api/v1/status?sessionId=${sessionID}`);
+          const sessionResponse = await fetch(process.env.REACT_APP_SESSION_RESPONSE_URL + sessionID);
 
           const ress = await sessionResponse.json()
 
           console.log(sessionResponse)
-          if (sessionResponse.status === 200){
+          if (sessionResponse.status === 200) {
 
             setVerfificationMessage("Verify Proofed!")
             setIsHandlingVerification(false)
             setOnverificationResult(true)
             setVerificationCheckComplete(true);
             dispatch(didSlice.actions.didStore(ress.id))
-    
+
             setTimeout(() => {
               Navigate("/dashboard");
             }, 1000);
             setTimeout(() => {
               setVerificationCheckComplete(false);
             }, 1000);
-             clearInterval(interval);
+            clearInterval(interval);
           }
 
-          if (sessionResponse.rejected){
+          if (sessionResponse.rejected) {
             setVerfificationMessage("Authentication Fail")
             setIsHandlingVerification(false)
           }
-          if(sessionResponse.status === 102){
+          if (sessionResponse.status === 102) {
             setIsHandlingVerification(true)
 
           }
@@ -91,6 +93,13 @@ function Login() {
           console.log('err->', e);
         }
       }, 3000);
+    } catch (error) {
+      setServerErrorFetch(true);
+    }
+      
+
+
+      
     }
       
 
@@ -127,7 +136,7 @@ useEffect(() => {
     }
 
     try {
-      const QRdata = await fetch("http://192.168.1.253:8080/api/v1/getQr", {
+      const QRdata = await fetch(process.env.REACT_APP_SIGNUP_QR_URL, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -177,6 +186,12 @@ useEffect(() => {
     <div className='w-full h-[90%] flex flex-col justify-center items-center text-white px-4 text-center'>
   
       <h1 className="text-[60px] font-bold py-2 ">BETHEL TESTNET</h1>
+
+      {/* server error msg */}
+      { serverErrorFetch && <div className=''>
+          <h1 className='text-white text-[30px] font-bold py-2'>Server Error Please Try Another Time!</h1>
+      </div>
+      }
 
     </div>
     

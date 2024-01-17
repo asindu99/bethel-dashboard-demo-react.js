@@ -22,16 +22,9 @@ const [downloadLink , setDownloadLink] = useState(null)
 
     const selectedItem = tableData[0][index];
     setSelectQR(index === selectedRow ? null : index);
-    const getQr = await fetch(process.env.REACT_APP_BACKEND_URL + "/api/v1/fileQr")
+    const getQr = await fetch(process.env.REACT_APP_ISSUE_CLAIM_URL)
     console.log(selectedItem)
     setQrClaim(await getQr.json())
-  }
-
-  const proofDownload = async (index) => {
-
-    const selectedItem = tableData[0][index];
-    setSelectQR(index === selectedRow ? null : index);
-    
   }
 
   const downloadFile = async (index) => {
@@ -39,12 +32,12 @@ const [downloadLink , setDownloadLink] = useState(null)
     const selectedItem = tableData[0][index];
     setClickedDownloadIndex(index)
     setSelectedDownload(index === selectedRow ? null : index);
-    const getQr = await fetch(process.env.REACT_APP_BACKEND_URL + "/api/v1/download")
+    const getQr = await fetch(process.env.REACT_APP_DOWNLOAD_CLAIM_URL)
     setDownloadQr(await getQr.json())
     
     // get Response from the download
     const interval = setInterval(async () => {
-      const downloadResponse = await fetch(process.env.REACT_APP_BACKEND_URL + "/api/v1/filestatus")
+      const downloadResponse = await fetch(process.env.REACT_APP_CLAIM_STATUS_URL)
       console.log(downloadResponse)
 
       if (downloadResponse === 200) {
