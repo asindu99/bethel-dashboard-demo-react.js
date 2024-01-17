@@ -8,7 +8,7 @@ import { useSelector } from 'react-redux'
 
 
 export default function DashboardStorageFolder2() {
-  const childRef = useRef()
+  const childRef = useRef();
 
   const [file, setFile] = useState(null)
   const [uploadSuccess, setUploadSuccess] = useState(false)
@@ -19,7 +19,14 @@ export default function DashboardStorageFolder2() {
 
 
   const Udid = useSelector((state) => state.DidReducer)
-  console.log("this is Did" , Udid)
+  const fileCount = useSelector((state) => state.downloadCountReducer)
+  
+  const childRefFunc = () =>{
+    if (childRef.current && childRef.current.getDownloadDetails) {
+      // Call the child component's function
+      childRef.current.getDownloadDetails();
+    }
+  }
 
 
   const upload = async () => {
@@ -44,11 +51,11 @@ export default function DashboardStorageFolder2() {
           setUploadSuccess(true)
           setUploadWait(false)
 
+          childRefFunc();
+
           setTimeout(() => {
             setUploadSuccess(false)
           }, 2000);
-
-         getDownloadDetails();
 
           setFile(null);
           setFileName('');
@@ -106,7 +113,7 @@ export default function DashboardStorageFolder2() {
 
         <div className='flex flex-row px-6 py-2 mr-3 text-white rounded-md bg-gray-100/20 gap-x-8'>
           <div className='flex flex-col items-center'>
-            <h3 className='text-white text-[14px] font-bold'>3</h3>
+            <h3 className='text-white text-[14px] font-bold'>{fileCount}</h3>
             <h3 className='text-center uppercase text-[10px] '>Files</h3>
           </div>
 
@@ -193,7 +200,7 @@ export default function DashboardStorageFolder2() {
         {/* end of upload success msg */}
       </div>
 
-      <TableWithMoreButton />
+      <TableWithMoreButton ref={childRef} />
 
 
     </section>

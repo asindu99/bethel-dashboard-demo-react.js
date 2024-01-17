@@ -8,6 +8,7 @@ import heroVid from '../../Images/Videos/video.mp4';
 import { useEffect, useState } from "react";
 import loaderGif from '../../Images/Animation-gifs/loading-6324_256.gif'
 import badRequest from "../../Images/BG-Images/bad_request2.png"
+import WalletAddressSlice from '../../reducers/WalletAddressSlice';
 const {ethers} = require("ethers");
 
 
@@ -57,6 +58,8 @@ function Login() {
 
       const sessionID = authRequest.headers.get('x-id');
       setSessionID(sessionID)
+
+      dispatch(WalletAddressSlice.actions.saveWalletAddress(sessionID))
 
       const interval = setInterval(async () => {
         try {

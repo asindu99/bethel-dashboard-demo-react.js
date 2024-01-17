@@ -1,9 +1,15 @@
-import React, { useEffect, useState, forwardRef } from 'react';
+import React, { useEffect, useState, forwardRef, useImperativeHandle } from 'react';
 import QRCode from 'react-qr-code'
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import downloadCountSlice from '../reducers/DownloadsCountReducer';
 
 
-const TableWithMoreButton = forwardRef(({} , forwardRef) => {
+const TableWithMoreButton = forwardRef((props , ref) => {
+  React.useImperativeHandle(ref, () => ({
+    getDownloadDetails,
+  }));
+
+  const dispatch = useDispatch();
   
   const [selectedRow, setSelectedRow] = useState(null);
   const [selectQR, setSelectQR] = useState(null)
@@ -17,7 +23,10 @@ const [downloadBtnVissible , setDownloadBtnVissible] = useState(false)
 const [downloadLink , setDownloadLink] = useState(null)
   const [clickedDownloadIndex, setClickedDownloadIndex] = useState(null); //to catch which button was clicked
 
-  const [downloadDetailData ,  setDonwloadDetailsData] = useState(null)
+  const [downloadDetailData ,  setDonwloadDetailsData] = useState([])
+
+  const did = useSelector((state) => state.DidReducer)
+  const sessionID = useSelector((state) => state.WalletAddressReducer)
 
   // const handleMoreButtonClick = (index) => {
   //   setSelectedRow(index === selectedRow ? null : index);
@@ -25,54 +34,60 @@ const [downloadLink , setDownloadLink] = useState(null)
 
   const IssueClaim = async (index) =>{
 
-    const selectedItem = tableData[0][index];
+    const selectedItem = downloadDetailData[index];
     console.log("this is selected item :" ,selectedItem)
     setSelectQR(index === selectedRow ? null : index);
+    // setDownloadQr(selectedItem.download_url)
     setQrClaim(selectedItem.response)
   }
 
   const downloadFile = async (index) => {
+    const selectedItem = downloadDetailData[index];
 
-    const selectedItem = tableData[0][index];
+    const response = await fetch("http://192.168.1.253:8080/api/v1/file",{
+      method : "POST",
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body : JSON.stringify({
+        "file_hash" : selectedItem.file_hash
+      })
+    })
+
+    const sessionIDs = response.headers.get('x-iid');
+    console.log("this is Session ID",sessionIDs)
+
+    const downloadQrData = await response.json()
+    setDownloadQr(downloadQrData)
+
     setClickedDownloadIndex(index)
     setSelectedDownload(index === selectedRow ? null : index);
-    // setDownloadQr(selectedItem.)
     
     // get Response from the download
     const interval = setInterval(async () => {
-      const downloadResponse = await fetch(process.env.REACT_APP_CLAIM_STATUS_URL)
-      console.log(downloadResponse)
-
-      if (downloadResponse === 200) {
-        clearInterval()
+      const downloadResponse = await fetch(process.env.REACT_APP_CLAIM_STATUS_URL + sessionIDs)
+      if (downloadResponse.status === 200) {
+        clearInterval(interval)
+        setSelectQR("24")
       }
-
     }, 2000)
-
-    
   }
 
-  const [tableData , setTableData] = useState([]);
-
-  const did = useSelector((state) => state.DidReducer)
 
   const getDownloadDetails = async () =>{
     const downloadDetails = await fetch(process.env.REACT_APP_DOWNLOAD_DETAILS_URL + did)
     const data = await downloadDetails.json();
     console.log(data)
     setDonwloadDetailsData(data)
-
-    setTableData((tableData) => [...tableData, data])
-    setTotalFiles(tableData.length)
   }
 
+  dispatch(downloadCountSlice.actions.downloadCount(downloadDetailData.length))
+
+
   useEffect(() => {
-    setGetDownloadDetailsFunction(() => getDownloadDetails);
     getDownloadDetails();
   }, [])
  
-  console.log(tableData.length)
-
   return ( 
     <div className='flex w-full px-2 py-8'>
       <div className='w-full'>
@@ -108,9 +123,12 @@ const [downloadLink , setDownloadLink] = useState(null)
                       <button onClick={() => setSelectQR("24")} className='absolute text-white -top-6 right-0'>
                         x
                       </button>
-                      <QRCode
-                        value={JSON.stringify( qrClaim)}
-                        className='flex w-24 h-24 p-1 bg-white top-0' />
+                      <div className='p-2 bg-white'>
+                        <QRCode
+                        value={qrClaim}
+                        className='flex w-64 h-64 p-2 bg-white top-0 relative z-[300]' />
+                      </div>
+                      
                     </div>
                   ) : (<div></div>)
                   }
@@ -126,7 +144,7 @@ const [downloadLink , setDownloadLink] = useState(null)
                       </button>
                       <QRCode
                         value={JSON.stringify(dowloadQr)}
-                        className='flex w-24 h-24 p-1 bg-white top-0' />
+                          className='flex w-32 h-32 p-1 bg-white top-0 relative z-[200]' />
                     </div>
                   ) : (<div></div>) 
                   }
@@ -188,5 +206,5 @@ const [downloadLink , setDownloadLink] = useState(null)
   );
 });
 
-export { TableWithMoreButton}
+export default TableWithMoreButton
 
