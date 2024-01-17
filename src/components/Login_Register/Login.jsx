@@ -7,6 +7,7 @@ import didSlice from '../../reducers/didRedcuer';
 import heroVid from '../../Images/Videos/video.mp4';
 import { useEffect, useState } from "react";
 import loaderGif from '../../Images/Animation-gifs/loading-6324_256.gif'
+import badRequest from "../../Images/BG-Images/bad_request.png"
 const {ethers} = require("ethers");
 
 
@@ -183,13 +184,14 @@ useEffect(() => {
     <section className='w-full h-[90vh] top-[90px]'>
     <video className='absolute object-cover w-full h-full -z-10 ' src={heroVid} autoPlay loop muted/>
     
-    <div className='w-full h-[90%] flex flex-col justify-center items-center text-white px-4 text-center'>
+    <div className='w-full h-[100%] flex flex-col justify-center items-center text-white px-4 text-center'>
   
       <h1 className="text-[60px] font-bold py-2 ">BETHEL TESTNET</h1>
 
       {/* server error msg */}
-      { serverErrorFetch && <div className=''>
+      { serverErrorFetch && <div className='flex flex-col items-center w-full '>
           <h1 className='text-white text-[30px] font-bold py-2'>Server Error Please Try Another Time!</h1>
+          <img className="w-[200px]" src={badRequest} alt="" />
       </div>
       }
 
