@@ -391,7 +391,7 @@ function Navbar({
 
           {/* left side */}
           <div className='text-[1.3rem]'>
-            <h3>TESTNET  </h3>
+            {/* <h3>TESTNET  </h3> */}
           </div>
 
           {/* right side */}

@@ -20,8 +20,8 @@ export default function DashboardStorageFolder2() {
 
   const Udid = useSelector((state) => state.DidReducer)
   const fileCount = useSelector((state) => state.downloadCountReducer)
-  
-  const childRefFunc = () =>{
+
+  const childRefFunc = () => {
     if (childRef.current && childRef.current.getDownloadDetails) {
       childRef.current.getDownloadDetails();
     }
@@ -41,9 +41,10 @@ export default function DashboardStorageFolder2() {
 
       try {
         const res = await fetch(process.env.REACT_APP_BACKEND_URL + "/api/v1/upload",
-        { method: 'POST', 
-         body: formData
-       })
+          {
+            method: 'POST',
+            body: formData
+          })
         console.log(res)
 
         if (res.status === 200) {
@@ -86,7 +87,7 @@ export default function DashboardStorageFolder2() {
     setFile(e.target.files[0])
     setFileName(e.target.files[0].name)
     setFileSize(e.target.files[0].size)
-    console.log("file :",file);
+    console.log("file :", file);
   }
 
   const deleteUpload = () => {

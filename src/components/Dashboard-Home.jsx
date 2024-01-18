@@ -10,9 +10,11 @@ import iconMusic from "../Images/icons/icons8-music-100.png"
 
 import { Doughnut , Bar, Line } from 'react-chartjs-2'
 import { Chart as ChartJS } from 'chart.js/auto'
+import { useSelector } from 'react-redux'
 
 function DashboardHome() {
   
+  const fileCount = useSelector((state) => state.downloadCountReducer)
  
   return (
 
@@ -84,7 +86,7 @@ function DashboardHome() {
               <div className='flex items-center justify-between w-full px-8 py-12 rounded-md bg-gradient-to-b from-bethel-white/5 to-gray-800/10 backdrop-blur-xl'>
                   <div className='flex flex-col'>
                     <h3 className='text-[1.3rem] font-bold'>OBJECTS</h3>
-                    <h3 className='text-white/50'>Total objects : 2</h3>
+                <h3 className='text-white/50'>Total objects : {fileCount}</h3>
                   </div>
 
                   <div className="relative">
@@ -150,7 +152,7 @@ function DashboardHome() {
 
                                   <div class="flex flex-col items-center justify-center mt-[2px]">
                                       <h3 class="text-[1.1rem] text-white/80">Files</h3>
-                                      <h3 class="text-[#8d8d8d] text-[12px] ml-1">1 files</h3>
+                    <h3 class="text-[#8d8d8d] text-[12px] ml-1">{fileCount} files</h3>
                                   </div>
                               </div>
 

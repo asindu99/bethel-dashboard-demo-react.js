@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import iconHome from '../Images/icons/icon-home.png'
 import iconKey from "../Images/icons/icon-key.png"
@@ -19,11 +19,16 @@ import { revertAll8 } from '../reducers/didRedcuer'
 
 
 function SideBar() {
+  const [toggleFile , setToggleFile] = useState(false)
   const dispatch = useDispatch();
   const Navigate = useNavigate();
 
   const toggle = () =>{
     dispatch(toggleSidebarSlice.actions.toggleSidebar())
+  }
+
+  const toggleFiles = () =>{
+    setToggleFile(!toggleFile)
   }
 
   const logOut = () =>{
@@ -49,7 +54,7 @@ function SideBar() {
 
           {/* topic */}
           <div className='w-full flex flex-col justify-center items-center text-[1.4rem] mt-5'>
-            <h1 className='font-bold text-white'>BETHEL TESTNET</h1>
+              <h1 className='font-bold text-white'>BETHEL zk STORAGE</h1>
             <hr className='w-[90%] mt-1 opacity-20' />
           </div>
           {/* end-topic */}
@@ -108,20 +113,6 @@ function SideBar() {
             </Link>
             {/* end-dashboard */}
 
-            {/* start-dashboard */}
-            <div className='flex w-full px-10 py-2 hover:bg-bethel-green/50'>
-              <div>
-                {/* start-inside box */}
-                <div className='flex w-full gap-2'>
-                  <div>
-                    <img src={iconKey} alt="flex" className='w-[20px]' />
-                  </div>
-                  <h1>ACCESS KEY</h1>
-                </div>
-                {/* end-insidebox */}
-              </div>
-            </div>
-            {/* end-dashboard */}
 
             {/* start-dashboard */}
             <Link to='/dashboard/profile' className='w-full'>
@@ -142,8 +133,8 @@ function SideBar() {
             {/* end-dashboard */}
 
             {/* start-dashboard */}
-            <Link to='/dashboard/profile' className='w-full'>
-            <div onClick={toggle} className='flex w-full px-10 py-2 hover:bg-bethel-green/50'>
+            <Link to='/dashboard' className='w-full'>
+            <div onClick={toggle} className='flex w-full px-10 py-2 hover:bg-bethel-green/10'>
               <div>
                 {/* start-inside box */}
                 <div className='flex w-full gap-2'>
@@ -211,7 +202,7 @@ function SideBar() {
 
           {/* topic */}
           <div className='w-full flex flex-col justify-center items-center text-[1.4rem] mt-3'>
-            <h1 className='font-bold text-white'>BETHEL TESTNET</h1>
+            <h1 className='font-bold text-white'>BETHEL zk STORAGE</h1>
             <hr className='w-[90%] mt-4 opacity-20' />
           </div>
           {/* end-topic */}
@@ -236,20 +227,49 @@ function SideBar() {
             {/* end-dashboard */}
 
             {/* start-storage */}
-            <Link to='/dashboard/files' className='w-full'>
-            <div className='flex w-full px-10 py-2 hover:bg-bethel-green/50'>
-              <div>
-                {/* start-inside box */}
-                <div className='flex w-full gap-2'>
+            {/* <Link to='/dashboard/files' className='w-full'> */}
+            <button onClick={toggleFiles}  className='flex w-full px-10 py-2 hover:bg-bethel-green/50 flex-col'>
+                <div>
+                  {/* start-inside box */}
+                  <div className='flex w-full gap-2 relative'>
+                    <div>
+                      <img src={fileIcon} alt="flex" className='w-[20px]' />
+                    </div>
+                    <h1>FILES</h1>
+                    { !toggleFile ? (
+                    <div>
+                      <span class="material-symbols-outlined absolute -right-8 top-0">
+                        expand_more
+                      </span>
+                    </div> ) : (
+
                   <div>
-                    <img src={fileIcon} alt="flex" className='w-[20px]' />
+                    <span class="material-symbols-outlined absolute -right-8 top-0">
+                      <span class="material-symbols-outlined text-bethel-green">
+                        chevron_right
+                      </span>
+                    </span>
+                  </div> )}
+
                   </div>
-                  <h1>FILES</h1>
+                  {/* end-insidebox */}
                 </div>
-                {/* end-insidebox */}
+              <div>
+                
               </div>
-            </div>
-            </Link>
+            </button>
+            {/* drop down menu in files */}
+            {toggleFile &&
+              <Link to='/dashboard/files' 
+              className='flex w-full px-10 flex-col py-1 border-[1px] border-bethel-green'>
+                <div className="flex flex-col w-full justify-start items-start font-bold">
+                  <h3 className='w-full text-[16px] px-2 py-2 hover:text-bethel-green/50'> > My Files</h3>
+                  <h3 className='w-full text-[16px] px-2 py-2 hover:text-bethel-green/50'> > Shared with me</h3>
+                </div>
+              </Link>}
+            {/* end of the drop down menu */}
+
+            {/* </Link> */}
             {/* end-storage */}
 
             {/* start-dashboard */}
@@ -267,21 +287,6 @@ function SideBar() {
               </div>
             </div>
             </Link>
-            {/* end-dashboard */}
-
-            {/* start-dashboard */}
-            <div className='flex w-full px-10 py-2 hover:bg-bethel-green/10'>
-              <div>
-                {/* start-inside box */}
-                <div className='flex w-full gap-2'>
-                  <div>
-                    <img src={iconKey} alt="flex" className='w-[20px]' />
-                  </div>
-                  <h1>ACCESS KEY</h1>
-                </div>
-                {/* end-insidebox */}
-              </div>
-            </div>
             {/* end-dashboard */}
 
             {/* start-dashboard */}
@@ -303,8 +308,8 @@ function SideBar() {
             {/* end-dashboard */}
 
             {/* start-dashboard */}
-            <Link to='/dashboard/billing' className='w-full'>
-            <div className='flex w-full px-10 py-2 hover:bg-bethel-green/50'>
+            <Link to='/dashboard' className='w-full'>
+            <div className='flex w-full px-10 py-2 hover:bg-bethel-green/10'>
               <div>
                 {/* start-inside box */}
                 <div className='flex w-full gap-2'>

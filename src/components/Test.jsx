@@ -2,6 +2,7 @@ import React, { useEffect, useState, forwardRef, useImperativeHandle } from 'rea
 import QRCode from 'react-qr-code'
 import { useDispatch, useSelector } from 'react-redux';
 import downloadCountSlice from '../reducers/DownloadsCountReducer';
+import {  useNavigate } from 'react-router-dom';
 
 
 const TableWithMoreButton = forwardRef((props , ref) => {
@@ -10,6 +11,7 @@ const TableWithMoreButton = forwardRef((props , ref) => {
   }));
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   
   const [selectedRow, setSelectedRow] = useState(null);
   const [selectQR, setSelectQR] = useState(null)
@@ -17,9 +19,7 @@ const TableWithMoreButton = forwardRef((props , ref) => {
   const [selectedDownload , setSelectedDownload] = useState(null)
   const [totalFiles, setTotalFiles] = useState(null);
   const [qrClaim , setQrClaim] = useState(null);
-  const [getDownloadDetailsFunction, setGetDownloadDetailsFunction] = useState(null);
 
-const [downloadBtnVissible , setDownloadBtnVissible] = useState(false)
 const [downloadLink , setDownloadLink] = useState(null)
   const [clickedDownloadIndex, setClickedDownloadIndex] = useState(null); //to catch which button was clicked
 
@@ -36,14 +36,16 @@ const [downloadLink , setDownloadLink] = useState(null)
 
     const selectedItem = downloadDetailData[index];
     console.log("this is selected item :" ,selectedItem)
+
+    const res = await fetch(process.env.REACT_APP_ISSUE_CLAIM_URL + selectedItem.owner_id + "/" + selectedItem.file_hash)
+    const calimQR = await res.json()
+    console.log(calimQR.response.RawMessage)
     setSelectQR(index === selectedRow ? null : index);
-    // setDownloadQr(selectedItem.download_url)
-    setQrClaim(selectedItem.response)
+    setQrClaim(calimQR.response.RawMessage)
   }
 
   const downloadFile = async (index) => {
     const selectedItem = downloadDetailData[index];
-
     const response = await fetch("http://192.168.1.253:8080/api/v1/file",{
       method : "POST",
       headers: {
@@ -66,22 +68,49 @@ const [downloadLink , setDownloadLink] = useState(null)
     // get Response from the download
     const interval = setInterval(async () => {
       const downloadResponse = await fetch(process.env.REACT_APP_CLAIM_STATUS_URL + sessionIDs)
-      if (downloadResponse.status === 200) {
+      if (downloadResponse.ok) {
         clearInterval(interval)
-        setSelectQR("24")
+        setSelectedDownload("24")
+        setDownloadLink("www.google.com")
       }
     }, 2000)
   }
 
 
   const getDownloadDetails = async () =>{
-    const downloadDetails = await fetch(process.env.REACT_APP_DOWNLOAD_DETAILS_URL + did)
-    const data = await downloadDetails.json();
-    console.log(data)
-    setDonwloadDetailsData(data)
+    try {
+      const downloadDetails = await fetch(process.env.REACT_APP_DOWNLOAD_DETAILS_URL + did)
+      const data = await downloadDetails.json();
+      console.log(data)
+      setDonwloadDetailsData(data)
+    } catch (error) {
+      navigate('/dashboard')
+    }
+  }
+  // get the file count
+  try {
+    dispatch(downloadCountSlice.actions.downloadCount(downloadDetailData.length))
+  } catch (error) {
+    navigate('/dashboard')
   }
 
-  dispatch(downloadCountSlice.actions.downloadCount(downloadDetailData.length))
+  const getFile = async (index) => {
+    const selectedItem = downloadDetailData[index];
+
+    const getFile = await fetch(process.env.REACT_APP_GET_FILE_URL, {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        "hash": selectedItem.file_hash,
+        "name": selectedItem.file_name
+      })
+    })
+
+    // console.log(await getFile.json())
+    
+  } 
 
 
   useEffect(() => {
@@ -116,17 +145,17 @@ const [downloadLink , setDownloadLink] = useState(null)
                   </div>
                 </div>
               </td>
-              <td className='flex flex-row p-3 gap-x-[50px] relative'>
+              <td className='flex flex-row p-3 gap-2 relative'>
                 <div className='relative'>
                   {selectQR === index ? (
-                    <div className='flex bg-red-400 absolute left-[-120px] -top-6'>
-                      <button onClick={() => setSelectQR("24")} className='absolute text-white -top-6 right-0'>
-                        x
+                    <div className='flex bg-red-400 absolute left-[-75px] top-10'>
+                      <button onClick={() => setSelectQR("24")} className='absolute text-white top- right-0'>
+                        <h3 className='px-1 bg-red-600'>x</h3>
                       </button>
-                      <div className='p-2 bg-white'>
+                      <div className='p-4 bg-white'>
                         <QRCode
-                        value={qrClaim}
-                        className='flex w-64 h-64 p-2 bg-white top-0 relative z-[300]' />
+                        value={JSON.stringify(qrClaim)}
+                        className='flex w-32 h-32 p-1 bg-white top-0 relative z-[300]' />
                       </div>
                       
                     </div>
@@ -142,13 +171,22 @@ const [downloadLink , setDownloadLink] = useState(null)
                       <button onClick={() => setSelectedDownload("24")} className='absolute text-white -top-6 right-0'>
                         x
                       </button>
-                      <QRCode
-                        value={JSON.stringify(dowloadQr)}
-                          className='flex w-32 h-32 p-1 bg-white top-0 relative z-[200]' />
+                      {/* <div> */}
+                          <QRCode
+                            value={JSON.stringify(dowloadQr)}
+                            className='flex w-32 h-32 p-1 bg-white top-0 relative z-[200]' />
+                      {/* </div> */}
+                      
                     </div>
                   ) : (<div></div>) 
                   }
-                      <button onClick={() => downloadFile(index)} className={`px-2 py-1 border-2 ${clickedDownloadIndex === index && downloadLink  ? ' bg-green-600' : 'bg-red-600'} text-white rounded-md`}><a href={downloadLink} rel="nooppener" target="_blank">Download</a></button>
+
+                  {/* check the download link is here or not */}
+                    {clickedDownloadIndex === index && downloadLink ? (<button onClick={() => getFile(index)} className={`px-2 py-1 border-2 bg-green-600 text-white rounded-md`}>Download</button>) 
+                    :
+                    (<button onClick={() => downloadFile(index)} className={`px-2 py-1 border-2 bg-red-600 text-white rounded-md`}>Download</button>)}
+                  {/*end of check the download link is here or not */}
+                    
                 </div>
 
 
