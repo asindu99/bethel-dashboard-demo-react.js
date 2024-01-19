@@ -11,6 +11,7 @@ import toggleSidebarSlice from "../reducers/toggleSidebar";
 import WalletAddressSlice from "../reducers/WalletAddressSlice";
 import didSlice from "../reducers/didRedcuer";
 import downloadCountSlice from "../reducers/DownloadsCountReducer";
+import FileCompBlurSlice from "../reducers/filesCompBlurReducer";
 
 
 const persistConfig = {
@@ -27,6 +28,7 @@ const reducer = combineReducers({
   WalletAddressReducer: WalletAddressSlice.reducer,
   DidReducer: didSlice.reducer,
   downloadCountReducer: downloadCountSlice.reducer,
+  fileBlurReducer : FileCompBlurSlice.reducer
 })
 
 const persistedReducer = persistReducer(persistConfig, reducer);

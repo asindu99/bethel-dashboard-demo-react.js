@@ -189,7 +189,7 @@ useEffect(() => {
     
     <div className='w-full h-[100%] flex flex-col justify-center items-center text-white px-4 text-center'>
   
-      <h1 className="text-[60px] font-bold py-2 ">BETHEL TESTNET</h1>
+        <h1 className="text-[60px] font-bold py-2 ">BETHEL zkSTORAGE</h1>
 
       {/* server error msg */}
       { serverErrorFetch && <div className='flex flex-col items-center w-full '>

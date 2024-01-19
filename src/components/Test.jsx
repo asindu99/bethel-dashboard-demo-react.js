@@ -3,6 +3,8 @@ import QRCode from 'react-qr-code'
 import { useDispatch, useSelector } from 'react-redux';
 import downloadCountSlice from '../reducers/DownloadsCountReducer';
 import {  useNavigate } from 'react-router-dom';
+import FileCompBlurSlice from '../reducers/filesCompBlurReducer';
+import { revertAll10 } from '../reducers/filesCompBlurReducer';
 
 
 const TableWithMoreButton = forwardRef((props , ref) => {
@@ -31,9 +33,11 @@ const [downloadLink , setDownloadLink] = useState(null)
   // const handleMoreButtonClick = (index) => {
   //   setSelectedRow(index === selectedRow ? null : index);
   // };
+  
 
   const IssueClaim = async (index) =>{
 
+    // dispatch(FileCompBlurSlice.actions.changeBlur("blur-md"))
     const selectedItem = downloadDetailData[index];
     console.log("this is selected item :" ,selectedItem)
 
@@ -46,6 +50,7 @@ const [downloadLink , setDownloadLink] = useState(null)
 
   const downloadFile = async (index) => {
     const selectedItem = downloadDetailData[index];
+    console.log(selectedItem.file_hash)
     const response = await fetch("http://192.168.1.253:8080/api/v1/file",{
       method : "POST",
       headers: {
@@ -71,7 +76,7 @@ const [downloadLink , setDownloadLink] = useState(null)
       if (downloadResponse.ok) {
         clearInterval(interval)
         setSelectedDownload("24")
-        setDownloadLink("www.google.com")
+        // setDownloadLink("www.google.com")
       }
     }, 2000)
   }
@@ -108,9 +113,13 @@ const [downloadLink , setDownloadLink] = useState(null)
       })
     })
 
-    // console.log(await getFile.json())
-    
+    console.log("this is the get file:",await getFile)
+
   } 
+
+  const closeQR = () =>{ 
+    setSelectedDownload("24"); 
+   }
 
 
   useEffect(() => {
@@ -145,17 +154,17 @@ const [downloadLink , setDownloadLink] = useState(null)
                   </div>
                 </div>
               </td>
-              <td className='flex flex-row p-3 gap-2 relative'>
+              <td className='flex flex-row p-3 gap-2 '>
                 <div className='relative'>
                   {selectQR === index ? (
                     <div className='flex bg-red-400 absolute left-[-75px] top-10'>
                       <button onClick={() => setSelectQR("24")} className='absolute text-white top- right-0'>
                         <h3 className='px-1 bg-red-600'>x</h3>
                       </button>
-                      <div className='p-4 bg-white'>
+                        <div className='p-4 bg-white absolute z-[1000]'>
                         <QRCode
                         value={JSON.stringify(qrClaim)}
-                        className='flex w-32 h-32 p-1 bg-white top-0 relative z-[300]' />
+                        className='flex w-32 h-32 p-1 bg-white top-0 relative ' />
                       </div>
                       
                     </div>
@@ -167,22 +176,22 @@ const [downloadLink , setDownloadLink] = useState(null)
                   {/* file download button */}
                 <div className='relative'>
                   {selectedDownload === index ? (
-                    <div className='flex bg-red-400 absolute left-[-120px] -top-6'>
-                      <button onClick={() => setSelectedDownload("24")} className='absolute text-white -top-6 right-0'>
+                      <div className='flex bg-red-400 absolute left-[-75px] top-10'>
+                      <button onClick={closeQR} className='absolute text-white -top-6 right-0'>
                         x
                       </button>
-                      {/* <div> */}
+                        <div className='p-4 bg-white'>
                           <QRCode
                             value={JSON.stringify(dowloadQr)}
                             className='flex w-32 h-32 p-1 bg-white top-0 relative z-[200]' />
-                      {/* </div> */}
+                      </div>
                       
                     </div>
                   ) : (<div></div>) 
                   }
 
                   {/* check the download link is here or not */}
-                    {clickedDownloadIndex === index && downloadLink ? (<button onClick={() => getFile(index)} className={`px-2 py-1 border-2 bg-green-600 text-white rounded-md`}>Download</button>) 
+                    {clickedDownloadIndex === index && !downloadLink ? (<button onClick={() => getFile(index)} className={`px-2 py-1 border-2 bg-green-600 text-white rounded-md`}><a href={downloadLink}>Download</a></button>) 
                     :
                     (<button onClick={() => downloadFile(index)} className={`px-2 py-1 border-2 bg-red-600 text-white rounded-md`}>Download</button>)}
                   {/*end of check the download link is here or not */}
