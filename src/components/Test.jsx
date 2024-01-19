@@ -5,6 +5,7 @@ import downloadCountSlice from '../reducers/DownloadsCountReducer';
 import {  useNavigate } from 'react-router-dom';
 import FileCompBlurSlice from '../reducers/filesCompBlurReducer';
 import { revertAll10 } from '../reducers/filesCompBlurReducer';
+import axios from 'axios';
 
 
 const TableWithMoreButton = forwardRef((props , ref) => {
@@ -50,7 +51,13 @@ const [downloadLink , setDownloadLink] = useState(null)
 
   const downloadFile = async (index) => {
     const selectedItem = downloadDetailData[index];
-    console.log(selectedItem.file_hash)
+
+    // download the file must be here
+    axios.get(process.env.REACT_APP_GET_FILE_URL, {
+      responseType: 'blob'
+    })
+    .then(obj => console.log("this is the file: ", obj.data))
+
     const response = await fetch("http://192.168.1.253:8080/api/v1/file",{
       method : "POST",
       headers: {
@@ -76,7 +83,8 @@ const [downloadLink , setDownloadLink] = useState(null)
       if (downloadResponse.ok) {
         clearInterval(interval)
         setSelectedDownload("24")
-        // setDownloadLink("www.google.com")
+
+        
       }
     }, 2000)
   }
@@ -102,18 +110,15 @@ const [downloadLink , setDownloadLink] = useState(null)
   const getFile = async (index) => {
     const selectedItem = downloadDetailData[index];
 
-    const getFile = await fetch(process.env.REACT_APP_GET_FILE_URL, {
-      method: "POST",
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        "hash": selectedItem.file_hash,
-        "name": selectedItem.file_name
-      })
-    })
+    const response = await axios.post(process.env.REACT_APP_GET_FILE_URL, {
+      "hash": selectedItem.file_hash,
+      "name": selectedItem.file_name
+    }, {
+      responseType: 'blob',
+    });
+    const blob = new Blob([response.data], { type: response.headers['content-type'] });
 
-    console.log("this is the get file:",await getFile)
+    const URL = 
 
   } 
 
